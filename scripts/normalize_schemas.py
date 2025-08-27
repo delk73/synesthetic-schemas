@@ -3,14 +3,24 @@
 # pylintrc: skip-file
 """
 Normalize JSON Schemas in jsonschema/:
+
 - set $schema / $id / x-schema-version
 - default additionalProperties: false (with per-file allowlist)
-- strip noisy root description
-- strip enum defaults for optional fields, including when hidden behind $ref
+- strip root 'description'
+- strip enum defaults for optional fields (inline and via $ref)
+- optional --check mode: fail if any optional-enum defaults remain
+
+Idempotent: safe to run repeatedly.
 """
 
 from __future__ import annotations
-import copy, json, pathlib, sys
+
+import argparse
+import copy
+import json
+import pathlib
+import sys
+from dataclasses import dataclass
 from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -18,16 +28,23 @@ SCHEMA_DIR = ROOT / "jsonschema"
 BASE_URL = "https://schemas.synesthetic.dev"
 VERSION = "0.1.0"
 
+# Files that may keep additionalProperties=true at root
 ALLOW_ADDITIONAL_PROPS = {"tone.schema.json", "haptic.schema.json"}
+
+
+# ---------------------------- helpers ----------------------------
 
 def kebab(name: str) -> str:
     return name.lower().replace(" ", "-")
 
+
 def load_json(p: pathlib.Path) -> dict[str, Any]:
     return json.loads(p.read_text())
 
+
 def save_json(p: pathlib.Path, data: dict[str, Any]) -> None:
     p.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
 
 def _ref_target(root: dict[str, Any], ref: str) -> tuple[str | None, dict[str, Any] | None]:
     """Return (container_key, target_schema) for an internal $ref like '#/$defs/Name'."""
@@ -39,11 +56,14 @@ def _ref_target(root: dict[str, Any], ref: str) -> tuple[str | None, dict[str, A
         if not isinstance(cur, dict) or seg not in cur:
             return None, None
         cur = cur[seg]
-    # container key is first segment after '#/'
     return (path[0] if path else None), cur if isinstance(cur, dict) else None
 
+
 def _strip_enum_default_in_place(schema: dict[str, Any]) -> bool:
-    """If schema has enum+default with default ∈ enum, remove it. Returns True if changed."""
+    """
+    If schema has enum+default with default ∈ enum, remove it.
+    Returns True if changed.
+    """
     if "enum" in schema and "default" in schema:
         try:
             if schema["default"] in schema.get("enum", []):
@@ -53,14 +73,18 @@ def _strip_enum_default_in_place(schema: dict[str, Any]) -> bool:
             pass
     return False
 
-def _recurse(root: dict[str, Any], node: Any) -> None:
-    """Walk schema tree; for optional properties remove enum defaults (inline or via $ref)."""
+
+def _recurse_strip(root: dict[str, Any], node: Any) -> None:
+    """
+    Walk schema tree; for optional properties remove enum defaults
+    (inline or via $ref). Does not mutate shared $defs unless inlined.
+    """
     if not isinstance(node, dict):
         return
 
     local_required = set(node.get("required", []))
 
-    # Handle object properties
+    # properties
     props = node.get("properties")
     if isinstance(props, dict):
         for prop_name, prop_schema in list(props.items()):
@@ -69,76 +93,186 @@ def _recurse(root: dict[str, Any], node: Any) -> None:
                 continue
 
             if is_optional:
-                # Case 1: inline enum+default
+                # Inline case
                 _strip_enum_default_in_place(prop_schema)
 
-                # Case 2: $ref to a def that has enum+default -> inline a copy WITHOUT default
+                # $ref case → inline a copy WITHOUT default for THIS property
                 ref = prop_schema.get("$ref")
                 if isinstance(ref, str):
-                    container, target = _ref_target(root, ref)
-                    if target and isinstance(target, dict):
+                    _, target = _ref_target(root, ref)
+                    if isinstance(target, dict):
                         tmp = copy.deepcopy(target)
-                        if _strip_enum_default_in_place(tmp):  # only inline if we actually removed something
-                            # Replace the property with the inlined schema (no default)
+                        if _strip_enum_default_in_place(tmp):
                             props[prop_name] = tmp
-                            prop_schema = tmp  # continue recursion into the inlined schema
+                            prop_schema = tmp  # continue recursion into inlined copy
 
-            # Recurse into nested structures of the property
-            _recurse(root, prop_schema)
+            _recurse_strip(root, prop_schema)
 
-    # Recurse into common containers
+    # common containers
     for key in ("$defs", "definitions"):
-        defs = node.get(key)
-        if isinstance(defs, dict):
-            for v in defs.values():
-                _recurse(root, v)
+        d = node.get(key)
+        if isinstance(d, dict):
+            for v in d.values():
+                _recurse_strip(root, v)
 
     items = node.get("items")
     if isinstance(items, dict):
-        _recurse(root, items)
+        _recurse_strip(root, items)
     elif isinstance(items, list):
         for it in items:
-            _recurse(root, it)
+            _recurse_strip(root, it)
 
     addl = node.get("additionalProperties")
     if isinstance(addl, dict):
-        _recurse(root, addl)
+        _recurse_strip(root, addl)
 
     for key in ("allOf", "anyOf", "oneOf", "not", "if", "then", "else"):
         v = node.get(key)
         if isinstance(v, dict):
-            _recurse(root, v)
+            _recurse_strip(root, v)
         elif isinstance(v, list):
             for it in v:
-                _recurse(root, it)
+                _recurse_strip(root, it)
 
-def normalize_file(p: pathlib.Path) -> None:
-    data = load_json(p)
 
-    # header
+@dataclass
+class Offense:
+    file: str
+    path: str
+    default: Any
+    enum: list[Any]
+
+
+def _find_optional_enum_defaults(root: dict[str, Any], node: Any, path: list[str], out: list[Offense]) -> None:
+    """Detect optional enum+default (inline and via $ref)."""
+    if not isinstance(node, dict):
+        return
+
+    local_required = set(node.get("required", []))
+
+    props = node.get("properties")
+    if isinstance(props, dict):
+        for prop_name, prop_schema in list(props.items()):
+            is_optional = prop_name not in local_required
+            if not isinstance(prop_schema, dict):
+                continue
+
+            # Inline case
+            if (
+                is_optional
+                and "enum" in prop_schema
+                and "default" in prop_schema
+                and prop_schema["default"] in prop_schema["enum"]
+            ):
+                out.append(
+                    Offense(
+                        file="",
+                        path="/".join(path + ["properties", prop_name]),
+                        default=prop_schema["default"],
+                        enum=list(prop_schema["enum"]),
+                    )
+                )
+
+            # $ref case
+            ref = prop_schema.get("$ref")
+            if is_optional and isinstance(ref, str):
+                _, target = _ref_target(root, ref)
+                if (
+                    isinstance(target, dict)
+                    and "enum" in target
+                    and "default" in target
+                    and target["default"] in target["enum"]
+                ):
+                    out.append(
+                        Offense(
+                            file="",
+                            path="/".join(path + ["properties", prop_name, f"$ref->{ref}"]),
+                            default=target["default"],
+                            enum=list(target["enum"]),
+                        )
+                    )
+
+            _find_optional_enum_defaults(root, prop_schema, path + ["properties", prop_name], out)
+
+    # descend
+    for key in ("$defs", "definitions"):
+        d = node.get(key)
+        if isinstance(d, dict):
+            for k, v in d.items():
+                _find_optional_enum_defaults(root, v, path + [key, k], out)
+
+    items = node.get("items")
+    if isinstance(items, dict):
+        _find_optional_enum_defaults(root, items, path + ["items"], out)
+    elif isinstance(items, list):
+        for i, it in enumerate(items):
+            _find_optional_enum_defaults(root, it, path + ["items", str(i)], out)
+
+    addl = node.get("additionalProperties")
+    if isinstance(addl, dict):
+        _find_optional_enum_defaults(root, addl, path + ["additionalProperties"], out)
+
+    for key in ("allOf", "anyOf", "oneOf", "not", "if", "then", "else"):
+        v = node.get(key)
+        if isinstance(v, dict):
+            _find_optional_enum_defaults(root, v, path + [key], out)
+        elif isinstance(v, list):
+            for i, it in enumerate(v):
+                _find_optional_enum_defaults(root, it, path + [key, str(i)], out)
+
+
+# ---------------------------- normalize ----------------------------
+
+def normalize_file(fp: pathlib.Path, check_only: bool) -> tuple[dict[str, Any], list[Offense]]:
+    data = load_json(fp)
+
+    # headers
     data["$schema"] = "https://json-schema.org/draft/2020-12/schema"
-    data["$id"] = f"{BASE_URL}/{VERSION}/{p.name}"
+    data["$id"] = f"{BASE_URL}/{VERSION}/{fp.name}"
     data["x-schema-version"] = VERSION
 
     # root cosmetics/strictness
     data.pop("description", None)
-    data["title"] = data.get("title") or kebab(p.stem)
-    if p.name not in ALLOW_ADDITIONAL_PROPS:
+    data["title"] = data.get("title") or kebab(fp.stem)
+    if fp.name not in ALLOW_ADDITIONAL_PROPS:
         data["additionalProperties"] = data.get("additionalProperties", False)
 
-    # strip enum defaults for optional props (including via $ref)
-    _recurse(data, data)
+    # strip rule
+    _recurse_strip(data, data)
 
-    save_json(p, data)
+    offenses: list[Offense] = []
+    if check_only:
+        _find_optional_enum_defaults(data, data, [], offenses)
+        for o in offenses:
+            o.file = fp.name
+
+    return data, offenses
+
 
 def main() -> int:
-    n = 0
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true", help="Fail if optional enum defaults remain")
+    args = ap.parse_args()
+
+    total = 0
+    all_offenses: list[Offense] = []
+
     for fp in sorted(SCHEMA_DIR.glob("*.schema.json")):
-        normalize_file(fp)
+        data, offenses = normalize_file(fp, check_only=args.check)
+        save_json(fp, data)
         print(f"normalized: {fp.name}")
-        n += 1
-    print(f"done. files: {n}")
+        total += 1
+        all_offenses.extend(offenses)
+
+    if args.check and all_offenses:
+        print("❌ Optional enum defaults found (disallowed):")
+        for v in all_offenses:
+            print(f" - {v.file}: {v.path} (default={v.default}, enum={v.enum})")
+        return 1
+
+    print(f"done. files: {total}")
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())
