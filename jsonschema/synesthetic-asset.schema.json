@@ -49,11 +49,11 @@
               "amplitude": 0.5,
               "frequency": 0.5,
               "id": "wave_speed_pulse",
-              "max": 1.0,
-              "min": 0.0,
-              "offset": 1.0,
-              "phase": 0.0,
-              "scale": 1.0,
+              "max": 1,
+              "min": 0,
+              "offset": 1,
+              "phase": 0,
+              "scale": 1,
               "scaleProfile": "linear",
               "target": "visual.u_wave_speed",
               "type": "additive",
@@ -63,11 +63,11 @@
               "amplitude": 400,
               "frequency": 0.25,
               "id": "filter_sweep",
-              "max": 1.0,
-              "min": 0.0,
+              "max": 1,
+              "min": 0,
               "offset": 800,
-              "phase": 0.0,
-              "scale": 1.0,
+              "phase": 0,
+              "scale": 1,
               "scaleProfile": "exponential",
               "target": "tone.filter.frequency",
               "type": "additive",
@@ -75,13 +75,13 @@
             },
             {
               "amplitude": 0.2,
-              "frequency": 1.0,
+              "frequency": 1,
               "id": "haptic_pulse",
-              "max": 1.0,
-              "min": 0.0,
+              "max": 1,
+              "min": 0,
               "offset": 0.6,
-              "phase": 0.0,
-              "scale": 1.0,
+              "phase": 0,
+              "scale": 1,
               "scaleProfile": "linear",
               "target": "haptic.intensity",
               "type": "additive",
@@ -162,7 +162,7 @@
           "type": "number"
         },
         "scale": {
-          "default": 1.0,
+          "default": 1,
           "description": "Scaling factor applied to the modulation output",
           "title": "Scale",
           "type": "number"
@@ -548,7 +548,7 @@
     },
     "created_at": {
       "format": "date-time",
-      "title": "Created At",
+      "readOnly": true,
       "type": "string"
     },
     "description": {
@@ -632,11 +632,11 @@
           "amplitude": 0.5,
           "frequency": 0.5,
           "id": "wave_speed_pulse",
-          "max": 1.0,
-          "min": 0.0,
-          "offset": 1.0,
-          "phase": 0.0,
-          "scale": 1.0,
+          "max": 1,
+          "min": 0,
+          "offset": 1,
+          "phase": 0,
+          "scale": 1,
           "scaleProfile": "linear",
           "target": "visual.u_wave_speed",
           "type": "additive",
@@ -653,6 +653,9 @@
       "minLength": 1,
       "title": "Name",
       "type": "string"
+    },
+    "rule_bundle": {
+      "$ref": "https://schemas.synesthetic.dev/0.1.0/rule-bundle.schema.json"
     },
     "shader": {
       "anyOf": [
@@ -678,14 +681,12 @@
     },
     "updated_at": {
       "format": "date-time",
-      "title": "Updated At",
+      "readOnly": true,
       "type": "string"
     }
   },
   "required": [
-    "created_at",
-    "name",
-    "updated_at"
+    "name"
   ],
   "title": "SynestheticAsset",
   "type": "object",

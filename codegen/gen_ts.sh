@@ -1,25 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
-OUT="typescript/src"
-mkdir -p "$OUT"
 
-# asset first
-npx --yes json-schema-to-typescript jsonschema/synesthetic-asset.schema.json > "$OUT/asset.d.ts"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# optional components
-for S in shader tone haptic control modulation rule-bundle rule; do
-  [ -f "jsonschema/$S.schema.json" ] || continue
-  npx --yes json-schema-to-typescript "jsonschema/$S.schema.json" > "$OUT/${S//-/_}.d.ts"
+# 1) Bundle schemas locally (no network)
+node "$ROOT/codegen/ts_bundle.mjs"
+
+# 2) Generate TS from bundled schemas (examples shown for two popular tools).
+# Pick ONE of these blocks and delete the other.
+
+# ---- If you use json-schema-to-typescript (d.ts output) ----
+OUT_DIR="$ROOT/typescript/src"
+IN_DIR="$ROOT/typescript/tmp/bundled"
+
+mkdir -p "$OUT_DIR"
+
+# clean old outputs so stale files (like rule_bundle.d.ts) never linger
+rm -f "$OUT_DIR"/*.d.ts "$OUT_DIR"/*.tsbuildinfo
+
+for f in "$IN_DIR"/*.schema.json; do
+  base=$(basename "$f" .schema.json)
+  npx --yes json-schema-to-typescript "$f" > "$OUT_DIR/$base.d.ts"
+  echo "generated: $base.d.ts"
 done
 
-# barrel
-cat > "$OUT/index.d.ts" <<'TS'
-export * from "./asset";
-export * from "./shader";
-export * from "./tone";
-export * from "./haptic";
-export * from "./control";
-export * from "./modulation";
-export * from "./rule_bundle";
-export * from "./rule";
-TS
+# ---- OR: If you use json-schema-to-zod (runtime Zod + types) ----
+# OUT_DIR="$ROOT/typescript/src"
+# IN_DIR="$ROOT/typescript/tmp/bundled"
+# mkdir -p "$OUT_DIR"
+# for f in "$IN_DIR"/*.schema.json; do
+#   base=$(basename "$f" .schema.json)
+#   npx --yes json-schema-to-zod "$f" --name "$base" --output "$OUT_DIR/$base.zod.ts"
+#   echo "generated: $base.zod.ts"
+# done

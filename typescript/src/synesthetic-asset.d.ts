@@ -20,7 +20,6 @@ export type ControlParameters1 =
       [k: string]: unknown;
     }[]
   | null;
-export type CreatedAt = string;
 /**
  * Description of the asset's purpose
  */
@@ -123,17 +122,76 @@ export type Modulations1 =
  * Name of the synesthetic asset
  */
 export type Name3 = string;
+/**
+ * Creation time
+ */
+export type CreatedAt = string | null;
+/**
+ * Bundle details
+ */
 export type Description4 = string | null;
+/**
+ * Database ID
+ */
+export type Id1 = number | null;
+/**
+ * Human readable bundle name
+ */
+export type Name4 = string;
+/**
+ * Effects applied when the rule is triggered
+ */
+export type Effects =
+  | {
+      [k: string]: unknown;
+    }[]
+  | null;
+/**
+ * Execution environment for the rule
+ */
+export type Execution = string | null;
+/**
+ * Expression defining the rule logic
+ */
+export type Expr =
+  | string
+  | {
+      [k: string]: unknown;
+    }
+  | null;
+/**
+ * Unique rule identifier
+ */
+export type Id2 = string;
+/**
+ * Parameter path the rule targets
+ */
+export type Target1 = string | null;
+/**
+ * Trigger configuration for the rule
+ */
+export type Trigger = {
+  [k: string]: unknown;
+} | null;
+/**
+ * List of rules
+ */
+export type Rules = RuleSchema[];
+/**
+ * Last update time
+ */
+export type UpdatedAt = string | null;
+export type Description5 = string | null;
 export type FragmentShader = string;
 export type InputParameters1 =
   | {
       [k: string]: unknown;
     }[]
   | null;
-export type MetaInfo4 = {
+export type MetaInfo5 = {
   [k: string]: unknown;
 } | null;
-export type Name4 = string;
+export type Name5 = string;
 export type ShaderLibId = number | null;
 export type Uniforms =
   | {
@@ -141,8 +199,8 @@ export type Uniforms =
     }[]
   | null;
 export type VertexShader = string;
-export type Description5 = string | null;
-export type Effects =
+export type Description6 = string | null;
+export type Effects1 =
   | {
       [k: string]: unknown;
     }[]
@@ -150,10 +208,10 @@ export type Effects =
 export type InputParameters2 = {
   [k: string]: unknown;
 }[];
-export type MetaInfo5 = {
+export type MetaInfo6 = {
   [k: string]: unknown;
 } | null;
-export type Name5 = string;
+export type Name6 = string;
 export type Parts =
   | {
       [k: string]: unknown;
@@ -164,21 +222,21 @@ export type Patterns =
       [k: string]: unknown;
     }[]
   | null;
-export type UpdatedAt = string;
 
 export interface SynestheticAsset {
   control?: NestedControlResponse | null;
   control_parameters?: ControlParameters1;
-  created_at: CreatedAt;
+  created_at?: string;
   description?: Description1;
   haptic?: NestedHapticResponse | null;
   meta_info?: MetaInfo2;
   modulation?: Modulation | null;
   modulations?: Modulations1;
   name: Name3;
+  rule_bundle?: RuleBundleSchema;
   shader?: NestedShaderResponse | null;
   tone?: NestedToneResponse | null;
-  updated_at: UpdatedAt;
+  updated_at?: string;
 }
 export interface NestedControlResponse {
   control_parameters?: ControlParameters;
@@ -218,23 +276,49 @@ export interface ModulationItem {
   waveform: Waveform;
   [k: string]: unknown;
 }
-export interface NestedShaderResponse {
+export interface RuleBundleSchema {
+  created_at?: CreatedAt;
   description?: Description4;
-  fragment_shader: FragmentShader;
-  input_parameters?: InputParameters1;
+  id?: Id1;
   meta_info?: MetaInfo4;
   name: Name4;
+  rules: Rules;
+  updated_at?: UpdatedAt;
+}
+/**
+ * Metadata about the rule bundle
+ */
+export interface MetaInfo4 {
+  [k: string]: unknown;
+}
+/**
+ * Representation of a single rule within a bundle.
+ */
+export interface RuleSchema {
+  effects?: Effects;
+  execution?: Execution;
+  expr?: Expr;
+  id: Id2;
+  target?: Target1;
+  trigger?: Trigger;
+}
+export interface NestedShaderResponse {
+  description?: Description5;
+  fragment_shader: FragmentShader;
+  input_parameters?: InputParameters1;
+  meta_info?: MetaInfo5;
+  name: Name5;
   shader_lib_id?: ShaderLibId;
   uniforms?: Uniforms;
   vertex_shader: VertexShader;
   [k: string]: unknown;
 }
 export interface NestedToneResponse {
-  description?: Description5;
-  effects?: Effects;
+  description?: Description6;
+  effects?: Effects1;
   input_parameters?: InputParameters2;
-  meta_info?: MetaInfo5;
-  name: Name5;
+  meta_info?: MetaInfo6;
+  name: Name6;
   parts?: Parts;
   patterns?: Patterns;
   synth: Synth;

@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PY="$(command -v python || command -v python3)"
-OUT="python/src/synesthetic_schemas"
-mkdir -p "$OUT"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+IN_DIR="$ROOT/jsonschema"
+OUT_DIR="$ROOT/python/src/synesthetic_schemas"
 
-gen() {
-  local IN="$1"
-  local OUTFILE="$2"
-  "$PY" -m datamodel_code_generator \
-    --output-model-type pydantic_v2.BaseModel \
-    --input "$IN" \
-    --input-file-type jsonschema \
-    --output "$OUTFILE" \
-    --target-python-version 3.11 \
-    --use-standard-collections \
-    --formatters black isort
-}
+mkdir -p "$OUT_DIR"
+find "$OUT_DIR" -maxdepth 1 -type f -name "*.py" ! -name "__init__.py" -delete || true
+touch "$OUT_DIR/__init__.py"
+touch "$OUT_DIR/py.typed"
 
-gen jsonschema/synesthetic-asset.schema.json "$OUT/asset.py"
-
-for S in shader tone haptic control modulation rule-bundle rule; do
-  [ -f "jsonschema/$S.schema.json" ] || continue
-  gen "jsonschema/$S.schema.json" "$OUT/${S//-/_}.py"
-done
-
-: > "$OUT/__init__.py"
+python -m datamodel_code_generator \
+  --input "$IN_DIR" \
+  --input-file-type jsonschema \
+  --output "$OUT_DIR" \
+  --reuse-model \
+  --collapse-root-models \
+  --target-python-version 3.11 \
+  --field-constraints \
+  --use-union-operator \
+  --disable-timestamp
