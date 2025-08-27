@@ -1,5 +1,6 @@
 {
-  "$id": "https://schemas.synesthetic.dev/ruleschema.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.1.0/rule.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
     "effects": {
@@ -90,5 +91,6 @@
     "id"
   ],
   "title": "RuleSchema",
-  "type": "object"
+  "type": "object",
+  "x-schema-version": "0.1.0"
 }

@@ -112,7 +112,9 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/modulation.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.1.0/modulation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
   "properties": {
     "description": {
       "anyOf": [
@@ -218,5 +220,6 @@
     "modulation_id"
   ],
   "title": "Modulation",
-  "type": "object"
+  "type": "object",
+  "x-schema-version": "0.1.0"
 }

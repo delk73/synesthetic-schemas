@@ -517,7 +517,9 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/synestheticasset.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.1.0/synesthetic-asset.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
   "properties": {
     "control": {
       "anyOf": [
@@ -764,5 +766,6 @@
     "updated_at"
   ],
   "title": "SynestheticAsset",
-  "type": "object"
+  "type": "object",
+  "x-schema-version": "0.1.0"
 }
