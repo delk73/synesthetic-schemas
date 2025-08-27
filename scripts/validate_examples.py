@@ -32,19 +32,18 @@ if str(PY_SRC) not in sys.path:
 import jsonschema
 from jsonschema.validators import Draft202012Validator
 
-# token in filename  -> (python module, candidate class names (pipe-separated), schema filename)
-TOKENS: Dict[str, Tuple[str, str, str]] = {
-    "synestheticasset": ("asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
-    "asset":            ("asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
-    "shaderlib":        ("shader_lib", "ShaderLib|ShaderLibrary", "shader_lib.schema.json"),
-    "shader":           ("shader", "Shader", "shader.schema.json"),
-    "tone":             ("tone", "Tone", "tone.schema.json"),
-    "haptic":           ("haptic", "Haptic", "haptic.schema.json"),
-    "control":          ("control", "Control", "control.schema.json"),
-    "modulation":       ("modulation", "Modulation", "modulation.schema.json"),
-    "rulebundle":       ("rule_bundle", "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
-    "rule-bundle":      ("rule_bundle", "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
-    "rule":             ("rule", "Rule|RuleSchema", "rule.schema.json"),
+# filename token  -> (python module name, candidate class names, schema filename)
+TOKENS = {
+    "synestheticasset": ("synesthetic_asset_schema", "SynestheticAsset", "synesthetic-asset.schema.json"),
+    "asset":            ("synesthetic_asset_schema", "SynestheticAsset", "synesthetic-asset.schema.json"),
+    "shader":           ("shader_schema",           "Shader",           "shader.schema.json"),
+    "tone":             ("tone_schema",             "Tone",             "tone.schema.json"),
+    "haptic":           ("haptic_schema",           "Haptic",           "haptic.schema.json"),
+    "control":          ("control_schema",          "Control",          "control.schema.json"),
+    "modulation":       ("modulation_schema",       "Modulation",       "modulation.schema.json"),
+    "rule-bundle":      ("rule_bundle_schema",      "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
+    "rule":             ("rule_schema",             "Rule|RuleSchema",  "rule.schema.json"),
+    # "shaderlib":      ("shader_lib_schema",       "ShaderLib|ShaderLibrary", "shader_lib.schema.json"),
 }
 
 def _normalize(o: Any) -> Any:
