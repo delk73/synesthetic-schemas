@@ -34,17 +34,21 @@ from jsonschema.validators import Draft202012Validator
 
 # filename token  -> (python module name, candidate class names, schema filename)
 TOKENS = {
-    "synestheticasset": ("synesthetic_asset_schema", "SynestheticAsset", "synesthetic-asset.schema.json"),
-    "asset":            ("synesthetic_asset_schema", "SynestheticAsset", "synesthetic-asset.schema.json"),
-    "shader":           ("shader_schema",           "Shader",           "shader.schema.json"),
-    "tone":             ("tone_schema",             "Tone",             "tone.schema.json"),
-    "haptic":           ("haptic_schema",           "Haptic",           "haptic.schema.json"),
-    "control":          ("control_schema",          "Control",          "control.schema.json"),
-    "modulation":       ("modulation_schema",       "Modulation",       "modulation.schema.json"),
-    "rule-bundle":      ("rule_bundle_schema",      "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
-    "rule":             ("rule_schema",             "Rule|RuleSchema",  "rule.schema.json"),
-    # "shaderlib":      ("shader_lib_schema",       "ShaderLib|ShaderLibrary", "shader_lib.schema.json"),
+    "synestheticasset": ("synesthetic_asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
+    "asset":            ("synesthetic_asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
+
+    "control-bundle":   ("control_bundle",    "ControlBundle|ControlBundleSchema", "control-bundle.schema.json"),
+    "control":          ("control",           "Control", "control.schema.json"),
+
+    "shaderlib":        ("shader_lib",        "ShaderLib|ShaderLibrary", "shader_lib.schema.json"),
+    "shader":           ("shader",            "Shader", "shader.schema.json"),
+    "tone":             ("tone",              "Tone", "tone.schema.json"),
+    "haptic":           ("haptic",            "Haptic", "haptic.schema.json"),
+
+    "rule-bundle":      ("rule_bundle",       "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
+    "rule":             ("rule",              "Rule|RuleSchema", "rule.schema.json"),
 }
+
 
 def _normalize(o: Any) -> Any:
     if isinstance(o, dict):

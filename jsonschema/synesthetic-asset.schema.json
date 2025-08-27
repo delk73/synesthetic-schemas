@@ -38,10 +38,6 @@
           ],
           "title": "Meta Info"
         },
-        "modulation_id": {
-          "title": "Modulation Id",
-          "type": "integer"
-        },
         "modulations": {
           "description": "List of modulations",
           "examples": [
@@ -102,8 +98,7 @@
       },
       "required": [
         "name",
-        "modulations",
-        "modulation_id"
+        "modulations"
       ],
       "title": "Modulation",
       "type": "object"
@@ -217,303 +212,6 @@
       ],
       "title": "ModulationItem",
       "type": "object"
-    },
-    "NestedControlResponse": {
-      "properties": {
-        "control_parameters": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Control Parameters"
-        },
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "meta_info": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Meta Info"
-        },
-        "name": {
-          "title": "Name",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "title": "NestedControlResponse",
-      "type": "object"
-    },
-    "NestedHapticResponse": {
-      "properties": {
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "device": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Device"
-        },
-        "input_parameters": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Input Parameters"
-        },
-        "meta_info": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Meta Info"
-        },
-        "name": {
-          "title": "Name",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "title": "NestedHapticResponse",
-      "type": "object"
-    },
-    "NestedShaderResponse": {
-      "properties": {
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "fragment_shader": {
-          "title": "Fragment Shader",
-          "type": "string"
-        },
-        "input_parameters": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Input Parameters"
-        },
-        "meta_info": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Meta Info"
-        },
-        "name": {
-          "title": "Name",
-          "type": "string"
-        },
-        "shader_lib_id": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Shader Lib Id"
-        },
-        "uniforms": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": [],
-          "title": "Uniforms"
-        },
-        "vertex_shader": {
-          "title": "Vertex Shader",
-          "type": "string"
-        }
-      },
-      "required": [
-        "name",
-        "vertex_shader",
-        "fragment_shader"
-      ],
-      "title": "NestedShaderResponse",
-      "type": "object"
-    },
-    "NestedToneResponse": {
-      "additionalProperties": true,
-      "properties": {
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "effects": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Effects"
-        },
-        "input_parameters": {
-          "items": {
-            "type": "object"
-          },
-          "title": "Input Parameters",
-          "type": "array"
-        },
-        "meta_info": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Meta Info"
-        },
-        "name": {
-          "title": "Name",
-          "type": "string"
-        },
-        "parts": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Parts"
-        },
-        "patterns": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Patterns"
-        },
-        "synth": {
-          "title": "Synth",
-          "type": "object"
-        }
-      },
-      "required": [
-        "name",
-        "synth"
-      ],
-      "title": "NestedToneResponse",
-      "type": "object"
     }
   },
   "$id": "https://schemas.synesthetic.dev/0.1.0/synesthetic-asset.schema.json",
@@ -523,28 +221,13 @@
     "control": {
       "anyOf": [
         {
-          "$ref": "#/$defs/NestedControlResponse"
+          "$ref": "./control-bundle.schema.json"
         },
         {
           "type": "null"
         }
       ],
       "default": null
-    },
-    "control_parameters": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Control Parameters"
     },
     "created_at": {
       "format": "date-time",
@@ -570,7 +253,7 @@
     "haptic": {
       "anyOf": [
         {
-          "$ref": "#/$defs/NestedHapticResponse"
+          "$ref": "./haptic.schema.json"
         },
         {
           "type": "null"
@@ -617,7 +300,7 @@
       "anyOf": [
         {
           "items": {
-            "type": "object"
+            "$ref": "#/$defs/ModulationItem"
           },
           "type": "array"
         },
@@ -655,12 +338,12 @@
       "type": "string"
     },
     "rule_bundle": {
-      "$ref": "https://schemas.synesthetic.dev/0.1.0/rule-bundle.schema.json"
+      "$ref": "./rule-bundle.schema.json"
     },
     "shader": {
       "anyOf": [
         {
-          "$ref": "#/$defs/NestedShaderResponse"
+          "$ref": "./shader.schema.json"
         },
         {
           "type": "null"
@@ -671,7 +354,7 @@
     "tone": {
       "anyOf": [
         {
-          "$ref": "#/$defs/NestedToneResponse"
+          "$ref": "./tone.schema.json"
         },
         {
           "type": "null"

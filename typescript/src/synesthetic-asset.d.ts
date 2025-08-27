@@ -5,17 +5,26 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Default = number | boolean | string;
+export type Label = string;
+export type AxisType = "mouse.x" | "mouse.y" | "mouse.wheel";
+export type CurveType = "linear" | "exponential" | "sine" | "discrete";
+export type Scale = number;
+export type Sensitivity = number;
+export type Keys = string[] | null;
+export type Mousebuttons = string[] | null;
+export type Strict = boolean;
+export type Wheel = boolean | null;
+export type Mappings = Mapping[];
+export type Max = number | null;
+export type Min = number | null;
+export type Options = string[] | null;
+export type Parameter = string;
+export type Smoothingtime = number;
+export type Step = number | null;
+export type DataType = "float" | "int" | "bool" | "string";
+export type Unit = string;
 export type ControlParameters =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
-export type Description = string | null;
-export type MetaInfo = {
-  [k: string]: unknown;
-} | null;
-export type Name = string;
-export type ControlParameters1 =
   | {
       [k: string]: unknown;
     }[]
@@ -23,34 +32,91 @@ export type ControlParameters1 =
 /**
  * Description of the asset's purpose
  */
+export type Description = string | null;
+/**
+ * Description of the haptic configuration
+ */
 export type Description1 = string | null;
-export type Description2 = string | null;
-export type Device = {
+/**
+ * Unit of measurement for the option
+ */
+export type Unit1 = string;
+/**
+ * Value of the device option
+ */
+export type Value = number;
+/**
+ * Type of haptic device
+ */
+export type Type = string;
+/**
+ * Maximum allowed value
+ */
+export type Max1 = number | null;
+/**
+ * Minimum allowed value
+ */
+export type Min1 = number | null;
+/**
+ * Name of the parameter
+ */
+export type Name = string;
+/**
+ * Available options for enum types
+ */
+export type Options2 = string[] | null;
+/**
+ * The parameter
+ */
+export type Parameter1 = string;
+/**
+ * Path to the parameter
+ */
+export type Path = string;
+/**
+ * Smoothing time in seconds
+ */
+export type Smoothingtime1 = number | null;
+/**
+ * Step increment value
+ */
+export type Step1 = number | null;
+/**
+ * Data type of the parameter
+ */
+export type Type1 = string;
+/**
+ * Unit of measurement
+ */
+export type Unit2 = string;
+/**
+ * List of input parameters
+ */
+export type InputParameters = HapticParameter[];
+/**
+ * Metadata about the haptic configuration
+ */
+export type MetaInfo = {
   [k: string]: unknown;
 } | null;
-export type InputParameters =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
-export type MetaInfo1 = {
-  [k: string]: unknown;
-} | null;
+/**
+ * Name of the haptic configuration
+ */
 export type Name1 = string;
 /**
  * Metadata about the asset
  */
-export type MetaInfo2 = {
+export type MetaInfo1 = {
   [k: string]: unknown;
 } | null;
 /**
  * Description of the modulation set
  */
-export type Description3 = string | null;
+export type Description2 = string | null;
 /**
  * Metadata about the modulation set
  */
-export type MetaInfo3 = {
+export type MetaInfo2 = {
   [k: string]: unknown;
 } | null;
 export type ModulationId = number;
@@ -69,11 +135,11 @@ export type Id = string;
 /**
  * Maximum allowable value for the modulation
  */
-export type Max = number | null;
+export type Max2 = number | null;
 /**
  * Minimum allowable value for the modulation
  */
-export type Min = number | null;
+export type Min2 = number | null;
 /**
  * Offset/base value of the modulation
  */
@@ -85,7 +151,7 @@ export type Phase = number;
 /**
  * Scaling factor applied to the modulation output
  */
-export type Scale = number;
+export type Scale1 = number;
 /**
  * Response profile to shape the modulation output
  */
@@ -97,7 +163,7 @@ export type Target = string;
 /**
  * Type of modulation
  */
-export type Type = "additive" | "multiplicative";
+export type Type2 = "additive" | "multiplicative";
 /**
  * Waveform type
  */
@@ -129,7 +195,7 @@ export type CreatedAt = string | null;
 /**
  * Bundle details
  */
-export type Description4 = string | null;
+export type Description3 = string | null;
 /**
  * Database ID
  */
@@ -181,81 +247,258 @@ export type Rules = RuleSchema[];
  * Last update time
  */
 export type UpdatedAt = string | null;
-export type Description5 = string | null;
+export type Description4 = string | null;
+/**
+ * GLSL fragment shader code
+ */
 export type FragmentShader = string;
-export type InputParameters1 =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
-export type MetaInfo5 = {
-  [k: string]: unknown;
-} | null;
+export type InputParameters1 = InputParameter[] | null;
+export type Default2 = number;
+export type Max3 = number;
+export type Min3 = number;
 export type Name5 = string;
-export type ShaderLibId = number | null;
-export type Uniforms =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
-export type VertexShader = string;
-export type Description6 = string | null;
-export type Effects1 =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
-export type InputParameters2 = {
-  [k: string]: unknown;
-}[];
-export type MetaInfo6 = {
+export type Parameter2 = string;
+export type Path1 = string;
+export type Smoothingtime2 = number | null;
+export type Step2 = number | null;
+export type Type3 = string;
+/**
+ * Metadata about the shader
+ */
+export type MetaInfo4 = {
   [k: string]: unknown;
 } | null;
+/**
+ * Name of the shader
+ */
 export type Name6 = string;
+export type Uniforms = UniformDef[] | null;
+export type Name7 = string;
+export type Stage = string;
+export type Type4 = string;
+/**
+ * GLSL vertex shader code
+ */
+export type VertexShader = string;
+/**
+ * Description of the tone
+ */
+export type Description5 = string | null;
+/**
+ * Effects configuration
+ */
+export type Effects1 =
+  | (
+      | ToneEffect
+      | {
+          [k: string]: unknown;
+        }
+    )[]
+  | null;
+export type Order = number;
+export type Type5 = string;
+export type Name8 = string;
+export type Options4 = string[] | null;
+export type Parameter3 = string | null;
+export type Path2 = string;
+export type Smoothingtime3 = number | null;
+export type Type6 = string;
+export type Unit3 = string | null;
+/**
+ * Tone input parameters
+ */
+export type InputParameters2 = (
+  | ToneParameter
+  | {
+      [k: string]: unknown;
+    }
+)[];
+/**
+ * Additional metadata about the tone
+ */
+export type MetaInfo5 =
+  | ToneMetaInfo
+  | {
+      [k: string]: unknown;
+    }
+  | null;
+export type Category = string;
+export type Complexity = string;
+export type Tags = string[];
+/**
+ * Name of the tone
+ */
+export type Name9 = string;
+/**
+ * Parts configuration
+ */
 export type Parts =
-  | {
-      [k: string]: unknown;
-    }[]
+  | (
+      | TonePart
+      | {
+          [k: string]: unknown;
+        }
+    )[]
   | null;
+export type Duration = string;
+export type Id3 = string;
+export type Loop = boolean | null;
+export type Pattern = string;
+export type Start = string;
+/**
+ * Patterns configuration
+ */
 export type Patterns =
+  | (
+      | TonePattern
+      | {
+          [k: string]: unknown;
+        }
+    )[]
+  | null;
+export type Id4 = string;
+export type Type7 = string;
+/**
+ * Synth configuration
+ */
+export type Synth =
+  | ToneSynth
   | {
       [k: string]: unknown;
-    }[]
+    };
+export type Options6 =
+  | ToneSynthOptions
+  | {
+      [k: string]: unknown;
+    };
+export type Filter = {
+  [k: string]: unknown;
+} | null;
+export type Filterenvelope = {
+  [k: string]: unknown;
+} | null;
+export type Portamento =
+  | number
+  | {
+      [k: string]: unknown;
+    }
   | null;
+export type Volume =
+  | number
+  | {
+      [k: string]: unknown;
+    };
+/**
+ * Allowed Tone.js synth types.
+ */
+export type SynthType =
+  | "Tone.Synth"
+  | "Tone.PolySynth"
+  | "Tone.MonoSynth"
+  | "Tone.FMSynth"
+  | "Tone.AMSynth"
+  | "Tone.DuoSynth"
+  | "Tone.MembraneSynth"
+  | "Tone.MetalSynth"
+  | "Tone.PluckSynth";
 
 export interface SynestheticAsset {
-  control?: NestedControlResponse | null;
-  control_parameters?: ControlParameters1;
+  control?: Control | null;
+  control_parameters?: ControlParameters;
   created_at?: string;
-  description?: Description1;
-  haptic?: NestedHapticResponse | null;
-  meta_info?: MetaInfo2;
+  description?: Description;
+  haptic?: Haptic | null;
+  meta_info?: MetaInfo1;
   modulation?: Modulation | null;
   modulations?: Modulations1;
   name: Name3;
   rule_bundle?: RuleBundleSchema;
-  shader?: NestedShaderResponse | null;
-  tone?: NestedToneResponse | null;
+  shader?: Shader | null;
+  tone?: Tone | null;
   updated_at?: string;
 }
-export interface NestedControlResponse {
-  control_parameters?: ControlParameters;
-  description?: Description;
-  meta_info?: MetaInfo;
-  name: Name;
+export interface Control {
+  default: Default;
+  label: Label;
+  mappings: Mappings;
+  max?: Max;
+  min?: Min;
+  options?: Options;
+  parameter: Parameter;
+  smoothingTime?: Smoothingtime;
+  step?: Step;
+  type: DataType;
+  unit: Unit;
+}
+export interface Mapping {
+  action: ActionType;
+  combo: ComboType;
   [k: string]: unknown;
 }
-export interface NestedHapticResponse {
-  description?: Description2;
-  device?: Device;
-  input_parameters?: InputParameters;
-  meta_info?: MetaInfo1;
+export interface ActionType {
+  axis: AxisType;
+  curve?: CurveType;
+  scale?: Scale;
+  sensitivity: Sensitivity;
+  [k: string]: unknown;
+}
+export interface ComboType {
+  keys?: Keys;
+  mouseButtons?: Mousebuttons;
+  strict?: Strict;
+  wheel?: Wheel;
+  [k: string]: unknown;
+}
+export interface Haptic {
+  description?: Description1;
+  device: DeviceConfig;
+  input_parameters: InputParameters;
+  meta_info?: MetaInfo;
   name: Name1;
   [k: string]: unknown;
 }
+/**
+ * Device configuration
+ */
+export interface DeviceConfig {
+  options: Options1;
+  type: Type;
+  [k: string]: unknown;
+}
+/**
+ * Device-specific configuration options
+ */
+export interface Options1 {
+  [k: string]: DeviceOptionValue;
+}
+export interface DeviceOptionValue {
+  unit: Unit1;
+  value: Value;
+  [k: string]: unknown;
+}
+export interface HapticParameter {
+  default: Default1;
+  max?: Max1;
+  min?: Min1;
+  name: Name;
+  options?: Options2;
+  parameter: Parameter1;
+  path: Path;
+  smoothingTime?: Smoothingtime1;
+  step?: Step1;
+  type: Type1;
+  unit: Unit2;
+  [k: string]: unknown;
+}
+/**
+ * Default value
+ */
+export interface Default1 {
+  [k: string]: unknown;
+}
 export interface Modulation {
-  description?: Description3;
-  meta_info?: MetaInfo3;
+  description?: Description2;
+  meta_info?: MetaInfo2;
   modulation_id: ModulationId;
   modulations: Modulations;
   name: Name2;
@@ -265,22 +508,22 @@ export interface ModulationItem {
   amplitude: Amplitude;
   frequency: Frequency;
   id: Id;
-  max?: Max;
-  min?: Min;
+  max?: Max2;
+  min?: Min2;
   offset: Offset;
   phase: Phase;
-  scale?: Scale;
+  scale?: Scale1;
   scaleProfile?: Scaleprofile;
   target: Target;
-  type: Type;
+  type: Type2;
   waveform: Waveform;
   [k: string]: unknown;
 }
 export interface RuleBundleSchema {
   created_at?: CreatedAt;
-  description?: Description4;
+  description?: Description3;
   id?: Id1;
-  meta_info?: MetaInfo4;
+  meta_info?: MetaInfo3;
   name: Name4;
   rules: Rules;
   updated_at?: UpdatedAt;
@@ -288,7 +531,7 @@ export interface RuleBundleSchema {
 /**
  * Metadata about the rule bundle
  */
-export interface MetaInfo4 {
+export interface MetaInfo3 {
   [k: string]: unknown;
 }
 /**
@@ -302,28 +545,113 @@ export interface RuleSchema {
   target?: Target1;
   trigger?: Trigger;
 }
-export interface NestedShaderResponse {
-  description?: Description5;
+export interface Shader {
+  description?: Description4;
   fragment_shader: FragmentShader;
   input_parameters?: InputParameters1;
-  meta_info?: MetaInfo5;
-  name: Name5;
-  shader_lib_id?: ShaderLibId;
+  meta_info?: MetaInfo4;
+  name: Name6;
   uniforms?: Uniforms;
   vertex_shader: VertexShader;
+}
+export interface InputParameter {
+  default: Default2;
+  max: Max3;
+  min: Min3;
+  name: Name5;
+  parameter: Parameter2;
+  path: Path1;
+  smoothingTime?: Smoothingtime2;
+  step?: Step2;
+  type: Type3;
   [k: string]: unknown;
 }
-export interface NestedToneResponse {
-  description?: Description6;
+export interface UniformDef {
+  default: Default3;
+  name: Name7;
+  stage: Stage;
+  type: Type4;
+  [k: string]: unknown;
+}
+export interface Default3 {
+  [k: string]: unknown;
+}
+export interface Tone {
+  description?: Description5;
   effects?: Effects1;
   input_parameters?: InputParameters2;
-  meta_info?: MetaInfo6;
-  name: Name6;
+  meta_info?: MetaInfo5;
+  name: Name9;
   parts?: Parts;
   patterns?: Patterns;
   synth: Synth;
   [k: string]: unknown;
 }
-export interface Synth {
+export interface ToneEffect {
+  options: Options3;
+  order: Order;
+  type: Type5;
+  [k: string]: unknown;
+}
+export interface Options3 {
+  [k: string]: unknown;
+}
+export interface ToneParameter {
+  default: Default4;
+  max?: unknown;
+  min?: unknown;
+  name: Name8;
+  options?: Options4;
+  parameter?: Parameter3;
+  path: Path2;
+  smoothingTime?: Smoothingtime3;
+  type: Type6;
+  unit?: Unit3;
+  [k: string]: unknown;
+}
+export interface Default4 {
+  [k: string]: unknown;
+}
+export interface ToneMetaInfo {
+  category: Category;
+  complexity: Complexity;
+  tags: Tags;
+  [k: string]: unknown;
+}
+export interface TonePart {
+  duration: Duration;
+  id: Id3;
+  loop?: Loop;
+  pattern: Pattern;
+  start: Start;
+  [k: string]: unknown;
+}
+export interface TonePattern {
+  id: Id4;
+  options: Options5;
+  type: Type7;
+  [k: string]: unknown;
+}
+export interface Options5 {
+  [k: string]: unknown;
+}
+export interface ToneSynth {
+  options: Options6;
+  type: SynthType;
+  [k: string]: unknown;
+}
+export interface ToneSynthOptions {
+  envelope: Envelope;
+  filter?: Filter;
+  filterEnvelope?: Filterenvelope;
+  oscillator: Oscillator;
+  portamento?: Portamento;
+  volume: Volume;
+  [k: string]: unknown;
+}
+export interface Envelope {
+  [k: string]: unknown;
+}
+export interface Oscillator {
   [k: string]: unknown;
 }

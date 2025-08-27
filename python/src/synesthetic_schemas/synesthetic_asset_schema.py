@@ -9,7 +9,13 @@ from typing import Any, Dict, List
 
 from pydantic import BaseModel, Extra, Field
 
-from . import rule_bundle_schema
+from . import (
+    control_bundle_schema,
+    haptic_schema,
+    rule_bundle_schema,
+    shader_schema,
+    tone_schema,
+)
 
 
 class ScaleProfile(Enum):
@@ -67,54 +73,6 @@ class ModulationItem(BaseModel):
     waveform: Waveform = Field(..., description='Waveform type', title='Waveform')
 
 
-class NestedControlResponse(BaseModel):
-    control_parameters: List[Dict[str, Any]] | None = Field(
-        None, title='Control Parameters'
-    )
-    description: str | None = Field(None, title='Description')
-    meta_info: Dict[str, Any] | None = Field(None, title='Meta Info')
-    name: str = Field(..., title='Name')
-
-
-class NestedHapticResponse(BaseModel):
-    description: str | None = Field(None, title='Description')
-    device: Dict[str, Any] | None = Field(None, title='Device')
-    input_parameters: List[Dict[str, Any]] | None = Field(
-        None, title='Input Parameters'
-    )
-    meta_info: Dict[str, Any] | None = Field(None, title='Meta Info')
-    name: str = Field(..., title='Name')
-
-
-class NestedShaderResponse(BaseModel):
-    description: str | None = Field(None, title='Description')
-    fragment_shader: str = Field(..., title='Fragment Shader')
-    input_parameters: List[Dict[str, Any]] | None = Field(
-        None, title='Input Parameters'
-    )
-    meta_info: Dict[str, Any] | None = Field(None, title='Meta Info')
-    name: str = Field(..., title='Name')
-    shader_lib_id: int | None = Field(None, title='Shader Lib Id')
-    uniforms: List[Dict[str, Any]] | None = Field([], title='Uniforms')
-    vertex_shader: str = Field(..., title='Vertex Shader')
-
-
-class NestedToneResponse(BaseModel):
-    class Config:
-        extra = Extra.allow
-
-    description: str | None = Field(None, title='Description')
-    effects: List[Dict[str, Any]] | None = Field(None, title='Effects')
-    input_parameters: List[Dict[str, Any]] | None = Field(
-        None, title='Input Parameters'
-    )
-    meta_info: Dict[str, Any] | None = Field(None, title='Meta Info')
-    name: str = Field(..., title='Name')
-    parts: List[Dict[str, Any]] | None = Field(None, title='Parts')
-    patterns: List[Dict[str, Any]] | None = Field(None, title='Patterns')
-    synth: Dict[str, Any] = Field(..., title='Synth')
-
-
 class Modulation(BaseModel):
     description: str | None = Field(
         None, description='Description of the modulation set', title='Description'
@@ -131,7 +89,6 @@ class Modulation(BaseModel):
         ],
         title='Meta Info',
     )
-    modulation_id: int = Field(..., title='Modulation Id')
     modulations: List[ModulationItem] = Field(
         ...,
         description='List of modulations',
@@ -188,10 +145,7 @@ class SynestheticAsset(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    control: NestedControlResponse | None = None
-    control_parameters: List[Dict[str, Any]] | None = Field(
-        None, title='Control Parameters'
-    )
+    control: control_bundle_schema.ControlBundle | None = None
     created_at: datetime | None = None
     description: str | None = Field(
         None,
@@ -201,7 +155,7 @@ class SynestheticAsset(BaseModel):
         ],
         title='Description',
     )
-    haptic: NestedHapticResponse | None = None
+    haptic: haptic_schema.Haptic | None = None
     meta_info: Dict[str, Any] | None = Field(
         None,
         description='Metadata about the asset',
@@ -215,7 +169,7 @@ class SynestheticAsset(BaseModel):
         title='Meta Info',
     )
     modulation: Modulation | None = None
-    modulations: List[Dict[str, Any]] | None = Field(
+    modulations: List[ModulationItem] | None = Field(
         None,
         description='Array of modulations for this asset',
         examples=[
@@ -244,6 +198,6 @@ class SynestheticAsset(BaseModel):
         title='Name',
     )
     rule_bundle: rule_bundle_schema.RuleBundleSchema | None = None
-    shader: NestedShaderResponse | None = None
-    tone: NestedToneResponse | None = None
+    shader: shader_schema.Shader | None = None
+    tone: tone_schema.Tone | None = None
     updated_at: datetime | None = None
