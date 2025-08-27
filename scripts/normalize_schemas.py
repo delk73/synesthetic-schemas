@@ -1,6 +1,6 @@
+# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownParameterType=false
 # ruff: noqa
-# flake8: noqa
-# pylintrc: skip-file
+
 """
 Normalize JSON Schemas in jsonschema/:
 
@@ -12,6 +12,8 @@ Normalize JSON Schemas in jsonschema/:
 
 Idempotent: safe to run repeatedly.
 """
+
+
 
 from __future__ import annotations
 
