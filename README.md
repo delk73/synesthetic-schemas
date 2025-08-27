@@ -20,3 +20,12 @@ long-term stability. These files are the authoritative source for both:
 
 ## Layout
 
+
+
+
+
+## Codegen
+pipx install datamodel-code-generator  # or: pip install datamodel-code-generator
+bash codegen/gen_py.sh
+
+bash codegen/gen_ts.sh
