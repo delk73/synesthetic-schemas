@@ -165,22 +165,6 @@
       "title": "Name",
       "type": "string"
     },
-    "shader_id": {
-      "title": "Shader Id",
-      "type": "integer"
-    },
-    "shader_lib_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Shader Lib Id"
-    },
     "uniforms": {
       "anyOf": [
         {
@@ -206,10 +190,9 @@
     }
   },
   "required": [
-    "name",
-    "vertex_shader",
     "fragment_shader",
-    "shader_id"
+    "name",
+    "vertex_shader"
   ],
   "title": "Shader",
   "type": "object",

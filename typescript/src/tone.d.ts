@@ -126,7 +126,6 @@ export type SynthType =
   | "Tone.MembraneSynth"
   | "Tone.MetalSynth"
   | "Tone.PluckSynth";
-export type ToneId = number;
 
 export interface Tone {
   description?: Description;
@@ -137,7 +136,6 @@ export interface Tone {
   parts?: Parts;
   patterns?: Patterns;
   synth: Synth;
-  tone_id: ToneId;
   [k: string]: unknown;
 }
 export interface ToneEffect {

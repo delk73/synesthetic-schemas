@@ -15,7 +15,6 @@ export type Description = string | null;
 export type MetaInfo = {
   [k: string]: unknown;
 } | null;
-export type ModulationId = number;
 /**
  * Amplitude of the modulation
  */
@@ -76,7 +75,6 @@ export type Name = string;
 export interface Modulation {
   description?: Description;
   meta_info?: MetaInfo;
-  modulation_id: ModulationId;
   modulations: Modulations;
   name: Name;
 }

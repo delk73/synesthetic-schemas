@@ -531,18 +531,6 @@
       ],
       "default": null
     },
-    "control_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Control Id"
-    },
     "control_parameters": {
       "anyOf": [
         {
@@ -590,18 +578,6 @@
       ],
       "default": null
     },
-    "haptic_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Haptic Id"
-    },
     "meta_info": {
       "anyOf": [
         {
@@ -636,18 +612,6 @@
         }
       ],
       "default": null
-    },
-    "modulation_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Modulation Id"
     },
     "modulations": {
       "anyOf": [
@@ -690,18 +654,6 @@
       "title": "Name",
       "type": "string"
     },
-    "rule_bundle_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Rule Bundle Id"
-    },
     "shader": {
       "anyOf": [
         {
@@ -712,22 +664,6 @@
         }
       ],
       "default": null
-    },
-    "shader_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Shader Id"
-    },
-    "synesthetic_asset_id": {
-      "title": "Synesthetic Asset Id",
-      "type": "integer"
     },
     "tone": {
       "anyOf": [
@@ -740,18 +676,6 @@
       ],
       "default": null
     },
-    "tone_id": {
-      "anyOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Tone Id"
-    },
     "updated_at": {
       "format": "date-time",
       "title": "Updated At",
@@ -759,9 +683,8 @@
     }
   },
   "required": [
-    "name",
-    "synesthetic_asset_id",
     "created_at",
+    "name",
     "updated_at"
   ],
   "title": "SynestheticAsset",

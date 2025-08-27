@@ -15,7 +15,6 @@ export type MetaInfo = {
   [k: string]: unknown;
 } | null;
 export type Name = string;
-export type ControlId = number | null;
 export type ControlParameters1 =
   | {
       [k: string]: unknown;
@@ -39,7 +38,6 @@ export type MetaInfo1 = {
   [k: string]: unknown;
 } | null;
 export type Name1 = string;
-export type HapticId = number | null;
 /**
  * Metadata about the asset
  */
@@ -113,7 +111,6 @@ export type Modulations = ModulationItem[];
  * Name of the modulation set
  */
 export type Name2 = string;
-export type ModulationId1 = number | null;
 /**
  * Array of modulations for this asset
  */
@@ -126,7 +123,6 @@ export type Modulations1 =
  * Name of the synesthetic asset
  */
 export type Name3 = string;
-export type RuleBundleId = number | null;
 export type Description4 = string | null;
 export type FragmentShader = string;
 export type InputParameters1 =
@@ -145,8 +141,6 @@ export type Uniforms =
     }[]
   | null;
 export type VertexShader = string;
-export type ShaderId = number | null;
-export type SynestheticAssetId = number;
 export type Description5 = string | null;
 export type Effects =
   | {
@@ -170,28 +164,20 @@ export type Patterns =
       [k: string]: unknown;
     }[]
   | null;
-export type ToneId = number | null;
 export type UpdatedAt = string;
 
 export interface SynestheticAsset {
   control?: NestedControlResponse | null;
-  control_id?: ControlId;
   control_parameters?: ControlParameters1;
   created_at: CreatedAt;
   description?: Description1;
   haptic?: NestedHapticResponse | null;
-  haptic_id?: HapticId;
   meta_info?: MetaInfo2;
   modulation?: Modulation | null;
-  modulation_id?: ModulationId1;
   modulations?: Modulations1;
   name: Name3;
-  rule_bundle_id?: RuleBundleId;
   shader?: NestedShaderResponse | null;
-  shader_id?: ShaderId;
-  synesthetic_asset_id: SynestheticAssetId;
   tone?: NestedToneResponse | null;
-  tone_id?: ToneId;
   updated_at: UpdatedAt;
 }
 export interface NestedControlResponse {

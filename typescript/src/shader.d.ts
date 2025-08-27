@@ -30,8 +30,6 @@ export type MetaInfo = {
  * Name of the shader
  */
 export type Name1 = string;
-export type ShaderId = number;
-export type ShaderLibId = number | null;
 export type Uniforms = UniformDef[] | null;
 export type Name2 = string;
 export type Stage = string;
@@ -47,8 +45,6 @@ export interface Shader {
   input_parameters?: InputParameters;
   meta_info?: MetaInfo;
   name: Name1;
-  shader_id: ShaderId;
-  shader_lib_id?: ShaderLibId;
   uniforms?: Uniforms;
   vertex_shader: VertexShader;
 }

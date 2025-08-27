@@ -457,16 +457,11 @@
       ],
       "description": "Synth configuration",
       "title": "Synth"
-    },
-    "tone_id": {
-      "title": "Tone Id",
-      "type": "integer"
     }
   },
   "required": [
     "name",
-    "synth",
-    "tone_id"
+    "synth"
   ],
   "title": "Tone",
   "type": "object",

@@ -21,7 +21,6 @@ export type Value = number;
  * Type of haptic device
  */
 export type Type = string;
-export type HapticId = number;
 /**
  * Maximum allowed value
  */
@@ -80,7 +79,6 @@ export type Name1 = string;
 export interface Haptic {
   description?: Description;
   device: DeviceConfig;
-  haptic_id: HapticId;
   input_parameters: InputParameters;
   meta_info?: MetaInfo;
   name: Name1;

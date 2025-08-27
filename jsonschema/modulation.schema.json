@@ -151,10 +151,6 @@
       ],
       "title": "Meta Info"
     },
-    "modulation_id": {
-      "title": "Modulation Id",
-      "type": "integer"
-    },
     "modulations": {
       "description": "List of modulations",
       "examples": [
@@ -214,9 +210,8 @@
     }
   },
   "required": [
-    "name",
     "modulations",
-    "modulation_id"
+    "name"
   ],
   "title": "Modulation",
   "type": "object",

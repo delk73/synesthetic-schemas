@@ -175,10 +175,6 @@
       "$ref": "#/$defs/DeviceConfig",
       "description": "Device configuration"
     },
-    "haptic_id": {
-      "title": "Haptic Id",
-      "type": "integer"
-    },
     "input_parameters": {
       "description": "List of input parameters",
       "items": {
@@ -217,10 +213,9 @@
     }
   },
   "required": [
-    "name",
     "device",
     "input_parameters",
-    "haptic_id"
+    "name"
   ],
   "title": "Haptic",
   "type": "object",
