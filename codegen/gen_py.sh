@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
+PY="$(command -v python || command -v python3)"
 OUT="python/src/synesthetic_schemas"
 mkdir -p "$OUT"
 
-# generate per schema (add more lines as you stabilize components)
-datamodel-codegen \
-  --input jsonschema/synesthetic-asset.schema.json \
-  --input-file-type jsonschema \
-  --output "$OUT/asset.py" \
-  --target-python-version 3.11 \
-  --use-standard-collections
+gen() {
+  local IN="$1"
+  local OUTFILE="$2"
+  "$PY" -m datamodel_code_generator \
+    --output-model-type pydantic_v2.BaseModel \
+    --input "$IN" \
+    --input-file-type jsonschema \
+    --output "$OUTFILE" \
+    --target-python-version 3.11 \
+    --use-standard-collections \
+    --formatters black isort
+}
 
-# optional components
+gen jsonschema/synesthetic-asset.schema.json "$OUT/asset.py"
+
 for S in shader tone haptic control modulation rule-bundle rule; do
   [ -f "jsonschema/$S.schema.json" ] || continue
-  datamodel-codegen \
-    --input "jsonschema/$S.schema.json" \
-    --input-file-type jsonschema \
-    --output "$OUT/${S//-/_}.py" \
-    --target-python-version 3.11 \
-    --use-standard-collections
+  gen "jsonschema/$S.schema.json" "$OUT/${S//-/_}.py"
 done
 
-# minimal package glue
-echo '' > "$OUT/__init__.py"
+: > "$OUT/__init__.py"

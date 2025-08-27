@@ -60,7 +60,6 @@
           "type": "number"
         },
         "scaleProfile": {
-          "default": "linear",
           "description": "Response profile to shape the modulation output",
           "enum": [
             "linear",

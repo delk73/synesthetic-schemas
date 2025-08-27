@@ -1,0 +1,13 @@
+# run the normalizer
+python scripts/normalize_schemas.py
+
+# regenerate python (pydantic v2) and TS
+conda activate schemas311
+bash codegen/gen_py.sh
+bash codegen/gen_ts.sh
+
+
+
+grep -R ": Optional\\[.*\\] = '.*'" -n python/src || echo "OK: no optional-enum string defaults"
+
+

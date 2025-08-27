@@ -6,8 +6,7 @@
           "$ref": "#/$defs/AxisType"
         },
         "curve": {
-          "$ref": "#/$defs/CurveType",
-          "default": "linear"
+          "$ref": "#/$defs/CurveType"
         },
         "scale": {
           "default": 1.0,
