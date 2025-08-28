@@ -1,15 +1,35 @@
+[tool.poetry]
+name = "synesthetic-schemas"
+version = "0.1.0"
+description = "Schemas + validators for Synesthetic"
+readme = "README.md"
+# You don't ship a Python package from this repo:
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+jsonschema = "<4.18"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
+
+# --- Ruff config (unchanged) ---
 [tool.ruff]
 line-length = 100
 target-version = "py311"
 exclude = [
-  "python/src/synesthetic_schemas",  # generated models
-  "typescript",                      # TS code not Python
+  "python/src/synesthetic_schemas",
+  "typescript",
   "**/__pycache__"
 ]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "UP", "I"]  # errors, pyflakes, pyupgrade, imports
-ignore = ["E501"]                     # don’t nag about long lines
+select = ["E", "F", "W", "UP", "I"]
+ignore = ["E501"]
 
 [tool.ruff.format]
 quote-style = "single"
