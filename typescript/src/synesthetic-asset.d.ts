@@ -502,7 +502,6 @@ export interface Modulation {
   meta_info?: MetaInfo3;
   modulations: Modulations;
   name: Name3;
-  [k: string]: unknown;
 }
 export interface ModulationItem {
   amplitude: Amplitude;

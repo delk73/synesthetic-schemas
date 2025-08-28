@@ -33,17 +33,23 @@
             "duration": "8n",
             "velocity": {
               "source": "grid.pressure",
-              "scale": 1.0,
+              "scale": 1,
               "curve": "linear",
               "threshold": 0.02,
               "cell_overrides": [
                 {
-                  "coord": [0, 0],
+                  "coord": [
+                    0,
+                    0
+                  ],
                   "threshold": 0.05,
-                  "scale": 2.0
+                  "scale": 2
                 },
                 {
-                  "coord": [3, 2],
+                  "coord": [
+                    3,
+                    2
+                  ],
                   "curve": "exp"
                 }
               ]
@@ -56,12 +62,15 @@
           "op": "set",
           "value": {
             "source": "grid.pressure",
-            "scale": 1.0,
+            "scale": 1,
             "curve": "exp",
             "threshold": 0.02,
             "cell_overrides": [
               {
-                "coord": [3, 2],
+                "coord": [
+                  3,
+                  2
+                ],
                 "curve": "linear"
               }
             ]
@@ -80,10 +89,5 @@
         }
       ]
     }
-  ],
-  "fragment_shader": "uniform vec2 u_resolution; uniform float u_time; void main() { vec2 st = gl_FragCoord.xy/u_resolution.xy; st = st * 2.0 - 1.0; float grid = abs(st.x) - 0.1; grid = max(grid, abs(st.y) - 0.1); float color = 1.0 - smoothstep(0.0, 0.01, grid); gl_FragColor = vec4(color, color, color, 1.0); }",
-  "input_parameters": [
-    { "name": "u_resolution", "type": "vec2", "stage": "fragment", "default": [800.0, 600.0] },
-    { "name": "u_time", "type": "float", "stage": "fragment", "default": 0.0 }
   ]
 }
