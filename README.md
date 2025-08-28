@@ -104,3 +104,16 @@ bash codegen/gen_ts.sh
 * ✅ Canonical schemas exported & normalized
 * ✅ Examples validated against schemas and generated models
 * 🔄 Ongoing cleanup of schema/example mismatches
+
+---
+
+## Open GitHub Issues
+
+To open the prepared set of issues for improving this repo:
+
+- Install and authenticate GitHub CLI: `gh auth login`
+- Run the helper script:
+  - `./scripts/create_issues.sh`
+  - Use `DRY_RUN=1 ./scripts/create_issues.sh` to preview without creating.
+
+Issue drafts live in `meta/issues/*.md`. Edit them before creating if desired.
