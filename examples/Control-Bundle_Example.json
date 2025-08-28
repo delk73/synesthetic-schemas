@@ -1,240 +1,432 @@
 {
-  "name": "Example Controls",
+  "control": {
+    "control_parameters": [
+      {
+        "default": 0.0,
+        "label": "Position X",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.001
+            },
+            "combo": {
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": -1.0,
+        "parameter": "visual.px",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.0,
+        "label": "Position Y",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": -0.001
+            },
+            "combo": {
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": -1.0,
+        "parameter": "visual.py",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.5,
+        "label": "Radius",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.wheel",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.01
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "strict": true,
+              "wheel": true
+            }
+          }
+        ],
+        "max": 2.0,
+        "min": 0.1,
+        "parameter": "visual.r",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.01,
+        "label": "Stroke Width",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.0005
+            },
+            "combo": {
+              "mouseButtons": [
+                "right"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 0.1,
+        "min": 0.0,
+        "parameter": "visual.str",
+        "smoothingTime": 0.1,
+        "step": 0.001,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 1.0,
+        "label": "Multiplier",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.01
+            },
+            "combo": {
+              "keys": [
+                "Ctrl"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 2.0,
+        "min": -2.0,
+        "parameter": "visual.m",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.0,
+        "label": "Subtract",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": -0.005
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": -1.0,
+        "parameter": "visual.sub",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 440,
+        "label": "Oscillator Frequency",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 0.5
+            },
+            "combo": {
+              "keys": [
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          },
+          {
+            "action": {
+              "axis": "mouse.wheel",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 10
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "strict": true,
+              "wheel": true
+            }
+          }
+        ],
+        "max": 20000,
+        "min": 20,
+        "parameter": "audio.frequency",
+        "smoothingTime": 0.1,
+        "step": 1,
+        "type": "float",
+        "unit": "Hz"
+      },
+      {
+        "default": -10,
+        "label": "Output Volume",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": -0.1
+            },
+            "combo": {
+              "keys": [
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 0,
+        "min": -60,
+        "parameter": "audio.volume",
+        "smoothingTime": 0.1,
+        "step": 0.1,
+        "type": "float",
+        "unit": "dB"
+      },
+      {
+        "default": 1000,
+        "label": "Filter Frequency",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 0.5
+            },
+            "combo": {
+              "keys": [
+                "Alt"
+              ],
+              "mouseButtons": [
+                "right"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 20000,
+        "min": 20,
+        "parameter": "audio.filterFreq",
+        "smoothingTime": 0.1,
+        "step": 1,
+        "type": "float",
+        "unit": "Hz"
+      },
+      {
+        "default": 1,
+        "label": "Filter Resonance",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 0.05
+            },
+            "combo": {
+              "keys": [
+                "Alt"
+              ],
+              "mouseButtons": [
+                "right"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 20,
+        "min": 0.1,
+        "parameter": "audio.filterQ",
+        "smoothingTime": 0.1,
+        "step": 0.1,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.5,
+        "label": "Vibration Intensity",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": -0.01
+            },
+            "combo": {
+              "keys": [
+                "Ctrl",
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          },
+          {
+            "action": {
+              "axis": "mouse.wheel",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.05
+            },
+            "combo": {
+              "strict": true,
+              "wheel": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.0,
+        "parameter": "haptic.intensity",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 100.0,
+        "label": "Vibration Frequency",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 0.5
+            },
+            "combo": {
+              "keys": [
+                "Ctrl",
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 500.0,
+        "min": 10.0,
+        "parameter": "haptic.frequency",
+        "smoothingTime": 0.1,
+        "step": 1.0,
+        "type": "float",
+        "unit": "Hz"
+      },
+      {
+        "default": 0.2,
+        "label": "Pulse Duration",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.wheel",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.01
+            },
+            "combo": {
+              "keys": [
+                "Ctrl",
+                "Alt"
+              ],
+              "strict": true,
+              "wheel": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.05,
+        "parameter": "haptic.duration",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "s"
+      }
+    ],
+    "description": "Interactive controls for shape transformation and manipulation",
+    "meta_info": {
+      "category": "control",
+      "complexity": "unknown",
+      "tags": []
+    },
+    "name": "Example Controls Controls"
+  },
   "description": "Interactive controls for shape transformation and manipulation",
   "meta_info": {
     "category": "control",
-    "tags": ["interactive", "transform", "mapping", "multimodal"],
-    "complexity": "medium"
+    "complexity": "medium",
+    "tags": [
+      "interactive",
+      "transform",
+      "mapping",
+      "multimodal"
+    ]
   },
-  "control_parameters": [
-    {
-      "parameter": "visual.px",
-      "label": "Position X",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.0,
-      "min": -1.0,
-      "max": 1.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "strict": true},
-          "action": {"axis": "mouse.x", "sensitivity": 0.001, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "visual.py",
-      "label": "Position Y",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.0,
-      "min": -1.0,
-      "max": 1.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": -0.001, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "visual.r",
-      "label": "Radius",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.5,
-      "min": 0.1,
-      "max": 2.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"wheel": true, "keys": ["Shift"], "strict": true},
-          "action": {"axis": "mouse.wheel", "sensitivity": 0.01, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "visual.str",
-      "label": "Stroke Width",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.01,
-      "min": 0.0,
-      "max": 0.1,
-      "step": 0.001,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["right"], "strict": true},
-          "action": {"axis": "mouse.x", "sensitivity": 0.0005, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "visual.m",
-      "label": "Multiplier",
-      "type": "float",
-      "unit": "linear",
-      "default": 1.0,
-      "min": -2.0,
-      "max": 2.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Ctrl"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": 0.01, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "visual.sub",
-      "label": "Subtract",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.0,
-      "min": -1.0,
-      "max": 1.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Shift"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": -0.005, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "audio.frequency",
-      "label": "Oscillator Frequency",
-      "type": "float",
-      "unit": "Hz",
-      "default": 440,
-      "min": 20,
-      "max": 20000,
-      "step": 1,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Alt"], "strict": true},
-          "action": {"axis": "mouse.x", "sensitivity": 0.5, "scale": 1.0, "curve": "exponential"}
-        },
-        {
-          "combo": {"wheel": true, "keys": ["Shift"], "strict": true},
-          "action": {"axis": "mouse.wheel", "sensitivity": 10, "scale": 1.0, "curve": "exponential"}
-        }
-      ]
-    },
-    {
-      "parameter": "audio.volume",
-      "label": "Output Volume",
-      "type": "float",
-      "unit": "dB",
-      "default": -10,
-      "min": -60,
-      "max": 0,
-      "step": 0.1,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Alt"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": -0.1, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "audio.filterFreq",
-      "label": "Filter Frequency",
-      "type": "float",
-      "unit": "Hz",
-      "default": 1000,
-      "min": 20,
-      "max": 20000,
-      "step": 1,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["right"], "keys": ["Alt"], "strict": true},
-          "action": {"axis": "mouse.x", "sensitivity": 0.5, "scale": 1.0, "curve": "exponential"}
-        }
-      ]
-    },
-    {
-      "parameter": "audio.filterQ",
-      "label": "Filter Resonance",
-      "type": "float",
-      "unit": "linear",
-      "default": 1,
-      "min": 0.1,
-      "max": 20,
-      "step": 0.1,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["right"], "keys": ["Alt"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": 0.05, "scale": 1.0, "curve": "exponential"}
-        }
-      ]
-    },
-    {
-      "parameter": "haptic.intensity",
-      "label": "Vibration Intensity",
-      "type": "float",
-      "unit": "linear",
-      "default": 0.5,
-      "min": 0.0,
-      "max": 1.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Ctrl", "Alt"], "strict": true},
-          "action": {"axis": "mouse.y", "sensitivity": -0.01, "scale": 1.0, "curve": "exponential"}
-        },
-        {
-          "combo": {"wheel": true, "strict": true},
-          "action": {"axis": "mouse.wheel", "sensitivity": 0.05, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    },
-    {
-      "parameter": "haptic.frequency",
-      "label": "Vibration Frequency",
-      "type": "float",
-      "unit": "Hz",
-      "default": 100.0,
-      "min": 10.0,
-      "max": 500.0,
-      "step": 1.0,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"mouseButtons": ["left"], "keys": ["Ctrl", "Alt"], "strict": true},
-          "action": {"axis": "mouse.x", "sensitivity": 0.5, "scale": 1.0, "curve": "exponential"}
-        }
-      ]
-    },
-    {
-      "parameter": "haptic.duration",
-      "label": "Pulse Duration",
-      "type": "float",
-      "unit": "s",
-      "default": 0.2,
-      "min": 0.05,
-      "max": 1.0,
-      "step": 0.01,
-      "smoothingTime": 0.1,
-      "mappings": [
-        {
-          "combo": {"wheel": true, "keys": ["Ctrl", "Alt"], "strict": true},
-          "action": {"axis": "mouse.wheel", "sensitivity": 0.01, "scale": 1.0, "curve": "linear"}
-        }
-      ]
-    }
-  ]
+  "name": "Example Controls"
 }
