@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel, Extra, Field
 
@@ -13,20 +13,20 @@ class RuleSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    effects: List[Dict[str, Any]] | None = Field(
+    effects: Optional[list[dict[str, Any]]] = Field(
         None, description='Effects applied when the rule is triggered', title='Effects'
     )
-    execution: str | None = Field(
+    execution: Optional[str] = Field(
         None, description='Execution environment for the rule', title='Execution'
     )
-    expr: str | Dict[str, Any] | None = Field(
+    expr: Optional[Union[str, dict[str, Any]]] = Field(
         None, description='Expression defining the rule logic', title='Expr'
     )
     id: str = Field(..., description='Unique rule identifier', title='Id')
-    target: str | None = Field(
+    target: Optional[str] = Field(
         None, description='Parameter path the rule targets', title='Target'
     )
-    trigger: Dict[str, Any] | None = Field(
+    trigger: Optional[dict[str, Any]] = Field(
         None, description='Trigger configuration for the rule', title='Trigger'
     )
 
@@ -35,18 +35,18 @@ class RuleBundleSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    created_at: datetime | None = Field(
+    created_at: Optional[datetime] = Field(
         None, description='Creation time', title='Created At'
     )
-    description: str | None = Field(
+    description: Optional[str] = Field(
         None, description='Bundle details', title='Description'
     )
-    id: int | None = Field(None, description='Database ID', title='Id')
-    meta_info: Dict[str, Any] | None = Field(
+    id: Optional[int] = Field(None, description='Database ID', title='Id')
+    meta_info: Optional[dict[str, Any]] = Field(
         None, description='Metadata about the rule bundle', title='Meta Info'
     )
     name: str = Field(..., description='Human readable bundle name', title='Name')
-    rules: List[RuleSchema] = Field(..., description='List of rules', title='Rules')
-    updated_at: datetime | None = Field(
+    rules: list[RuleSchema] = Field(..., description='List of rules', title='Rules')
+    updated_at: Optional[datetime] = Field(
         None, description='Last update time', title='Updated At'
     )

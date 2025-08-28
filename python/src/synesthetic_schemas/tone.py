@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel, Extra, Field
 
@@ -25,7 +25,7 @@ class ToneEffect(BaseModel):
     class Config:
         extra = Extra.allow
 
-    options: Dict[str, Any] = Field(..., title='Options')
+    options: dict[str, Any] = Field(..., title='Options')
     order: int = Field(..., title='Order')
     type: str = Field(..., title='Type')
 
@@ -36,7 +36,7 @@ class ToneMetaInfo(BaseModel):
 
     category: str = Field(..., title='Category')
     complexity: str = Field(..., title='Complexity')
-    tags: List[str] = Field(..., title='Tags')
+    tags: list[str] = Field(..., title='Tags')
 
 
 class ToneParameter(BaseModel):
@@ -47,12 +47,12 @@ class ToneParameter(BaseModel):
     max: Any = Field(None, title='Max')
     min: Any = Field(None, title='Min')
     name: str = Field(..., title='Name')
-    options: List[str] | None = Field(None, title='Options')
-    parameter: str | None = Field(None, title='Parameter')
+    options: Optional[list[str]] = Field(None, title='Options')
+    parameter: Optional[str] = Field(None, title='Parameter')
     path: str = Field(..., title='Path')
-    smoothingTime: float | None = Field(None, title='Smoothingtime')
+    smoothingTime: Optional[float] = Field(None, title='Smoothingtime')
     type: str = Field(..., title='Type')
-    unit: str | None = Field(None, title='Unit')
+    unit: Optional[str] = Field(None, title='Unit')
 
 
 class TonePart(BaseModel):
@@ -61,7 +61,7 @@ class TonePart(BaseModel):
 
     duration: str = Field(..., title='Duration')
     id: str = Field(..., title='Id')
-    loop: bool | None = Field(None, title='Loop')
+    loop: Optional[bool] = Field(None, title='Loop')
     pattern: str = Field(..., title='Pattern')
     start: str = Field(..., title='Start')
 
@@ -71,7 +71,7 @@ class TonePattern(BaseModel):
         extra = Extra.allow
 
     id: str = Field(..., title='Id')
-    options: Dict[str, Any] = Field(..., title='Options')
+    options: dict[str, Any] = Field(..., title='Options')
     type: str = Field(..., title='Type')
 
 
@@ -79,19 +79,19 @@ class ToneSynthOptions(BaseModel):
     class Config:
         extra = Extra.allow
 
-    envelope: Dict[str, Any] = Field(..., title='Envelope')
-    filter: Dict[str, Any] | None = Field(None, title='Filter')
-    filterEnvelope: Dict[str, Any] | None = Field(None, title='Filterenvelope')
-    oscillator: Dict[str, Any] = Field(..., title='Oscillator')
-    portamento: float | Dict[str, Any] | None = Field(None, title='Portamento')
-    volume: float | Dict[str, Any] = Field(..., title='Volume')
+    envelope: dict[str, Any] = Field(..., title='Envelope')
+    filter: Optional[dict[str, Any]] = Field(None, title='Filter')
+    filterEnvelope: Optional[dict[str, Any]] = Field(None, title='Filterenvelope')
+    oscillator: dict[str, Any] = Field(..., title='Oscillator')
+    portamento: Optional[Union[float, dict[str, Any]]] = Field(None, title='Portamento')
+    volume: Union[float, dict[str, Any]] = Field(..., title='Volume')
 
 
 class ToneSynth(BaseModel):
     class Config:
         extra = Extra.allow
 
-    options: ToneSynthOptions | Dict[str, Any] = Field(..., title='Options')
+    options: Union[ToneSynthOptions, dict[str, Any]] = Field(..., title='Options')
     type: SynthType
 
 
@@ -99,25 +99,25 @@ class Tone(BaseModel):
     class Config:
         extra = Extra.allow
 
-    description: str | None = Field(
+    description: Optional[str] = Field(
         None, description='Description of the tone', title='Description'
     )
-    effects: List[ToneEffect | Dict[str, Any]] | None = Field(
+    effects: Optional[list[Union[ToneEffect, dict[str, Any]]]] = Field(
         None, description='Effects configuration', title='Effects'
     )
-    input_parameters: List[ToneParameter | Dict[str, Any]] | None = Field(
+    input_parameters: Optional[list[Union[ToneParameter, dict[str, Any]]]] = Field(
         None, description='Tone input parameters', title='Input Parameters'
     )
-    meta_info: ToneMetaInfo | Dict[str, Any] | None = Field(
+    meta_info: Optional[Union[ToneMetaInfo, dict[str, Any]]] = Field(
         None, description='Additional metadata about the tone', title='Meta Info'
     )
     name: str = Field(..., description='Name of the tone', title='Name')
-    parts: List[TonePart | Dict[str, Any]] | None = Field(
+    parts: Optional[list[Union[TonePart, dict[str, Any]]]] = Field(
         None, description='Parts configuration', title='Parts'
     )
-    patterns: List[TonePattern | Dict[str, Any]] | None = Field(
+    patterns: Optional[list[Union[TonePattern, dict[str, Any]]]] = Field(
         None, description='Patterns configuration', title='Patterns'
     )
-    synth: ToneSynth | Dict[str, Any] = Field(
+    synth: Union[ToneSynth, dict[str, Any]] = Field(
         ..., description='Synth configuration', title='Synth'
     )

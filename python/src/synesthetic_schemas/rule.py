@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel, Extra, Field
 
@@ -12,19 +12,19 @@ class RuleSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    effects: List[Dict[str, Any]] | None = Field(
+    effects: Optional[list[dict[str, Any]]] = Field(
         None, description='Effects applied when the rule is triggered', title='Effects'
     )
-    execution: str | None = Field(
+    execution: Optional[str] = Field(
         None, description='Execution environment for the rule', title='Execution'
     )
-    expr: str | Dict[str, Any] | None = Field(
+    expr: Optional[Union[str, dict[str, Any]]] = Field(
         None, description='Expression defining the rule logic', title='Expr'
     )
     id: str = Field(..., description='Unique rule identifier', title='Id')
-    target: str | None = Field(
+    target: Optional[str] = Field(
         None, description='Parameter path the rule targets', title='Target'
     )
-    trigger: Dict[str, Any] | None = Field(
+    trigger: Optional[dict[str, Any]] = Field(
         None, description='Trigger configuration for the rule', title='Trigger'
     )

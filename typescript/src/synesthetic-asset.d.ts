@@ -24,19 +24,20 @@ export type Smoothingtime = number;
 export type Step = number | null;
 export type DataType = "float" | "int" | "bool" | "string";
 export type Unit = string;
-export type ControlParameters =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
+export type ControlParameters = Control[];
+export type Description = string | null;
+export type MetaInfo = {
+  [k: string]: unknown;
+} | null;
+export type Name = string;
 /**
  * Description of the asset's purpose
  */
-export type Description = string | null;
+export type Description1 = string | null;
 /**
  * Description of the haptic configuration
  */
-export type Description1 = string | null;
+export type Description2 = string | null;
 /**
  * Unit of measurement for the option
  */
@@ -60,7 +61,7 @@ export type Min1 = number | null;
 /**
  * Name of the parameter
  */
-export type Name = string;
+export type Name1 = string;
 /**
  * Available options for enum types
  */
@@ -96,30 +97,29 @@ export type InputParameters = HapticParameter[];
 /**
  * Metadata about the haptic configuration
  */
-export type MetaInfo = {
+export type MetaInfo1 = {
   [k: string]: unknown;
 } | null;
 /**
  * Name of the haptic configuration
  */
-export type Name1 = string;
+export type Name2 = string;
 /**
  * Metadata about the asset
  */
-export type MetaInfo1 = {
+export type MetaInfo2 = {
   [k: string]: unknown;
 } | null;
 /**
  * Description of the modulation set
  */
-export type Description2 = string | null;
+export type Description3 = string | null;
 /**
  * Metadata about the modulation set
  */
-export type MetaInfo2 = {
+export type MetaInfo3 = {
   [k: string]: unknown;
 } | null;
-export type ModulationId = number;
 /**
  * Amplitude of the modulation
  */
@@ -175,19 +175,15 @@ export type Modulations = ModulationItem[];
 /**
  * Name of the modulation set
  */
-export type Name2 = string;
+export type Name3 = string;
 /**
  * Array of modulations for this asset
  */
-export type Modulations1 =
-  | {
-      [k: string]: unknown;
-    }[]
-  | null;
+export type Modulations1 = ModulationItem[] | null;
 /**
  * Name of the synesthetic asset
  */
-export type Name3 = string;
+export type Name4 = string;
 /**
  * Creation time
  */
@@ -195,7 +191,7 @@ export type CreatedAt = string | null;
 /**
  * Bundle details
  */
-export type Description3 = string | null;
+export type Description4 = string | null;
 /**
  * Database ID
  */
@@ -203,7 +199,7 @@ export type Id1 = number | null;
 /**
  * Human readable bundle name
  */
-export type Name4 = string;
+export type Name5 = string;
 /**
  * Effects applied when the rule is triggered
  */
@@ -247,7 +243,7 @@ export type Rules = RuleSchema[];
  * Last update time
  */
 export type UpdatedAt = string | null;
-export type Description4 = string | null;
+export type Description5 = string | null;
 /**
  * GLSL fragment shader code
  */
@@ -256,7 +252,7 @@ export type InputParameters1 = InputParameter[] | null;
 export type Default2 = number;
 export type Max3 = number;
 export type Min3 = number;
-export type Name5 = string;
+export type Name6 = string;
 export type Parameter2 = string;
 export type Path1 = string;
 export type Smoothingtime2 = number | null;
@@ -265,15 +261,15 @@ export type Type3 = string;
 /**
  * Metadata about the shader
  */
-export type MetaInfo4 = {
+export type MetaInfo5 = {
   [k: string]: unknown;
 } | null;
 /**
  * Name of the shader
  */
-export type Name6 = string;
-export type Uniforms = UniformDef[] | null;
 export type Name7 = string;
+export type Uniforms = UniformDef[] | null;
+export type Name8 = string;
 export type Stage = string;
 export type Type4 = string;
 /**
@@ -283,7 +279,7 @@ export type VertexShader = string;
 /**
  * Description of the tone
  */
-export type Description5 = string | null;
+export type Description6 = string | null;
 /**
  * Effects configuration
  */
@@ -297,7 +293,7 @@ export type Effects1 =
   | null;
 export type Order = number;
 export type Type5 = string;
-export type Name8 = string;
+export type Name9 = string;
 export type Options4 = string[] | null;
 export type Parameter3 = string | null;
 export type Path2 = string;
@@ -316,7 +312,7 @@ export type InputParameters2 = (
 /**
  * Additional metadata about the tone
  */
-export type MetaInfo5 =
+export type MetaInfo6 =
   | ToneMetaInfo
   | {
       [k: string]: unknown;
@@ -328,7 +324,7 @@ export type Tags = string[];
 /**
  * Name of the tone
  */
-export type Name9 = string;
+export type Name10 = string;
 /**
  * Parts configuration
  */
@@ -403,19 +399,24 @@ export type SynthType =
   | "Tone.PluckSynth";
 
 export interface SynestheticAsset {
-  control?: Control | null;
-  control_parameters?: ControlParameters;
+  control?: ControlBundle | null;
   created_at?: string;
-  description?: Description;
+  description?: Description1;
   haptic?: Haptic | null;
-  meta_info?: MetaInfo1;
+  meta_info?: MetaInfo2;
   modulation?: Modulation | null;
   modulations?: Modulations1;
-  name: Name3;
+  name: Name4;
   rule_bundle?: RuleBundleSchema;
   shader?: Shader | null;
   tone?: Tone | null;
   updated_at?: string;
+}
+export interface ControlBundle {
+  control_parameters: ControlParameters;
+  description?: Description;
+  meta_info?: MetaInfo;
+  name: Name;
 }
 export interface Control {
   default: Default;
@@ -450,11 +451,11 @@ export interface ComboType {
   [k: string]: unknown;
 }
 export interface Haptic {
-  description?: Description1;
+  description?: Description2;
   device: DeviceConfig;
   input_parameters: InputParameters;
-  meta_info?: MetaInfo;
-  name: Name1;
+  meta_info?: MetaInfo1;
+  name: Name2;
   [k: string]: unknown;
 }
 /**
@@ -480,7 +481,7 @@ export interface HapticParameter {
   default: Default1;
   max?: Max1;
   min?: Min1;
-  name: Name;
+  name: Name1;
   options?: Options2;
   parameter: Parameter1;
   path: Path;
@@ -497,11 +498,10 @@ export interface Default1 {
   [k: string]: unknown;
 }
 export interface Modulation {
-  description?: Description2;
-  meta_info?: MetaInfo2;
-  modulation_id: ModulationId;
+  description?: Description3;
+  meta_info?: MetaInfo3;
   modulations: Modulations;
-  name: Name2;
+  name: Name3;
   [k: string]: unknown;
 }
 export interface ModulationItem {
@@ -521,17 +521,17 @@ export interface ModulationItem {
 }
 export interface RuleBundleSchema {
   created_at?: CreatedAt;
-  description?: Description3;
+  description?: Description4;
   id?: Id1;
-  meta_info?: MetaInfo3;
-  name: Name4;
+  meta_info?: MetaInfo4;
+  name: Name5;
   rules: Rules;
   updated_at?: UpdatedAt;
 }
 /**
  * Metadata about the rule bundle
  */
-export interface MetaInfo3 {
+export interface MetaInfo4 {
   [k: string]: unknown;
 }
 /**
@@ -546,11 +546,11 @@ export interface RuleSchema {
   trigger?: Trigger;
 }
 export interface Shader {
-  description?: Description4;
+  description?: Description5;
   fragment_shader: FragmentShader;
   input_parameters?: InputParameters1;
-  meta_info?: MetaInfo4;
-  name: Name6;
+  meta_info?: MetaInfo5;
+  name: Name7;
   uniforms?: Uniforms;
   vertex_shader: VertexShader;
 }
@@ -558,7 +558,7 @@ export interface InputParameter {
   default: Default2;
   max: Max3;
   min: Min3;
-  name: Name5;
+  name: Name6;
   parameter: Parameter2;
   path: Path1;
   smoothingTime?: Smoothingtime2;
@@ -568,7 +568,7 @@ export interface InputParameter {
 }
 export interface UniformDef {
   default: Default3;
-  name: Name7;
+  name: Name8;
   stage: Stage;
   type: Type4;
   [k: string]: unknown;
@@ -577,11 +577,11 @@ export interface Default3 {
   [k: string]: unknown;
 }
 export interface Tone {
-  description?: Description5;
+  description?: Description6;
   effects?: Effects1;
   input_parameters?: InputParameters2;
-  meta_info?: MetaInfo5;
-  name: Name9;
+  meta_info?: MetaInfo6;
+  name: Name10;
   parts?: Parts;
   patterns?: Patterns;
   synth: Synth;
@@ -600,7 +600,7 @@ export interface ToneParameter {
   default: Default4;
   max?: unknown;
   min?: unknown;
-  name: Name8;
+  name: Name9;
   options?: Options4;
   parameter?: Parameter3;
   path: Path2;

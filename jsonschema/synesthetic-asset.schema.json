@@ -221,7 +221,7 @@
     "control": {
       "anyOf": [
         {
-          "$ref": "./control-bundle.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.1.0/control-bundle.schema.json"
         },
         {
           "type": "null"
@@ -253,7 +253,7 @@
     "haptic": {
       "anyOf": [
         {
-          "$ref": "./haptic.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.1.0/haptic.schema.json"
         },
         {
           "type": "null"
@@ -338,12 +338,12 @@
       "type": "string"
     },
     "rule_bundle": {
-      "$ref": "./rule-bundle.schema.json"
+      "$ref": "https://schemas.synesthetic.dev/0.1.0/rule-bundle.schema.json"
     },
     "shader": {
       "anyOf": [
         {
-          "$ref": "./shader.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.1.0/shader.schema.json"
         },
         {
           "type": "null"
@@ -354,7 +354,7 @@
     "tone": {
       "anyOf": [
         {
-          "$ref": "./tone.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.1.0/tone.schema.json"
         },
         {
           "type": "null"

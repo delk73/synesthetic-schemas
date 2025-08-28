@@ -1,43 +1,48 @@
 #!/usr/bin/env node
-// Bundle all jsonschema/*.schema.json locally, remapping the $id domain to files.
-import fs from 'node:fs';
-import path from 'node:path';
-import $RefParser from '@apidevtools/json-schema-ref-parser';
+import fs from "node:fs/promises";
+import path from "node:path";
+import $RefParser from "@apidevtools/json-schema-ref-parser";
+import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const IN_DIR = path.join(ROOT, 'jsonschema');
-const OUT_DIR = path.join(ROOT, 'typescript', 'tmp', 'bundled');
-const BASE = 'https://schemas.synesthetic.dev/0.1.0/';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, "..");
+const SCHEMA_DIR = path.join(ROOT, "jsonschema");
+const OUT_DIR = path.join(ROOT, "typescript", "tmp", "bundled");
+await fs.mkdir(OUT_DIR, { recursive: true });
 
-fs.mkdirSync(OUT_DIR, { recursive: true });
-
-// Custom resolver: redirect our $id URLs to local files
-const resolver = {
+// Map canonical HTTP $id → local file in jsonschema/
+const BASE = "https://schemas.synesthetic.dev/0.1.0/";
+const synIdResolver = {
   order: 1,
-  canRead: (file) => typeof file.url === 'string' && file.url.startsWith(BASE),
-  read: (file) => {
-    const filename = file.url.slice(BASE.length); // e.g. "rule-bundle.schema.json"
-    const p = path.join(IN_DIR, filename);
-    return fs.readFileSync(p, 'utf8');
+  canRead(file) {
+    return typeof file.url === "string" && file.url.startsWith(BASE);
+  },
+  async read(file) {
+    const name = decodeURIComponent(file.url.slice(BASE.length)); // e.g. "control.schema.json"
+    const p = path.join(SCHEMA_DIR, name);
+    return fs.readFile(p, "utf8");
   },
 };
 
-const files = fs.readdirSync(IN_DIR).filter(f => f.endsWith('.schema.json'));
+const files = (await fs.readdir(SCHEMA_DIR))
+  .filter((f) => f.endsWith(".schema.json"))
+  .sort();
 
 for (const f of files) {
-  const inPath = path.join(IN_DIR, f);
-  const outPath = path.join(OUT_DIR, f);
-  const schema = JSON.parse(fs.readFileSync(inPath, 'utf8'));
+  const abs = path.join(SCHEMA_DIR, f);
 
-  const bundled = await $RefParser.bundle(schema, {
+  const bundled = await $RefParser.bundle(abs, {
     resolve: {
-      file: true,
-      http: { disabled: true },  // hard-disable network
-      custom: resolver,          // map our BASE to local files
+      // never hit the network
+      http: false,
+      // support normal local refs like "./control.schema.json"
+      file: { order: 2 },
+      // register our custom resolver by name
+      syn_id: synIdResolver,
     },
-    dereference: { circular: 'ignore' },
   });
 
-  fs.writeFileSync(outPath, JSON.stringify(bundled, null, 2) + '\n');
-  console.log(`bundled: ${f} → ${path.relative(ROOT, outPath)}`);
+  const out = path.join(OUT_DIR, f);
+  await fs.writeFile(out, JSON.stringify(bundled, null, 2) + "\n");
+  console.log(`bundled: ${f} → ${path.relative(ROOT, out)}`);
 }

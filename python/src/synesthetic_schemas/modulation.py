@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any, Optional
 
 from pydantic import BaseModel, Extra, Field
 
@@ -37,22 +37,20 @@ class ModulationItem(BaseModel):
         ..., description='Frequency of the modulation in Hz', title='Frequency'
     )
     id: str = Field(..., description='Unique identifier for the modulation', title='Id')
-    max: float | None = Field(
+    max: Optional[float] = Field(
         None, description='Maximum allowable value for the modulation', title='Max'
     )
-    min: float | None = Field(
+    min: Optional[float] = Field(
         None, description='Minimum allowable value for the modulation', title='Min'
     )
     offset: float = Field(
         ..., description='Offset/base value of the modulation', title='Offset'
     )
     phase: float = Field(..., description='Phase offset in radians', title='Phase')
-    scale: float | None = Field(
-        1.0,
-        description='Scaling factor applied to the modulation output',
-        title='Scale',
+    scale: Optional[float] = Field(
+        1, description='Scaling factor applied to the modulation output', title='Scale'
     )
-    scaleProfile: ScaleProfile | None = Field(
+    scaleProfile: Optional[ScaleProfile] = Field(
         None,
         description='Response profile to shape the modulation output',
         title='Scaleprofile',
@@ -70,10 +68,10 @@ class Modulation(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    description: str | None = Field(
+    description: Optional[str] = Field(
         None, description='Description of the modulation set', title='Description'
     )
-    meta_info: Dict[str, Any] | None = Field(
+    meta_info: Optional[dict[str, Any]] = Field(
         None,
         description='Metadata about the modulation set',
         examples=[
@@ -85,7 +83,7 @@ class Modulation(BaseModel):
         ],
         title='Meta Info',
     )
-    modulations: List[ModulationItem] = Field(
+    modulations: list[ModulationItem] = Field(
         ...,
         description='List of modulations',
         examples=[
@@ -93,11 +91,11 @@ class Modulation(BaseModel):
                 'amplitude': 0.5,
                 'frequency': 0.5,
                 'id': 'wave_speed_pulse',
-                'max': 1.0,
-                'min': 0.0,
-                'offset': 1.0,
-                'phase': 0.0,
-                'scale': 1.0,
+                'max': 1,
+                'min': 0,
+                'offset': 1,
+                'phase': 0,
+                'scale': 1,
                 'scaleProfile': 'linear',
                 'target': 'visual.u_wave_speed',
                 'type': 'additive',
@@ -107,11 +105,11 @@ class Modulation(BaseModel):
                 'amplitude': 400,
                 'frequency': 0.25,
                 'id': 'filter_sweep',
-                'max': 1.0,
-                'min': 0.0,
+                'max': 1,
+                'min': 0,
                 'offset': 800,
-                'phase': 0.0,
-                'scale': 1.0,
+                'phase': 0,
+                'scale': 1,
                 'scaleProfile': 'exponential',
                 'target': 'tone.filter.frequency',
                 'type': 'additive',
@@ -119,13 +117,13 @@ class Modulation(BaseModel):
             },
             {
                 'amplitude': 0.2,
-                'frequency': 1.0,
+                'frequency': 1,
                 'id': 'haptic_pulse',
-                'max': 1.0,
-                'min': 0.0,
+                'max': 1,
+                'min': 0,
                 'offset': 0.6,
-                'phase': 0.0,
-                'scale': 1.0,
+                'phase': 0,
+                'scale': 1,
                 'scaleProfile': 'linear',
                 'target': 'haptic.intensity',
                 'type': 'additive',

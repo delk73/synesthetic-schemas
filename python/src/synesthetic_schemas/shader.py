@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Optional
 
 from pydantic import BaseModel, Extra, Field
 
@@ -15,8 +15,8 @@ class InputParameter(BaseModel):
     name: str = Field(..., title='Name')
     parameter: str = Field(..., title='Parameter')
     path: str = Field(..., title='Path')
-    smoothingTime: float | None = Field(None, title='Smoothingtime')
-    step: float | None = Field(None, title='Step')
+    smoothingTime: Optional[float] = Field(None, title='Smoothingtime')
+    step: Optional[float] = Field(None, title='Step')
     type: str = Field(..., title='Type')
 
 
@@ -31,17 +31,17 @@ class Shader(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    description: str | None = Field(None, title='Description')
+    description: Optional[str] = Field(None, title='Description')
     fragment_shader: str = Field(
         ...,
         description='GLSL fragment shader code',
         examples=['// fragment shader example'],
         title='Fragment Shader',
     )
-    input_parameters: List[InputParameter] | None = Field(
+    input_parameters: Optional[list[InputParameter]] = Field(
         None, title='Input Parameters'
     )
-    meta_info: Dict[str, Any] | None = Field(
+    meta_info: Optional[dict[str, Any]] = Field(
         None,
         description='Metadata about the shader',
         examples=[
@@ -52,7 +52,7 @@ class Shader(BaseModel):
     name: str = Field(
         ..., description='Name of the shader', examples=['Circle Shader'], title='Name'
     )
-    uniforms: List[UniformDef] | None = Field(None, title='Uniforms')
+    uniforms: Optional[list[UniformDef]] = Field(None, title='Uniforms')
     vertex_shader: str = Field(
         ...,
         description='GLSL vertex shader code',

@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -17,38 +17,40 @@ class DeviceOptionValue(BaseModel):
 
 class HapticParameter(BaseModel):
     default: Any = Field(..., description='Default value', title='Default')
-    max: float | None = Field(None, description='Maximum allowed value', title='Max')
-    min: float | None = Field(None, description='Minimum allowed value', title='Min')
+    max: Optional[float] = Field(None, description='Maximum allowed value', title='Max')
+    min: Optional[float] = Field(None, description='Minimum allowed value', title='Min')
     name: str = Field(..., description='Name of the parameter', title='Name')
-    options: List[str] | None = Field(
+    options: Optional[list[str]] = Field(
         None, description='Available options for enum types', title='Options'
     )
     parameter: str = Field(..., description='The parameter', title='Parameter')
     path: str = Field(..., description='Path to the parameter', title='Path')
-    smoothingTime: float | None = Field(
+    smoothingTime: Optional[float] = Field(
         None, description='Smoothing time in seconds', title='Smoothingtime'
     )
-    step: float | None = Field(None, description='Step increment value', title='Step')
+    step: Optional[float] = Field(
+        None, description='Step increment value', title='Step'
+    )
     type: str = Field(..., description='Data type of the parameter', title='Type')
     unit: str = Field(..., description='Unit of measurement', title='Unit')
 
 
 class DeviceConfig(BaseModel):
-    options: Dict[str, DeviceOptionValue] = Field(
+    options: dict[str, DeviceOptionValue] = Field(
         ..., description='Device-specific configuration options', title='Options'
     )
     type: str = Field(..., description='Type of haptic device', title='Type')
 
 
 class Haptic(BaseModel):
-    description: str | None = Field(
+    description: Optional[str] = Field(
         None, description='Description of the haptic configuration', title='Description'
     )
     device: DeviceConfig = Field(..., description='Device configuration')
-    input_parameters: List[HapticParameter] = Field(
+    input_parameters: list[HapticParameter] = Field(
         ..., description='List of input parameters', title='Input Parameters'
     )
-    meta_info: Dict[str, Any] | None = Field(
+    meta_info: Optional[dict[str, Any]] = Field(
         None,
         description='Metadata about the haptic configuration',
         examples=[

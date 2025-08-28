@@ -2,21 +2,47 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-IN_DIR="$ROOT/jsonschema"
-OUT_DIR="$ROOT/python/src/synesthetic_schemas"
+SCHEMAS_DIR="$ROOT/jsonschema"
+BUNDLE_DIR="$ROOT/typescript/tmp/bundled"     # produced by ts_bundle.mjs
+OUT="$ROOT/python/src/synesthetic_schemas"
 
-mkdir -p "$OUT_DIR"
-find "$OUT_DIR" -maxdepth 1 -type f -name "*.py" ! -name "__init__.py" -delete || true
-touch "$OUT_DIR/__init__.py"
-touch "$OUT_DIR/py.typed"
+# 1) Bundle all schemas (no network; uses our custom resolver)
+node "$ROOT/codegen/ts_bundle.mjs"
 
-python -m datamodel_code_generator \
-  --input "$IN_DIR" \
-  --input-file-type jsonschema \
-  --output "$OUT_DIR" \
-  --reuse-model \
-  --collapse-root-models \
-  --target-python-version 3.11 \
-  --field-constraints \
-  --use-union-operator \
+# 2) Clean python package dir and make it importable
+rm -rf "$OUT"
+mkdir -p "$OUT"
+: > "$OUT/__init__.py"
+
+# 3) Decide if the CLI supports the pydantic v2 flag
+EXTRA_FLAGS=()
+if datamodel-codegen --help 2>&1 | grep -q -- '--use-pydantic-v2'; then
+  EXTRA_FLAGS+=(--use-pydantic-v2)
+fi
+
+COMMON_ARGS=(
+  --input-file-type jsonschema
+  --target-python-version 3.11
+  --use-standard-collections
   --disable-timestamp
+)
+
+# 4) Generate one .py per bundled schema (hyphens → underscores)
+for schema in "$BUNDLE_DIR"/*.schema.json; do
+  base="$(basename "$schema")"          # e.g. synesthetic-asset.schema.json
+  mod="${base%.schema.json}"            # synesthetic-asset
+  mod="${mod//-/_}"                     # synesthetic_asset
+  out_py="$OUT/$mod.py"
+
+  if command -v datamodel-codegen >/dev/null 2>&1; then
+    datamodel-codegen "${COMMON_ARGS[@]}" "${EXTRA_FLAGS[@]}" --input "$schema" --output "$out_py"
+  else
+    python -m datamodel_code_generator "${COMMON_ARGS[@]}" "${EXTRA_FLAGS[@]}" --input "$schema" --output "$out_py"
+  fi
+  echo "generated: $(basename "$out_py")"
+done
+
+# 5) Optional format
+if command -v ruff >/dev/null 2>&1; then
+  ruff format "$OUT" >/dev/null || true
+fi
