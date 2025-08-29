@@ -50,6 +50,25 @@ version.json        # Single source of schema version (e.g., 0.7.0)
 
 ---
 
+## Pipeline
+
+```mermaid
+flowchart TD
+  schemas[Canonical Schemas] --> normalize[Normalize]
+  version[version.json] --> normalize
+  normalize --> bundle[Bundle refs]
+  bundle --> codegen_py[Codegen Python]
+  bundle --> codegen_ts[Codegen TypeScript]
+  codegen_py --> validate[Validate + round-trip]
+  codegen_ts --> validate
+  validate --> preflight[Preflight OK]
+  preflight --> ci[CI runs ./preflight.sh]
+```
+
+Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "works on my machine" drift.
+
+---
+
 ## Environment Setup
 
 - Python 3.11 (conda env recommended):
