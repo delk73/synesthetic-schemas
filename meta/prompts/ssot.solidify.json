@@ -221,6 +221,6 @@
     "All examples validate via `$schemaRef` with round-trip clean",
     "No $id collisions or unresolved $ref",
     "Canonical naming without dual-class hedging",
-    "README/CONTRIBUTING updated; new devs probability to succeed first try >= .9"
+    "README/CONTRIBUTING updated; new devs probability to succeed first try > .9"
   ]
 }

@@ -155,7 +155,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.1.0/haptic.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.0/haptic.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "properties": {
     "description": {
@@ -219,5 +219,5 @@
   ],
   "title": "Haptic",
   "type": "object",
-  "x-schema-version": "0.1.0"
+  "x-schema-version": "0.7.0"
 }

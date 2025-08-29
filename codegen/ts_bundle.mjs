@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import $RefParser from "@apidevtools/json-schema-ref-parser";
 import { fileURLToPath } from "node:url";
+import { schemaVersion } from "./lib/version.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -11,7 +12,7 @@ const OUT_DIR = path.join(ROOT, "typescript", "tmp", "bundled");
 await fs.mkdir(OUT_DIR, { recursive: true });
 
 // Map canonical HTTP $id → local file in jsonschema/
-const BASE = "https://schemas.synesthetic.dev/0.1.0/";
+const BASE = `https://schemas.synesthetic.dev/${schemaVersion()}/`;
 const synIdResolver = {
   order: 1,
   canRead(file) {

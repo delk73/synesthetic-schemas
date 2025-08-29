@@ -25,10 +25,20 @@ import sys
 from dataclasses import dataclass
 from typing import Any
 
+# Support version.json single source
+try:
+    # ensure repo root on sys.path so we can import scripts.lib.version
+    ROOT = pathlib.Path(__file__).resolve().parents[1]
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from scripts.lib.version import schema_version  # type: ignore
+except Exception:
+    schema_version = None  # type: ignore
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCHEMA_DIR = ROOT / "jsonschema"
 BASE_URL = "https://schemas.synesthetic.dev"
-VERSION = "0.1.0"
+VERSION = schema_version() if callable(schema_version) else "0.1.0"
 
 # Files that may keep additionalProperties=true at root
 ALLOW_ADDITIONAL_PROPS = {"tone.schema.json", "haptic.schema.json"}
@@ -137,6 +147,24 @@ def _recurse_strip(root: dict[str, Any], node: Any) -> None:
                 _recurse_strip(root, it)
 
 
+def _rewrite_abs_refs_to_version(node: Any, base_url: str, version: str) -> None:
+    """
+    Rewrite absolute $ref values pointing to any schemas.synesthetic.dev/<ver>/X.schema.json
+    so that <ver> is replaced with the current VERSION.
+    """
+    if isinstance(node, dict):
+        ref = node.get("$ref")
+        if isinstance(ref, str) and ref.startswith(base_url + "/") and ref.endswith(".schema.json"):
+            # normalize to current version regardless of prior version present
+            name = ref.rsplit("/", 1)[-1]
+            node["$ref"] = f"{base_url}/{version}/{name}"
+        for v in node.values():
+            _rewrite_abs_refs_to_version(v, base_url, version)
+    elif isinstance(node, list):
+        for v in node:
+            _rewrite_abs_refs_to_version(v, base_url, version)
+
+
 @dataclass
 class Offense:
     file: str
@@ -242,6 +270,9 @@ def normalize_file(fp: pathlib.Path, check_only: bool) -> tuple[dict[str, Any], 
     # strip rule
     _recurse_strip(data, data)
 
+    # rewrite absolute $ref URLs to current VERSION for stability
+    _rewrite_abs_refs_to_version(data, BASE_URL, VERSION)
+
     offenses: list[Offense] = []
     if check_only:
         _find_optional_enum_defaults(data, data, [], offenses)
@@ -260,17 +291,33 @@ def main() -> int:
     all_offenses: list[Offense] = []
 
     for fp in sorted(SCHEMA_DIR.glob("*.schema.json")):
+        original = load_json(fp)
         data, offenses = normalize_file(fp, check_only=args.check)
-        save_json(fp, data)
-        print(f"normalized: {fp.name}")
+
+        # In --check mode, do not write; ensure normalized equals original
+        if args.check:
+            if original != data:
+                print(f"❌ not normalized: {fp.name}")
+                # optional: show a minimal hint (avoid huge diffs)
+                # users should run normalize without --check to rewrite
+                all_offenses.append(Offense(file=fp.name, path="<normalized>", default=None, enum=[]))
+            else:
+                print(f"ok: {fp.name}")
+        else:
+            save_json(fp, data)
+            print(f"normalized: {fp.name}")
         total += 1
         all_offenses.extend(offenses)
 
-    if args.check and all_offenses:
-        print("❌ Optional enum defaults found (disallowed):")
-        for v in all_offenses:
-            print(f" - {v.file}: {v.path} (default={v.default}, enum={v.enum})")
-        return 1
+    if args.check:
+        offenses_only = [o for o in all_offenses if o.path != "<normalized>"]
+        not_normalized = any(o.path == "<normalized>" for o in all_offenses)
+        if offenses_only:
+            print("❌ Optional enum defaults found (disallowed):")
+            for v in offenses_only:
+                print(f" - {v.file}: {v.path} (default={v.default}, enum={v.enum})")
+        if offenses_only or not_normalized:
+            return 1
 
     print(f"done. files: {total}")
     return 0

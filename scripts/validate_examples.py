@@ -3,20 +3,29 @@
 # pyright: reportMissingImports=false
 
 """
-Validate examples/ against:
-  1) JSON Schemas in jsonschema/ (Draft 2020-12)
-  2) Generated Pydantic v2 models in python/src/synesthetic_schemas/
-Also round-trips JSON -> model -> JSON (exclude None/defaults) and diffs shapes.
+Validate example JSON against canonical schemas and generated models.
+
+Supports:
+  - $schemaRef at file root to pick schema deterministically (preferred)
+  - Fallback to filename token heuristics if $schemaRef absent (unless --strict)
+  - Validate against JSON Schema (Draft 2020-12) with local ref store
+  - Validate via Pydantic v2 models and round-trip compare (pruning defaults)
+
+CLI:
+  --file <path>    Validate a single file
+  --dir  <path>    Validate all *.json under a directory (recursively)
+  --strict         Require $schemaRef; disallow filename heuristics
 
 Exit codes: 0 OK, 1 validation errors, 2 setup issues.
 """
 
 from __future__ import annotations
+import argparse
 import importlib
 import json
 import pathlib
 import sys
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Tuple, List, Optional
 
 # --- repo dirs
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -47,6 +56,19 @@ TOKENS = {
 
     "rule-bundle":      ("rule_bundle",       "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
     "rule":             ("rule",              "Rule|RuleSchema", "rule.schema.json"),
+}
+
+# Map schema file name → (python module, candidate class names)
+SCHEMA_TO_MODEL: Dict[str, Tuple[str, str]] = {
+    "synesthetic-asset.schema.json": ("synesthetic_asset", "SynestheticAsset"),
+    "control-bundle.schema.json": ("control_bundle", "ControlBundle|ControlBundleSchema"),
+    "control.schema.json": ("control", "Control|ControlParameter"),
+    "shader.schema.json": ("shader", "Shader"),
+    "tone.schema.json": ("tone", "Tone"),
+    "haptic.schema.json": ("haptic", "Haptic"),
+    "modulation.schema.json": ("modulation", "Modulation|ModulationItem"),
+    "rule-bundle.schema.json": ("rule_bundle", "RuleBundle|RuleBundleSchema"),
+    "rule.schema.json": ("rule", "Rule|RuleSchema"),
 }
 
 # Round-trip keys to ignore entirely (pydantic may normalize heavily)
@@ -127,11 +149,33 @@ def _validator_for(schema_name: str) -> Draft202012Validator:
     resolver = jsonschema.RefResolver.from_schema(schema, store=store)  # internal use is fine
     return Draft202012Validator(schema, resolver=resolver)
 
-def _pick_model_and_schema(example_path: pathlib.Path):
+def _pick_model_and_schema(example_path: pathlib.Path, data: Dict[str, Any], strict: bool = False):
+    """Return (model_cls or None, schema_file or None, reason_if_none).
+    Prefers $schemaRef; falls back to filename tokens unless strict.
     """
-    Return (model_cls or None, schema_file or None, reason_if_none).
-    Picks by filename tokens; imports module; selects first class that exists.
-    """
+    # 1) Prefer $schemaRef at root
+    ref = data.get("$schemaRef")
+    if isinstance(ref, str):
+        schema_file: Optional[str] = None
+        if ref.startswith("http://") or ref.startswith("https://"):
+            schema_file = ref.rsplit("/", 1)[-1]
+        else:
+            schema_file = pathlib.Path(ref).name
+        if schema_file in SCHEMA_TO_MODEL:
+            module_name, candidates = SCHEMA_TO_MODEL[schema_file]
+            try:
+                mod = importlib.import_module(f"synesthetic_schemas.{module_name}")
+            except Exception as e:
+                return None, None, f"import failed: synesthetic_schemas.{module_name}: {e}"
+            for cls_name in candidates.split("|"):
+                if hasattr(mod, cls_name):
+                    return getattr(mod, cls_name), schema_file, ""
+            return None, None, f"no candidate class in synesthetic_schemas.{module_name} (tried {candidates})"
+        return None, None, f"$schemaRef not recognized: {ref}"
+
+    # 2) Fallback to filename tokens (unless strict)
+    if strict:
+        return None, None, "$schemaRef required in strict mode"
     n = example_path.name.lower()
     for token, (module_name, candidates, schema_file) in TOKENS.items():
         if token in n:
@@ -146,30 +190,41 @@ def _pick_model_and_schema(example_path: pathlib.Path):
     return None, None, f"no filename token match (expected one of: {list(TOKENS.keys())})"
 
 def _should_skip(p: pathlib.Path) -> bool:
-    parts = p.relative_to(EXAMPLES_DIR).parts
+    # Try to make path relative to examples dir; if not under it, use its own parts
+    try:
+        parts = p.resolve().relative_to(EXAMPLES_DIR).parts
+    except Exception:
+        parts = p.parts
     return any(part.startswith("_") for part in parts[:-1])  # skip dirs like examples/_skip/...
 
-def validate_file(p: pathlib.Path) -> list[str]:
+def validate_file(p: pathlib.Path, strict: bool = False) -> list[str]:
     errs: list[str] = []
     try:
         data = json.loads(p.read_text())
     except Exception as e:
         return [f"{p.name}: invalid JSON: {e}"]
 
-    model_cls, schema_name, why = _pick_model_and_schema(p)
+    # Determine model/schema, prefer $schemaRef on raw data
+    model_cls, schema_name, why = _pick_model_and_schema(p, data, strict=strict)
     if model_cls is None or schema_name is None:
         return [f"{p.name}: could not determine model/schema -> {why}"]
+
+    # Strip transport-only metadata at root (e.g., $schemaRef, $schema)
+    if isinstance(data, dict):
+        data_clean: Any = {k: v for k, v in data.items() if not (isinstance(k, str) and k.startswith("$"))}
+    else:
+        data_clean = data
 
     # 1) JSON Schema validation
     try:
         v = _validator_for(schema_name)
-        v.validate(data)
+        v.validate(data_clean)
     except Exception as e:
         errs.append(f"{p.name}: JSON Schema validation failed: {e}")
 
     # 2) Pydantic validation + round-trip
     try:
-        model = model_cls.model_validate(data)
+        model = model_cls.model_validate(data_clean)
         out = model.model_dump(
             mode="json",
             exclude_none=True,
@@ -177,7 +232,7 @@ def validate_file(p: pathlib.Path) -> list[str]:
             exclude_defaults=True,
         )
 
-        in_norm = _normalize(_prune_defaults(json.loads(json.dumps(data))))
+        in_norm = _normalize(_prune_defaults(json.loads(json.dumps(data_clean))))
         out_norm = _normalize(_prune_defaults(json.loads(json.dumps(out))))
 
         # ignore some noisy top-levels entirely (until their shapes stabilize)
@@ -197,22 +252,44 @@ def validate_file(p: pathlib.Path) -> list[str]:
 
     return errs
 
-def main() -> int:
-    if not EXAMPLES_DIR.exists():
-        print(f"examples dir missing: {EXAMPLES_DIR}")
-        return 2
+def _gather_files(path: Optional[str]) -> list[pathlib.Path]:
+    if path is None:
+        base = EXAMPLES_DIR
+        if not base.exists():
+            print(f"examples dir missing: {base}")
+            return []
+        return sorted(p for p in base.rglob("*.json") if p.is_file() and not _should_skip(p))
+    p = pathlib.Path(path)
+    # Resolve relative path from repo root to avoid mixed absolute/relative issues
+    if not p.is_absolute():
+        p = (ROOT / p).resolve()
+    else:
+        p = p.resolve()
+    if p.is_dir():
+        return sorted(q for q in p.rglob("*.json") if q.is_file() and not _should_skip(q))
+    if p.is_file():
+        return [p]
+    print(f"path not found: {p}")
+    return []
 
-    files = sorted(
-        p for p in EXAMPLES_DIR.rglob("*.json")
-        if p.is_file() and not _should_skip(p)
-    )
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--file", dest="file", help="Validate a single file")
+    ap.add_argument("--dir", dest="dir", help="Validate all json under a directory")
+    ap.add_argument("--strict", action="store_true", help="Require $schemaRef; no filename fallback")
+    args = ap.parse_args()
+
+    # precedence: --file over --dir; else default examples/
+    chosen = args.file or args.dir
+    files = _gather_files(chosen)
     if not files:
-        print("No example JSON files found in examples/ (excluding _skip/)")
+        print("No example JSON files found (respecting _skip/) or invalid path")
         return 2
 
     all_errs: list[str] = []
     for f in files:
-        all_errs += validate_file(f)
+        all_errs += validate_file(f, strict=args.strict)
 
     if all_errs:
         for e in all_errs:
