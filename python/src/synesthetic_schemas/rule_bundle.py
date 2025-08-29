@@ -35,18 +35,12 @@ class RuleBundleSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    created_at: Optional[datetime] = Field(
-        None, description='Creation time', title='Created At'
-    )
-    description: Optional[str] = Field(
-        None, description='Bundle details', title='Description'
-    )
+    created_at: Optional[datetime] = Field(None, description='Creation time', title='Created At')
+    description: Optional[str] = Field(None, description='Bundle details', title='Description')
     id: Optional[int] = Field(None, description='Database ID', title='Id')
     meta_info: Optional[dict[str, Any]] = Field(
         None, description='Metadata about the rule bundle', title='Meta Info'
     )
     name: str = Field(..., description='Human readable bundle name', title='Name')
     rules: list[RuleSchema] = Field(..., description='List of rules', title='Rules')
-    updated_at: Optional[datetime] = Field(
-        None, description='Last update time', title='Updated At'
-    )
+    updated_at: Optional[datetime] = Field(None, description='Last update time', title='Updated At')

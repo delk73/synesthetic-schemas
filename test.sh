@@ -5,8 +5,12 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # --- Helpers ---------------------------------------------------------------
 run_py () {
-  # Prefer your conda env if present; otherwise use whatever "python" is.
-  if command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s'; then
+  # Prefer Poetry environment; fallback to conda env; else system python.
+  if command -v poetry >/dev/null 2>&1; then
+    (
+      cd "$ROOT" && poetry run python "$@"
+    )
+  elif command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s'; then
     conda run -n schemas311 python "$@"
   else
     python "$@"
@@ -19,8 +23,10 @@ run_py "$ROOT/scripts/normalize_schemas.py"
 
 # --- 2) Regenerate code ----------------------------------------------------
 echo "◼︎ Generating Python models…"
-if command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s'; then
-  conda run -n schemas311 bash "$ROOT/codegen/gen_py.sh"
+if command -v poetry >/dev/null 2>&1; then
+  (
+    cd "$ROOT" && poetry run bash "$ROOT/codegen/gen_py.sh"
+  )
 else
   bash "$ROOT/codegen/gen_py.sh"
 fi
