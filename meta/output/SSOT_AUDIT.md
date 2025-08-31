@@ -10,7 +10,7 @@ owner: backend@generative
 **Constraints**
 - KISS, deterministic, minimal deps; Python 3.11; JSON Schema draft 2020-12.
 - Read-only scan; no DB migrations; no stdout side-effects.
-- Output only to `meta/SSOT_AUDIT.md`.
+- Output only to `meta/output/SSOT_AUDIT.md`.
 
 **Phases**
 - A1 — Foundations
