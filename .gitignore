@@ -1,65 +1,19 @@
-# -------------------------
-# Python
-# -------------------------
+# General cache
+.cache/
+
+# Python cache and artifacts
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.pyd
-*.pdb
-*.egg-info/
-*.egg
-.eggs/
-dist/
-build/
-.python-version
-.venv/
-venv/
-.env
-.env.*
-.mypy_cache/
 .pytest_cache/
-coverage.*
-*.cover
-htmlcov/
+.mypy_cache/
 
-# -------------------------
-# Node / TypeScript
-# -------------------------
-typescript/tmp/
+# Node.js
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-package-lock.json
-pnpm-lock.yaml
-yarn.lock
 
-# TypeScript build
-*.tsbuildinfo
-
-# -------------------------
-# Codegen outputs
-# -------------------------
-# (we keep generated models under version control intentionally,
-#  but you may uncomment if you prefer to exclude)
-# python/src/synesthetic_schemas/
-# typescript/src/
-
-# -------------------------
-# IDE / Editors
-# -------------------------
+# IDE configuration
 .vscode/
 .idea/
-*.swp
-*.swo
-*.bak
-*.tmp
-*~
 
-# -------------------------
-# OS cruft
-# -------------------------
+# OS-generated files
 .DS_Store
 Thumbs.db
