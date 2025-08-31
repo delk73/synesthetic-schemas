@@ -11,7 +11,7 @@ PY := $(shell \
   elif command -v poetry >/dev/null 2>&1; then \
     echo "poetry run python"; \
   else \
-    echo "python"; \
+    echo "python3"; \
   fi)
 
 .PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version
