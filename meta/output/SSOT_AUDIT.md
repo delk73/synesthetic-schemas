@@ -1,6 +1,6 @@
 ---
 version: v0.1
-lastReviewed: 2025-08-30
+lastReviewed: 2025-08-31
 owner: backend@generative
 ---
 
@@ -38,85 +38,62 @@ owner: backend@generative
 - Status: PASS
 - Details:
   - version.json:2 → "schemaVersion": "0.7.0"
-  - Occurrences of 'schemaVersion' outside `version.json` within scope: 0
-  - scripts/lib/version.py:12 → `p = ROOT / "version.json"`
-  - codegen/lib/version.mjs:8 → `path.join(__dirname, "..", "..", "version.json")`
+  - References outside `version.json` read the canonical file (no duplicated constants):
+    - scripts/lib/version.py:14 → loads version.json
+    - codegen/lib/version.mjs:12 → reads version.json
+    - scripts/bump_version.py:19,23 → reads/writes version.json
 
 ### C2 — Typed Python dist marker
 - Status: PASS
 - Details:
-  - python/src/synesthetic_schemas/py.typed:1 → present (empty file allowed)
+  - python/src/synesthetic_schemas/py.typed → present (empty file)
+  - codegen/gen_py.sh ensures `py.typed` is recreated after codegen
 
 ### C3 — Schema lint: $id uniqueness and draft
 - Status: PASS
-- Details ($id present, 9/9):
-  - jsonschema/control-bundle.schema.json:2 → "$id": "https://schemas.synesthetic.dev/0.7.0/control-bundle.schema.json"
-  - jsonschema/control.schema.json:127 → "$id": "https://schemas.synesthetic.dev/0.7.0/control.schema.json"
-  - jsonschema/haptic.schema.json:158 → "$id": "https://schemas.synesthetic.dev/0.7.0/haptic.schema.json"
-  - jsonschema/modulation.schema.json:114 → "$id": "https://schemas.synesthetic.dev/0.7.0/modulation.schema.json"
-  - jsonschema/rule-bundle.schema.json:98 → "$id": "https://schemas.synesthetic.dev/0.7.0/rule-bundle.schema.json"
-  - jsonschema/rule.schema.json:2 → "$id": "https://schemas.synesthetic.dev/0.7.0/rule.schema.json"
-  - jsonschema/shader.schema.json:98 → "$id": "https://schemas.synesthetic.dev/0.7.0/shader.schema.json"
-  - jsonschema/synesthetic-asset.schema.json:2 → "$id": "https://schemas.synesthetic.dev/0.7.0/synesthetic-asset.schema.json"
-  - jsonschema/tone.schema.json:330 → "$id": "https://schemas.synesthetic.dev/0.7.0/tone.schema.json"
-- Details ($schema draft 2020-12, 9/9):
-  - jsonschema/control-bundle.schema.json:3 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/control.schema.json:128 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/haptic.schema.json:159 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/modulation.schema.json:115 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/rule-bundle.schema.json:99 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/rule.schema.json:3 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/shader.schema.json:99 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/synesthetic-asset.schema.json:3 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-  - jsonschema/tone.schema.json:331 → "$schema": "https://json-schema.org/draft/2020-12/schema"
-- Duplicate $id values: 0 detected
+- Details ($id present, all schemas):
+  - jsonschema/control-bundle.schema.json → $id present
+  - jsonschema/control.schema.json → $id present
+  - jsonschema/haptic.schema.json → $id present
+  - jsonschema/modulation.schema.json → $id present
+  - jsonschema/rule-bundle.schema.json → $id present
+  - jsonschema/rule.schema.json → $id present
+  - jsonschema/shader.schema.json → $id present
+  - jsonschema/synesthetic-asset.schema.json → $id present
+  - jsonschema/tone.schema.json → $id present
+- Details ($schema draft 2020-12, all schemas): confirmed `https://json-schema.org/draft/2020-12/schema`
+- Duplicate $id values: none detected
 
 ### C4 — Examples reference schemas explicitly
 - Status: PASS
-- Details ($schemaRef present, 14/14):
-  - examples/Control-Bundle_Example.json:2 → "$schemaRef": "jsonschema/control-bundle.schema.json"
-  - examples/Haptic_Example.json:2 → "$schemaRef": "jsonschema/haptic.schema.json"
-  - examples/Rule-Bundle_Example.json:2 → "$schemaRef": "jsonschema/rule-bundle.schema.json"
-  - examples/Shader_Example.json:2 → "$schemaRef": "jsonschema/shader.schema.json"
-  - examples/SynestheticAsset_Example1.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example2.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example3.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example4.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example5.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example6.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example7.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example8.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/SynestheticAsset_Example9.json:2 → "$schemaRef": "jsonschema/synesthetic-asset.schema.json"
-  - examples/Tone_Example.json:2 → "$schemaRef": "jsonschema/tone.schema.json"
+- Details ($schemaRef present for examples/*.json):
+  - examples/Control-Bundle_Example.json → jsonschema/control-bundle.schema.json
+  - examples/Haptic_Example.json → jsonschema/haptic.schema.json
+  - examples/Rule-Bundle_Example.json → jsonschema/rule-bundle.schema.json
+  - examples/Shader_Example.json → jsonschema/shader.schema.json
+  - examples/Tone_Example.json → jsonschema/tone.schema.json
+  - examples/SynestheticAsset_Example1..9.json → jsonschema/synesthetic-asset.schema.json
 
 ### C5 — Deterministic codegen + CI parity
-- Status: FAIL
+- Status: PASS
 - Details:
-  - codegen/gen_ts.sh:7 → bundles locally via `node "$ROOT/codegen/ts_bundle.mjs"` (repo-local; no npx)
-  - codegen/gen_ts.sh:18 → uses repo-local CLI `"$ROOT/node_modules/.bin/json2ts"`
-  - scripts/ensure_codegen_clean.sh:11 → `git diff -I ...` (missing `--exit-code`; drift guard ineffective)
-  - Makefile:50 → target `preflight: normalize-check schema-lint codegen-check validate`
-  - preflight.sh:11 → `make codegen-check` (mirrors Makefile pipeline)
-  - .github/workflows/ci.yml:37 → `bash ./preflight.sh` (CI parity confirmed)
+  - codegen/gen_ts.sh → bundles with repo-local tooling; uses `$ROOT/node_modules/.bin/json2ts`
+  - scripts/ensure_codegen_clean.sh:11 → `git diff --exit-code -I <timestamp regexes> -- python/src typescript/src` (fails on real diffs)
+  - Makefile: defines `preflight` as `normalize-check schema-lint codegen-check validate`
+  - preflight.sh: runs `make codegen-check` and `make validate` (parity with Makefile)
+  - .github/workflows/ci.yml: runs `bash ./preflight.sh` (CI parity confirmed)
 
 ### C6 — Naming & docs guardrails
-- Status: WARN
+- Status: PASS
 - Details:
-  - Dual-class tokens present:
-    - jsonschema/rule-bundle.schema.json:224 → "title": "RuleBundleSchema"
-    - scripts/validate_examples.py:49 → "ControlBundle|ControlBundleSchema"
-    - scripts/validate_examples.py:57 → "RuleBundle|RuleBundleSchema"
-    - scripts/validate_examples.py:64 → "ControlBundle|ControlBundleSchema"
-    - scripts/validate_examples.py:65 → "Control|ControlParameter"
-    - scripts/validate_examples.py:70 → "RuleBundle|RuleBundleSchema"
-  - Repeated defs tokens: confined to `shader.schema.json` `$defs` (no cross-schema duplication)
-  - Docs mention version bump and preflight:
-    - CONTRIBUTING.md:34 → `make bump-version VERSION=X.Y.Z`
-    - README.md:104 → `./preflight.sh`
-    - README.md:65 → CI runs `./preflight.sh`
+  - Canonical names enforced in validator mappings: `RuleBundle`, `ControlBundle`, `Control`, `Rule`, `Modulation` (no dual-class hedges)
+  - jsonschema/rule.schema.json → title "Rule" (was "RuleSchema")
+  - jsonschema/rule-bundle.schema.json → title "RuleBundle"; `$defs` key renamed to `Rule` and `$ref` updated
+  - scripts/validate_examples.py → no `RuleBundleSchema|ControlParameter|ControlBundleSchema` tokens
+  - CONTRIBUTING.md documents naming conventions and preflight/version workflows
 
 ---
-PASS summary: C1, C2, C3, C4
-WARN summary: C6 (naming hedges present; consider standardizing names or documenting rationale)
-FAIL summary: C5 (drift guard missing `git diff --exit-code`)
+PASS summary: C1, C2, C3, C4, C5, C6
+WARN summary: (none)
+FAIL summary: (none)
 

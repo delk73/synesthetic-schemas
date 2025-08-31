@@ -13,6 +13,7 @@ node "$ROOT/codegen/ts_bundle.mjs"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 : > "$OUT/__init__.py"
+: > "$OUT/py.typed"
 
 # 3) Decide if the CLI supports the pydantic v2 flag
 EXTRA_FLAGS=()
@@ -46,3 +47,6 @@ done
 if command -v ruff >/dev/null 2>&1; then
   ruff format "$OUT" >/dev/null || true
 fi
+
+# Ensure py.typed exists for typed package distribution
+: > "$OUT/py.typed"
