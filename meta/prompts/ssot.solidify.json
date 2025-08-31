@@ -7,8 +7,14 @@
     "no_db_migrations": true
   },
   "phases": [
-    { "id": "P3", "name": "Deterministic Codegen & CI" },
-    { "id": "P4", "name": "Naming/Schema Hygiene & Docs" }
+    {
+      "id": "P3",
+      "name": "Deterministic Codegen & CI"
+    },
+    {
+      "id": "P4",
+      "name": "Naming/Schema Hygiene & Docs"
+    }
   ],
   "work_items": [
     {
@@ -16,69 +22,71 @@
       "phase": "P3",
       "summary": "Fix codegen drift guard to fail on real diffs",
       "deps": [],
-      "touches": ["scripts/ensure_codegen_clean.sh"],
+      "touches": [
+        "scripts/ensure_codegen_clean.sh"
+      ],
       "changes": {
         "ensure_codegen_clean.sh": [
-          "Replace 'git diff -I ... -- python/src typescript/src >/dev/null' with 'git diff -I ... --quiet -- python/src typescript/src' (or add '--exit-code').",
-          "Keep timestamp-ignoring patterns; retain checkout cleanup for timestamp-only diffs."
+          "Modify the 'git diff' command on line 11 to include '--exit-code'. The command will correctly exit with a non-zero status code if there are uncommitted changes in the codegen directories.",
+          "Example update from 'git diff -I ...' to 'git diff --exit-code -I ...'."
         ]
       },
       "acceptance": [
-        "On a clean tree after codegen, script exits 0 and prints 'Codegen is clean'.",
-        "With uncommitted generated changes, script exits 1 and shows a diff (excluding timestamp-only lines).",
-        "CI preflight continues to call this script and fails on drift."
+        "On a clean tree after codegen, the script exits 0.",
+        "With uncommitted generated changes, the script exits with a non-zero code.",
+        "CI preflight continues to call this script and correctly fails on drift."
       ],
       "commands": [
         "bash scripts/ensure_codegen_clean.sh",
-        "git diff --name-only -- python/src typescript/src"
+        "make codegen-check"
       ]
     },
     {
       "id": "R2",
       "phase": "P4",
       "summary": "Canonicalize names and remove dual-class hedging",
-      "deps": [],
+      "deps": [
+        "R1"
+      ],
       "touches": [
         "scripts/validate_examples.py",
-        "jsonschema/rule-bundle.schema.json",
-        "jsonschema/control.schema.json (title only if needed)",
-        "README.md",
-        "CONTRIBUTING.md"
+        "jsonschema/rule-bundle.schema.json"
       ],
       "changes": {
-        "decision": "Use canonical names: RuleBundle, ControlBundle, Control. Avoid '*Schema' and 'ControlParameter' in code paths.",
+        "decision": "Standardize on canonical names (e.g., 'RuleBundle', 'ControlBundle', 'Control') and remove alternate forms like '*Schema' and 'ControlParameter' from logic and titles.",
         "validate_examples.py": [
-          "Update TOKENS and SCHEMA_TO_MODEL to drop alternates like 'RuleBundle|RuleBundleSchema', 'ControlBundle|ControlBundleSchema', 'Control|ControlParameter'; keep only canonical names.",
-          "Adjust imports/class lookups accordingly."
+          "Update the regular expressions or string comparisons on lines 49, 57, 64, 65, 70 to remove the '|' alternates (e.g., change 'RuleBundle|RuleBundleSchema' to just 'RuleBundle')."
         ],
         "schemas": [
-          "If schema 'title' uses '*Schema' (e.g., RuleBundleSchema), rename to canonical (RuleBundle) and run normalization.",
-          "Bump version.json if schema content changes; regenerate code (preflight-fix path)."
+          "In 'jsonschema/rule-bundle.schema.json', change the 'title' on line 224 from 'RuleBundleSchema' to 'RuleBundle' to match the convention."
         ],
         "docs": [
-          "Document the naming decision in CONTRIBUTING.md (no dual-class hedging).",
-          "Ensure README still reflects preflight and version bump guidance."
+          "Consider adding a note to CONTRIBUTING.md documenting the standard naming convention to prevent future drift."
         ]
       },
       "acceptance": [
-        "`rg -n \"RuleBundleSchema|ControlParameter|ControlBundleSchema\"` returns no matches in repo (excluding meta/ and _skip).",
-        "`poetry/conda python` run of `scripts/validate_examples.py --strict --dir examples` passes.",
-        "`./preflight.sh` passes locally and in CI after changes."
+        "`rg -n \"RuleBundleSchema|ControlParameter|ControlBundleSchema\"` returns no matches in the specified code paths.",
+        "The example validation script passes after the changes: `python scripts/validate_examples.py`.",
+        "`./preflight.sh` passes locally and in CI after changes are committed."
       ],
       "commands": [
-        "rg -n 'RuleBundleSchema|ControlParameter|ControlBundleSchema' --glob '!*meta/**' --glob '!examples/_skip/**'",
-        "PYTHONPATH=python/src python scripts/validate_examples.py --strict --dir examples",
+        "rg -n 'RuleBundleSchema|ControlParameter|ControlBundleSchema'",
+        "python scripts/validate_examples.py",
         "./preflight.sh"
       ]
     }
   ],
   "parallelization": {
-    "P3": ["R1"],
-    "P4": ["R2"]
+    "P3": [
+      "R1"
+    ],
+    "P4": [
+      "R2"
+    ]
   },
   "done_definition": [
-    "scripts/ensure_codegen_clean.sh uses '--quiet' or '--exit-code' and fails on drift",
-    "No dual-class naming hedges remain (grep clean)",
-    "Preflight passes locally and in CI"
+    "scripts/ensure_codegen_clean.sh uses '--exit-code' and fails correctly on drift.",
+    "No dual-class naming hedges remain in the codebase.",
+    "Preflight passes locally and in CI, confirming all changes are integrated and clean."
   ]
 }
