@@ -100,22 +100,25 @@
     {
       "id": "C6",
       "phase": "A4",
-      "summary": "Naming & docs guardrails",
+      "summary": "Naming & docs hygiene",
       "deps": [],
       "touches": ["jsonschema/*.schema.json", "README.md", "CONTRIBUTING.md", "scripts/validate_examples.py"],
       "audit": [
-        "Search for dual-class tokens (RuleBundleSchema|ControlParameter|ControlBundleSchema)",
-        "Scan for repeated defs (InputParameter|UniformDef) that should live in $defs",
-        "Check that README.md and CONTRIBUTING.md exist and describe version bump + preflight"
+        "**Schema `title` Convention:** Verify all schema `title` properties use PascalCase and are canonical (e.g., 'RuleBundle', not 'RuleBundleSchema').",
+        "**Schema `$defs` Convention:** Verify keys inside `$defs` also use PascalCase.",
+        "**Dual-Class Hedging:** Search for legacy dual-class tokens (e.g., 'Rule|RuleSchema') in validator scripts to ensure they have been removed.",
+        "**Repeated Definitions:** Scan for repeated inline object definitions that should be factored into a central `$defs` section.",
+        "**Contributor Docs:** Check that README.md and CONTRIBUTING.md exist and describe the version bump process and the use of the preflight script."
       ],
       "acceptance": [
-        "No dual-class hedging remains",
-        "Repeated defs factored into $defs or justified",
-        "Contributor docs explain version bump and preflight"
+        "Schema titles are canonical and free of suffixes like 'Schema' or 'Def'.",
+        "No dual-class naming hedges remain in scripts or code.",
+        "Repeated definitions are justified or refactored into `$defs`.",
+        "Contributor docs explain essential workflows (versioning, preflight)."
       ],
       "commands": [
-        "rg -n \"RuleBundleSchema|ControlParameter|ControlBundleSchema\" || true",
-        "rg -n \"InputParameter|UniformDef\" jsonschema || true"
+        "rg -n 'Schema\"|Def\"|Object\"' jsonschema",
+        "rg -n '\\|' scripts/validate_examples.py"
       ]
     }
   ],
