@@ -43,10 +43,5 @@ for schema in "$BUNDLE_DIR"/*.schema.json; do
   echo "generated: $(basename "$out_py")"
 done
 
-# 5) Optional format
-if command -v ruff >/dev/null 2>&1; then
-  ruff format "$OUT" >/dev/null || true
-fi
-
-# Ensure py.typed exists for typed package distribution
+# Ensure py.typed exists for typed package distribution (keep deterministic)
 : > "$OUT/py.typed"

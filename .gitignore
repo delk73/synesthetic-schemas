@@ -9,6 +9,7 @@ __pycache__/
 
 # Node.js
 node_modules/
+typescript/tmp/
 
 # IDE configuration
 .vscode/
