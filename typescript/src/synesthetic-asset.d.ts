@@ -238,7 +238,7 @@ export type Trigger = {
 /**
  * List of rules
  */
-export type Rules = RuleSchema[];
+export type Rules = Rule[];
 /**
  * Last update time
  */
@@ -407,7 +407,7 @@ export interface SynestheticAsset {
   modulation?: Modulation | null;
   modulations?: Modulations1;
   name: Name4;
-  rule_bundle?: RuleBundleSchema;
+  rule_bundle?: RuleBundle;
   shader?: Shader | null;
   tone?: Tone | null;
   updated_at?: string;
@@ -518,7 +518,7 @@ export interface ModulationItem {
   waveform: Waveform;
   [k: string]: unknown;
 }
-export interface RuleBundleSchema {
+export interface RuleBundle {
   created_at?: CreatedAt;
   description?: Description4;
   id?: Id1;
@@ -536,7 +536,7 @@ export interface MetaInfo4 {
 /**
  * Representation of a single rule within a bundle.
  */
-export interface RuleSchema {
+export interface Rule {
   effects?: Effects;
   execution?: Execution;
   expr?: Expr;

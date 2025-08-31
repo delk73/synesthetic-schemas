@@ -67,6 +67,7 @@ CI enforces that the working tree is clean after codegen (`scripts/ensure_codege
 ## Naming Hygiene
 
 - Prefer a single canonical class/name per concept. Avoid dual‑class hedging in validators and tokens.
+- Canonical names: `RuleBundle`, `ControlBundle`, `Control` (avoid `*Schema` and `ControlParameter` in titles, tokens, or validator lookups).
 
 ## Commit Hygiene
 
@@ -76,4 +77,3 @@ CI enforces that the working tree is clean after codegen (`scripts/ensure_codege
 ## Need Help?
 
 Open an issue or start a draft PR describing the intent; maintainers will help align with the SSOT pipeline.
-

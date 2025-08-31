@@ -90,7 +90,7 @@
   "required": [
     "id"
   ],
-  "title": "RuleSchema",
+  "title": "Rule",
   "type": "object",
   "x-schema-version": "0.7.0"
 }

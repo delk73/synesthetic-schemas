@@ -46,29 +46,29 @@ TOKENS = {
     "synestheticasset": ("synesthetic_asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
     "asset":            ("synesthetic_asset", "SynestheticAsset", "synesthetic-asset.schema.json"),
 
-    "control-bundle":   ("control_bundle",    "ControlBundle|ControlBundleSchema", "control-bundle.schema.json"),
+    "control-bundle":   ("control_bundle",    "ControlBundle", "control-bundle.schema.json"),
     "control":          ("control",           "Control", "control.schema.json"),
 
-    "shaderlib":        ("shader_lib",        "ShaderLib|ShaderLibrary", "shader_lib.schema.json"),
+    # canonical shader only; deprecated 'shaderlib' token removed
     "shader":           ("shader",            "Shader", "shader.schema.json"),
     "tone":             ("tone",              "Tone", "tone.schema.json"),
     "haptic":           ("haptic",            "Haptic", "haptic.schema.json"),
 
-    "rule-bundle":      ("rule_bundle",       "RuleBundle|RuleBundleSchema", "rule-bundle.schema.json"),
-    "rule":             ("rule",              "Rule|RuleSchema", "rule.schema.json"),
+    "rule-bundle":      ("rule_bundle",       "RuleBundle", "rule-bundle.schema.json"),
+    "rule":             ("rule",              "Rule", "rule.schema.json"),
 }
 
 # Map schema file name → (python module, candidate class names)
 SCHEMA_TO_MODEL: Dict[str, Tuple[str, str]] = {
     "synesthetic-asset.schema.json": ("synesthetic_asset", "SynestheticAsset"),
-    "control-bundle.schema.json": ("control_bundle", "ControlBundle|ControlBundleSchema"),
-    "control.schema.json": ("control", "Control|ControlParameter"),
+    "control-bundle.schema.json": ("control_bundle", "ControlBundle"),
+    "control.schema.json": ("control", "Control"),
     "shader.schema.json": ("shader", "Shader"),
     "tone.schema.json": ("tone", "Tone"),
     "haptic.schema.json": ("haptic", "Haptic"),
-    "modulation.schema.json": ("modulation", "Modulation|ModulationItem"),
-    "rule-bundle.schema.json": ("rule_bundle", "RuleBundle|RuleBundleSchema"),
-    "rule.schema.json": ("rule", "Rule|RuleSchema"),
+    "modulation.schema.json": ("modulation", "Modulation"),
+    "rule-bundle.schema.json": ("rule_bundle", "RuleBundle"),
+    "rule.schema.json": ("rule", "Rule"),
 }
 
 # Round-trip keys to ignore entirely (pydantic may normalize heavily)

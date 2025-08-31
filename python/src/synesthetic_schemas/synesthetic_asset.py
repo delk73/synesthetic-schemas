@@ -30,7 +30,9 @@ class HapticParameter(BaseModel):
     smoothingTime: Optional[float] = Field(
         None, description='Smoothing time in seconds', title='Smoothingtime'
     )
-    step: Optional[float] = Field(None, description='Step increment value', title='Step')
+    step: Optional[float] = Field(
+        None, description='Step increment value', title='Step'
+    )
     type: str = Field(..., description='Data type of the parameter', title='Type')
     unit: str = Field(..., description='Unit of measurement', title='Unit')
 
@@ -56,7 +58,9 @@ class Waveform(Enum):
 
 
 class ModulationItem(BaseModel):
-    amplitude: float = Field(..., description='Amplitude of the modulation', title='Amplitude')
+    amplitude: float = Field(
+        ..., description='Amplitude of the modulation', title='Amplitude'
+    )
     frequency: float = Field(
         ..., description='Frequency of the modulation in Hz', title='Frequency'
     )
@@ -67,7 +71,9 @@ class ModulationItem(BaseModel):
     min: Optional[float] = Field(
         None, description='Minimum allowable value for the modulation', title='Min'
     )
-    offset: float = Field(..., description='Offset/base value of the modulation', title='Offset')
+    offset: float = Field(
+        ..., description='Offset/base value of the modulation', title='Offset'
+    )
     phase: float = Field(..., description='Phase offset in radians', title='Phase')
     scale: Optional[float] = Field(
         1, description='Scaling factor applied to the modulation output', title='Scale'
@@ -189,7 +195,9 @@ class ComboType(BaseModel):
 
 
 class DeviceOptionValue(BaseModel):
-    unit: str = Field(..., description='Unit of measurement for the option', title='Unit')
+    unit: str = Field(
+        ..., description='Unit of measurement for the option', title='Unit'
+    )
     value: float = Field(..., description='Value of the device option', title='Value')
 
 
@@ -305,15 +313,21 @@ class RuleBundle(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    created_at: Optional[datetime] = Field(None, description='Creation time', title='Created At')
-    description: Optional[str] = Field(None, description='Bundle details', title='Description')
+    created_at: Optional[datetime] = Field(
+        None, description='Creation time', title='Created At'
+    )
+    description: Optional[str] = Field(
+        None, description='Bundle details', title='Description'
+    )
     id: Optional[int] = Field(None, description='Database ID', title='Id')
     meta_info: Optional[dict[str, Any]] = Field(
         None, description='Metadata about the rule bundle', title='Meta Info'
     )
     name: str = Field(..., description='Human readable bundle name', title='Name')
     rules: list[RuleSchema] = Field(..., description='List of rules', title='Rules')
-    updated_at: Optional[datetime] = Field(None, description='Last update time', title='Updated At')
+    updated_at: Optional[datetime] = Field(
+        None, description='Last update time', title='Updated At'
+    )
 
 
 class Shader(BaseModel):
@@ -327,11 +341,15 @@ class Shader(BaseModel):
         examples=['// fragment shader example'],
         title='Fragment Shader',
     )
-    input_parameters: Optional[list[InputParameter]] = Field(None, title='Input Parameters')
+    input_parameters: Optional[list[InputParameter]] = Field(
+        None, title='Input Parameters'
+    )
     meta_info: Optional[dict[str, Any]] = Field(
         None,
         description='Metadata about the shader',
-        examples=[{'category': 'visual', 'complexity': 'low', 'tags': ['circle', 'sdf']}],
+        examples=[
+            {'category': 'visual', 'complexity': 'low', 'tags': ['circle', 'sdf']}
+        ],
         title='Meta Info',
     )
     name: str = Field(
@@ -544,7 +562,7 @@ class SynestheticAsset(BaseModel):
                 }
             ],
         },
-        title='RuleBundleSchema',
+        title='RuleBundle',
     )
     shader: Optional[Shader] = None
     tone: Optional[Tone] = None

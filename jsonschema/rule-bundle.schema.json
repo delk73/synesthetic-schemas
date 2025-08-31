@@ -1,6 +1,6 @@
 {
   "$defs": {
-    "RuleSchema": {
+    "Rule": {
       "additionalProperties": false,
       "description": "Representation of a single rule within a bundle.",
       "properties": {
@@ -91,7 +91,7 @@
       "required": [
         "id"
       ],
-      "title": "RuleSchema",
+      "title": "Rule",
       "type": "object"
     }
   },
@@ -197,7 +197,7 @@
     "rules": {
       "description": "List of rules",
       "items": {
-        "$ref": "#/$defs/RuleSchema"
+        "$ref": "#/$defs/Rule"
       },
       "title": "Rules",
       "type": "array"
@@ -221,7 +221,7 @@
     "name",
     "rules"
   ],
-  "title": "RuleBundleSchema",
+  "title": "RuleBundle",
   "type": "object",
   "x-schema-version": "0.7.0"
 }
