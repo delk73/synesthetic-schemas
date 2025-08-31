@@ -38,15 +38,11 @@ class Shader(BaseModel):
         examples=['// fragment shader example'],
         title='Fragment Shader',
     )
-    input_parameters: Optional[list[InputParameter]] = Field(
-        None, title='Input Parameters'
-    )
+    input_parameters: Optional[list[InputParameter]] = Field(None, title='Input Parameters')
     meta_info: Optional[dict[str, Any]] = Field(
         None,
         description='Metadata about the shader',
-        examples=[
-            {'category': 'visual', 'complexity': 'low', 'tags': ['circle', 'sdf']}
-        ],
+        examples=[{'category': 'visual', 'complexity': 'low', 'tags': ['circle', 'sdf']}],
         title='Meta Info',
     )
     name: str = Field(

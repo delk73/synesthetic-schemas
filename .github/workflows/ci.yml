@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python tooling
+        run: |
+          python -m pip install --upgrade pip wheel
+          # Runtime + tooling required by scripts and codegen
+          pip install 'pydantic>=2.7' 'jsonschema>=4.22' datamodel-code-generator ruff
+
+      - name: Run preflight (CI parity)
+        run: |
+          bash ./preflight.sh
+
