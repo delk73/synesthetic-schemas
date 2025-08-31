@@ -1,5 +1,5 @@
 {
-  "objective": "Solidify the SSOT repo with a no-'works-on-my-machine' pipeline: single-source versioning, deterministic normalization/codegen, strict validation, and CI parity with local preflight.",
+  "objective": "Remediate audit findings (C5 FAIL, C6 WARN) to solidify SSOT determinism: enforce drift guard in codegen and remove dual-class naming hedges while maintaining CI/local parity.",
   "constraints": {
     "style": "KISS, deterministic, minimal deps",
     "python": "3.11",
@@ -7,220 +7,78 @@
     "no_db_migrations": true
   },
   "phases": [
-    { "id": "P1", "name": "Foundations" },
-    { "id": "P2", "name": "Validation & Normalization" },
     { "id": "P3", "name": "Deterministic Codegen & CI" },
     { "id": "P4", "name": "Naming/Schema Hygiene & Docs" }
   ],
   "work_items": [
     {
-      "id": "W1",
-      "phase": "P1",
-      "summary": "Single-source schema version",
+      "id": "R1",
+      "phase": "P3",
+      "summary": "Fix codegen drift guard to fail on real diffs",
       "deps": [],
-      "touches": ["version.json", "scripts/lib/version.py", "codegen/lib/version.mjs"],
+      "touches": ["scripts/ensure_codegen_clean.sh"],
       "changes": {
-        "version.json": { "schemaVersion": "0.7.0" },
-        "scripts/lib/version.py": "def schema_version(): return json.loads((ROOT/'version.json').read_text())['schemaVersion']",
-        "codegen/lib/version.mjs": "export function schemaVersion(){return JSON.parse(fs.readFileSync(new URL('../../version.json', import.meta.url))).schemaVersion;}"
+        "ensure_codegen_clean.sh": [
+          "Replace 'git diff -I ... -- python/src typescript/src >/dev/null' with 'git diff -I ... --quiet -- python/src typescript/src' (or add '--exit-code').",
+          "Keep timestamp-ignoring patterns; retain checkout cleanup for timestamp-only diffs."
+        ]
       },
       "acceptance": [
-        "Both Python and TS helpers can read the same version string",
-        "No other files hardcode the version (search passes)"
-      ],
-      "commands": ["rg -n \"0\\.7\\.0|schemaVersion\" -g '!version.json'"]
-    },
-    {
-      "id": "W2",
-      "phase": "P1",
-      "summary": "Add py.typed for generated Python package",
-      "deps": [],
-      "touches": ["python/src/synesthetic_schemas/py.typed"],
-      "changes": {
-        "py.typed": "(empty file present)"
-      },
-      "acceptance": ["mypy/pyright resolve inline types from installed wheel/sdist"],
-      "commands": ["test -f python/src/synesthetic_schemas/py.typed"]
-    },
-    {
-      "id": "W3",
-      "phase": "P2",
-      "summary": "Schema lint: unique $id and resolvable $ref",
-      "deps": [],
-      "touches": ["scripts/schema_lint.py", "Makefile", "pre-commit", "CI"],
-      "changes": {
-        "scripts/schema_lint.py": "Check duplicate $id and shallow $ref resolvability across jsonschema/*.schema.json",
-        "Makefile": "add target schema-lint -> poetry run python scripts/schema_lint.py"
-      },
-      "acceptance": [
-        "`make schema-lint` exits 0 for clean, 1 on error",
-        "CI and pre-commit run it"
-      ],
-      "commands": ["poetry run python scripts/schema_lint.py"]
-    },
-    {
-      "id": "W4",
-      "phase": "P2",
-      "summary": "Normalization with --check (fail fast) ",
-      "deps": [],
-      "touches": ["scripts/normalize_schemas.py", "Makefile", "pre-commit", "preflight.sh"],
-      "changes": {
-        "normalize_schemas.py": "Add --check to verify sort, $schema presence, enums/defaults coherence, stable $id",
-        "Makefile": "normalize-check target"
-      },
-      "acceptance": [
-        "Dirty schemas cause non-zero exit in --check mode",
-        "`make normalize-check` wired into preflight and CI"
-      ],
-      "commands": ["poetry run python scripts/normalize_schemas.py --check"]
-    },
-    {
-      "id": "W5",
-      "phase": "P2",
-      "summary": "Examples declare `$schemaRef` to kill filename heuristics",
-      "deps": [],
-      "touches": ["examples/**/*.json", "scripts/validate_examples.py"],
-      "changes": {
-        "examples": "Add top-level \"$schemaRef\": \"jsonschema/<name>.schema.json\"",
-        "validate_examples.py": "Prefer $schemaRef; fallback to TOKENS only if absent. Add --file/--dir and --strict flags"
-      },
-      "acceptance": [
-        "All examples validate using $schemaRef",
-        "`validate_examples.py --strict --dir examples` passes"
+        "On a clean tree after codegen, script exits 0 and prints 'Codegen is clean'.",
+        "With uncommitted generated changes, script exits 1 and shows a diff (excluding timestamp-only lines).",
+        "CI preflight continues to call this script and fails on drift."
       ],
       "commands": [
-        "poetry run python scripts/validate_examples.py --strict --dir examples",
-        "poetry run python scripts/validate_examples.py --file examples/minimal_asset.json"
+        "bash scripts/ensure_codegen_clean.sh",
+        "git diff --name-only -- python/src typescript/src"
       ]
     },
     {
-      "id": "W6",
-      "phase": "P2",
-      "summary": "Round-trip alignment: reduce top-level ignore set",
-      "deps": ["W5"],
-      "touches": ["scripts/validate_examples.py", "jsonschema/*.schema.json", "python models (if needed)"],
-      "changes": {
-        "validator": "Keep _prune_defaults(); aim to remove or shrink ROUNDTRIP_IGNORE_TOPLEVEL for shader/control/modulations by aligning schema output to model_dump(exclude_defaults, exclude_none)"
-      },
-      "acceptance": [
-        "Round-trip clean with a smaller ignore set (or empty)",
-        "No false positives from numeric coercion"
-      ],
-      "commands": ["poetry run python scripts/validate_examples.py --strict --dir examples"]
-    },
-    {
-      "id": "W7",
-      "phase": "P3",
-      "summary": "Deterministic TS codegen with repo-local tooling",
-      "deps": [],
-      "touches": ["codegen/gen_ts.sh", "package.json", "scripts/ensure_codegen_clean.sh"],
-      "changes": {
-        "gen_ts.sh": "Use a single strategy (d.ts or zod). Call node_modules/.bin directly; no npx --yes",
-        "ensure_codegen_clean.sh": "Run codegen then git diff --exit-code to fail on drift",
-        "package.json": "Exact pins or lockfile to freeze versions"
-      },
-      "acceptance": [
-        "Running codegen produces no diff on a clean tree",
-        "CI fails if generated output changes without commit"
-      ],
-      "commands": ["bash scripts/ensure_codegen_clean.sh"]
-    },
-    {
-      "id": "W8",
-      "phase": "P3",
-      "summary": "Makefile + preflight that mirrors CI",
-      "deps": ["W3", "W4", "W5", "W7"],
-      "touches": ["Makefile", "preflight.sh"],
-      "changes": {
-        "Makefile": "fmt, lint, type, test, schema-lint, normalize-check, validate, codegen-check, preflight",
-        "preflight.sh": "Single entrypoint calling `make preflight`"
-      },
-      "acceptance": [
-        "`./preflight.sh` green locally matches CI",
-        "New contributors can run one command to verify"
-      ],
-      "commands": ["./preflight.sh"]
-    },
-    {
-      "id": "W9",
-      "phase": "P3",
-      "summary": "CI parity: run the exact preflight",
-      "deps": ["W8"],
-      "touches": [".github/workflows/ci.yml"],
-      "changes": {
-        "ci.yml": "Setup Python 3.11 + Poetry; Node 20 + npm ci; run ./preflight.sh"
-      },
-      "acceptance": [
-        "CI fails on any normalization/validation/codegen drift",
-        "No steps in CI that are missing locally"
-      ],
-      "commands": ["gh workflow run CI || true"]
-    },
-    {
-      "id": "W10",
+      "id": "R2",
       "phase": "P4",
-      "summary": "Naming hygiene: canonicalize bundle/control names",
+      "summary": "Canonicalize names and remove dual-class hedging",
       "deps": [],
       "touches": [
-        "jsonschema/control*.schema.json",
+        "scripts/validate_examples.py",
         "jsonschema/rule-bundle.schema.json",
-        "python/src/synesthetic_schemas/*",
-        "scripts/validate_examples.py (TOKENS)"
+        "jsonschema/control.schema.json (title only if needed)",
+        "README.md",
+        "CONTRIBUTING.md"
       ],
       "changes": {
-        "decision": "Pick one canonical class for bundles (e.g., RuleBundle). Either rename single-control to ControlParameter (schema+class) or document the distinction.",
-        "TOKENS": "Remove dual-class hedging (e.g., RuleBundleSchema|RuleBundle)"
+        "decision": "Use canonical names: RuleBundle, ControlBundle, Control. Avoid '*Schema' and 'ControlParameter' in code paths.",
+        "validate_examples.py": [
+          "Update TOKENS and SCHEMA_TO_MODEL to drop alternates like 'RuleBundle|RuleBundleSchema', 'ControlBundle|ControlBundleSchema', 'Control|ControlParameter'; keep only canonical names.",
+          "Adjust imports/class lookups accordingly."
+        ],
+        "schemas": [
+          "If schema 'title' uses '*Schema' (e.g., RuleBundleSchema), rename to canonical (RuleBundle) and run normalization.",
+          "Bump version.json if schema content changes; regenerate code (preflight-fix path)."
+        ],
+        "docs": [
+          "Document the naming decision in CONTRIBUTING.md (no dual-class hedging).",
+          "Ensure README still reflects preflight and version bump guidance."
+        ]
       },
       "acceptance": [
-        "No dual-class lookups in TOKENS",
-        "Examples and codegen still pass preflight"
+        "`rg -n \"RuleBundleSchema|ControlParameter|ControlBundleSchema\"` returns no matches in repo (excluding meta/ and _skip).",
+        "`poetry/conda python` run of `scripts/validate_examples.py --strict --dir examples` passes.",
+        "`./preflight.sh` passes locally and in CI after changes."
       ],
-      "commands": ["rg -n \"RuleBundleSchema|ControlParameter|ControlBundleSchema\""]
-    },
-    {
-      "id": "W11",
-      "phase": "P4",
-      "summary": "Factor repeated defs into $defs and keep bundler flattening",
-      "deps": [],
-      "touches": ["jsonschema/*.schema.json", "codegen (if ref flattening required)"],
-      "changes": {
-        "$defs": "Extract InputParameter, UniformDef, etc. into shared $defs referenced from component schemas"
-      },
-      "acceptance": [
-        "No duplicated structures across schemas",
-        "Codegen still deterministic; validation passes"
-      ],
-      "commands": ["rg -n \"InputParameter|UniformDef\" jsonschema | sort"]
-    },
-    {
-      "id": "W12",
-      "phase": "P4",
-      "summary": "Docs & contrib guardrails",
-      "deps": ["W8", "W9", "W10"],
-      "touches": ["README.md", "CONTRIBUTING.md"],
-      "changes": {
-        "README.md": "Diagram: Schemas -> Normalize -> Codegen (Py/TS) -> Validate Examples -> Publish",
-        "CONTRIBUTING.md": "Require version bump in version.json for schema changes; run `./preflight.sh` before pushing; how to add schemas/examples"
-      },
-      "acceptance": [
-        "A new contributor can land a change by following README/CONTRIBUTING and passing preflight",
-        "No tribal knowledge required"
-      ],
-      "commands": []
+      "commands": [
+        "rg -n 'RuleBundleSchema|ControlParameter|ControlBundleSchema' --glob '!*meta/**' --glob '!examples/_skip/**'",
+        "PYTHONPATH=python/src python scripts/validate_examples.py --strict --dir examples",
+        "./preflight.sh"
+      ]
     }
   ],
   "parallelization": {
-    "P1": ["W1", "W2"],
-    "P2": ["W3", "W4", "W5", "W6"],
-    "P3": ["W7", "W8", "W9"],
-    "P4": ["W10", "W11", "W12"]
+    "P3": ["R1"],
+    "P4": ["R2"]
   },
   "done_definition": [
-    "`./preflight.sh` passes locally and in CI",
-    "`scripts/ensure_codegen_clean.sh` produces no diff",
-    "All examples validate via `$schemaRef` with round-trip clean",
-    "No $id collisions or unresolved $ref",
-    "Canonical naming without dual-class hedging",
-    "README/CONTRIBUTING updated; new devs probability to succeed first try > .9"
+    "scripts/ensure_codegen_clean.sh uses '--quiet' or '--exit-code' and fails on drift",
+    "No dual-class naming hedges remain (grep clean)",
+    "Preflight passes locally and in CI"
   ]
 }
