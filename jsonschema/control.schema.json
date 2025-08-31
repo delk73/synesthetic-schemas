@@ -124,7 +124,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.1.0/control.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.0/control.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
@@ -237,5 +237,5 @@
   ],
   "title": "Control",
   "type": "object",
-  "x-schema-version": "0.1.0"
+  "x-schema-version": "0.7.0"
 }

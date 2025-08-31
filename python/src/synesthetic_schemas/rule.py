@@ -8,7 +8,7 @@ from typing import Any, Optional, Union
 from pydantic import BaseModel, Extra, Field
 
 
-class RuleSchema(BaseModel):
+class Rule(BaseModel):
     class Config:
         extra = Extra.forbid
 

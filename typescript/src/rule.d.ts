@@ -41,7 +41,7 @@ export type Trigger = {
   [k: string]: unknown;
 } | null;
 
-export interface RuleSchema {
+export interface Rule {
   effects?: Effects;
   execution?: Execution;
   expr?: Expr;

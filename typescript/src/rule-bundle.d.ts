@@ -59,13 +59,13 @@ export type Trigger = {
 /**
  * List of rules
  */
-export type Rules = RuleSchema[];
+export type Rules = Rule[];
 /**
  * Last update time
  */
 export type UpdatedAt = string | null;
 
-export interface RuleBundleSchema {
+export interface RuleBundle {
   created_at?: CreatedAt;
   description?: Description;
   id?: Id;
@@ -83,7 +83,7 @@ export interface MetaInfo {
 /**
  * Representation of a single rule within a bundle.
  */
-export interface RuleSchema {
+export interface Rule {
   effects?: Effects;
   execution?: Execution;
   expr?: Expr;
