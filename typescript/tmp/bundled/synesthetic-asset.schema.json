@@ -16,10 +16,10 @@
                   "ActionType": {
                     "properties": {
                       "axis": {
-                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/AxisType"
+                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/AxisType"
                       },
                       "curve": {
-                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/CurveType"
+                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/CurveType"
                       },
                       "scale": {
                         "default": 1,
@@ -123,10 +123,10 @@
                   "Mapping": {
                     "properties": {
                       "action": {
-                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/ActionType"
+                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/ActionType"
                       },
                       "combo": {
-                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/ComboType"
+                        "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/ComboType"
                       }
                     },
                     "required": [
@@ -165,7 +165,7 @@
                   },
                   "mappings": {
                     "items": {
-                      "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/Mapping"
+                      "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/Mapping"
                     },
                     "title": "Mappings",
                     "type": "array"
@@ -232,7 +232,7 @@
                     "title": "Step"
                   },
                   "type": {
-                    "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/%24defs/DataType"
+                    "$ref": "#/properties/control/anyOf/0/properties/control_parameters/items/$defs/DataType"
                   },
                   "unit": {
                     "minLength": 1,
@@ -323,7 +323,7 @@
               "properties": {
                 "options": {
                   "additionalProperties": {
-                    "$ref": "#/properties/haptic/anyOf/0/%24defs/DeviceOptionValue"
+                    "$ref": "#/properties/haptic/anyOf/0/$defs/DeviceOptionValue"
                   },
                   "description": "Device-specific configuration options",
                   "title": "Options",
@@ -491,13 +491,13 @@
               "title": "Description"
             },
             "device": {
-              "$ref": "#/properties/haptic/anyOf/0/%24defs/DeviceConfig",
+              "$ref": "#/properties/haptic/anyOf/0/$defs/DeviceConfig",
               "description": "Device configuration"
             },
             "input_parameters": {
               "description": "List of input parameters",
               "items": {
-                "$ref": "#/properties/haptic/anyOf/0/%24defs/HapticParameter"
+                "$ref": "#/properties/haptic/anyOf/0/$defs/HapticParameter"
               },
               "title": "Input Parameters",
               "type": "array"
@@ -772,7 +772,7 @@
                 }
               ],
               "items": {
-                "$ref": "#/properties/modulation/anyOf/0/%24defs/ModulationItem"
+                "$ref": "#/properties/modulation/anyOf/0/$defs/ModulationItem"
               },
               "title": "Modulations",
               "type": "array"
@@ -801,7 +801,7 @@
       "anyOf": [
         {
           "items": {
-            "$ref": "#/properties/modulation/anyOf/0/%24defs/ModulationItem"
+            "$ref": "#/properties/modulation/anyOf/0/$defs/ModulationItem"
           },
           "type": "array"
         },
@@ -1037,7 +1037,7 @@
         "rules": {
           "description": "List of rules",
           "items": {
-            "$ref": "#/properties/rule_bundle/%24defs/Rule"
+            "$ref": "#/properties/rule_bundle/$defs/Rule"
           },
           "title": "Rules",
           "type": "array"
@@ -1192,7 +1192,7 @@
               "anyOf": [
                 {
                   "items": {
-                    "$ref": "#/properties/shader/anyOf/0/%24defs/InputParameter"
+                    "$ref": "#/properties/shader/anyOf/0/$defs/InputParameter"
                   },
                   "type": "array"
                 },
@@ -1238,7 +1238,7 @@
               "anyOf": [
                 {
                   "items": {
-                    "$ref": "#/properties/shader/anyOf/0/%24defs/UniformDef"
+                    "$ref": "#/properties/shader/anyOf/0/$defs/UniformDef"
                   },
                   "type": "array"
                 },
@@ -1514,7 +1514,7 @@
                 "options": {
                   "anyOf": [
                     {
-                      "$ref": "#/properties/tone/anyOf/0/%24defs/ToneSynthOptions"
+                      "$ref": "#/properties/tone/anyOf/0/$defs/ToneSynthOptions"
                     },
                     {
                       "type": "object"
@@ -1523,7 +1523,7 @@
                   "title": "Options"
                 },
                 "type": {
-                  "$ref": "#/properties/tone/anyOf/0/%24defs/SynthType"
+                  "$ref": "#/properties/tone/anyOf/0/$defs/SynthType"
                 }
               },
               "required": [
@@ -1627,7 +1627,7 @@
                   "items": {
                     "anyOf": [
                       {
-                        "$ref": "#/properties/tone/anyOf/0/%24defs/ToneEffect"
+                        "$ref": "#/properties/tone/anyOf/0/$defs/ToneEffect"
                       },
                       {
                         "type": "object"
@@ -1648,7 +1648,7 @@
               "items": {
                 "anyOf": [
                   {
-                    "$ref": "#/properties/tone/anyOf/0/%24defs/ToneParameter"
+                    "$ref": "#/properties/tone/anyOf/0/$defs/ToneParameter"
                   },
                   {
                     "type": "object"
@@ -1661,7 +1661,7 @@
             "meta_info": {
               "anyOf": [
                 {
-                  "$ref": "#/properties/tone/anyOf/0/%24defs/ToneMetaInfo"
+                  "$ref": "#/properties/tone/anyOf/0/$defs/ToneMetaInfo"
                 },
                 {
                   "type": "object"
@@ -1685,7 +1685,7 @@
                   "items": {
                     "anyOf": [
                       {
-                        "$ref": "#/properties/tone/anyOf/0/%24defs/TonePart"
+                        "$ref": "#/properties/tone/anyOf/0/$defs/TonePart"
                       },
                       {
                         "type": "object"
@@ -1707,7 +1707,7 @@
                   "items": {
                     "anyOf": [
                       {
-                        "$ref": "#/properties/tone/anyOf/0/%24defs/TonePattern"
+                        "$ref": "#/properties/tone/anyOf/0/$defs/TonePattern"
                       },
                       {
                         "type": "object"
@@ -1726,7 +1726,7 @@
             "synth": {
               "anyOf": [
                 {
-                  "$ref": "#/properties/tone/anyOf/0/%24defs/ToneSynth"
+                  "$ref": "#/properties/tone/anyOf/0/$defs/ToneSynth"
                 },
                 {
                   "type": "object"
