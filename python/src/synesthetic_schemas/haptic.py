@@ -9,7 +9,9 @@ from pydantic import BaseModel, Field
 
 
 class DeviceOptionValue(BaseModel):
-    unit: str = Field(..., description='Unit of measurement for the option', title='Unit')
+    unit: str = Field(
+        ..., description='Unit of measurement for the option', title='Unit'
+    )
     value: float = Field(..., description='Value of the device option', title='Value')
 
 
@@ -26,7 +28,9 @@ class HapticParameter(BaseModel):
     smoothingTime: Optional[float] = Field(
         None, description='Smoothing time in seconds', title='Smoothingtime'
     )
-    step: Optional[float] = Field(None, description='Step increment value', title='Step')
+    step: Optional[float] = Field(
+        None, description='Step increment value', title='Step'
+    )
     type: str = Field(..., description='Data type of the parameter', title='Type')
     unit: str = Field(..., description='Unit of measurement', title='Unit')
 

@@ -26,13 +26,35 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Python tooling
+      - name: Install Poetry
         run: |
-          python -m pip install --upgrade pip wheel
-          # Runtime + tooling required by scripts and codegen
-          pip install 'pydantic>=2.7' 'jsonschema>=4.22' datamodel-code-generator ruff
+          python -m pip install --upgrade pip wheel poetry
 
-      - name: Run preflight (CI parity)
+      - name: Install Python deps (Poetry)
+        run: |
+          poetry install --with dev --no-root --no-interaction --no-ansi
+
+      - name: Selective paths (codegen-related)
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            codegen:
+              - 'jsonschema/**'
+              - 'codegen/**'
+              - 'scripts/**'
+              - 'pyproject.toml'
+              - 'poetry.lock'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'Makefile'
+
+      - name: Run preflight (with codegen-check)
+        if: steps.changes.outputs.codegen == 'true'
         run: |
           bash ./preflight.sh
 
+      - name: Run preflight (skip codegen-check)
+        if: steps.changes.outputs.codegen != 'true'
+        run: |
+          SKIP_CODEGEN_CHECK=1 bash ./preflight.sh

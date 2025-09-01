@@ -43,6 +43,21 @@ for (const f of files) {
     },
   });
 
+  // Workaround: json-schema-ref-parser percent-encodes "$" in JSON Pointer fragments
+  // (e.g. "#/.../%24defs/..."). Some downstream tools (datamodel-code-generator)
+  // expect plain "$defs" fragments. Normalize refs in the bundled output.
+  const decodeRefFragments = (obj) => {
+    if (!obj || typeof obj !== 'object') return;
+    for (const [k, v] of Object.entries(obj)) {
+      if (k === '$ref' && typeof v === 'string' && v.startsWith('#')) {
+        obj[k] = v.replaceAll('%24', '$');
+      } else if (v && typeof v === 'object') {
+        decodeRefFragments(v);
+      }
+    }
+  };
+  decodeRefFragments(bundled);
+
   const out = path.join(OUT_DIR, f);
   await fs.writeFile(out, JSON.stringify(bundled, null, 2) + "\n");
   console.log(`bundled: ${f} → ${path.relative(ROOT, out)}`);

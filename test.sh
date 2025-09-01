@@ -15,7 +15,7 @@ run_py () {
   elif command -v poetry >/dev/null 2>&1; then
     ( cd "$ROOT" && poetry run python "$@" )
   else
-    python "$@"
+    python3 "$@"
   fi
 }
 

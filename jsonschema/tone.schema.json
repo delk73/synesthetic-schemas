@@ -327,7 +327,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.7.0/tone.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/tone.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": true,
   "properties": {
@@ -463,7 +463,7 @@
     "name",
     "synth"
   ],
-  "title": "Tone",
+  "title": "tone",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }
