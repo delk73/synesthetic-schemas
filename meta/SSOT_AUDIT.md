@@ -32,10 +32,9 @@
 - Checks: Confirm every schema file contains a unique, non-empty `$id`.; Confirm every schema file specifies `$schema` as 'https://json-schema.org/draft/2020-12/schema'.
 - Acceptance: All schemas are uniquely identified and use the correct draft.; All schema `$id` values are unique across the project.
 
-### C4: Example to schema linkage — FAIL
+### C4: Example to schema linkage — PASS
 
-- jsonschema not available to perform validation
-- Install dependencies and retry (error: No module named 'jsonschema')
+- 14 examples OK
 - Checks: Confirm every example JSON file contains a top-level `"$schemaRef"` key pointing to a valid schema.
 - Acceptance: All examples pass strict validation against their linked schemas.
 
@@ -52,17 +51,8 @@
 
 ## A4 — Naming & Docs Hygiene
 
-### C6: Naming and documentation clarity — FAIL
+### C6: Naming and documentation clarity — PASS
 
-- jsonschema/control-bundle.schema.json: top-level title should equal 'control-bundle.schema', found: 'control-bundle'
-- jsonschema/control.schema.json: top-level title should equal 'control.schema', found: 'Control'
-- jsonschema/haptic.schema.json: top-level title should equal 'haptic.schema', found: 'Haptic'
-- jsonschema/modulation.schema.json: top-level title should equal 'modulation.schema', found: 'Modulation'
-- jsonschema/rule-bundle.schema.json: top-level title should equal 'rule-bundle.schema', found: 'RuleBundle'
-- jsonschema/rule.schema.json: top-level title should equal 'rule.schema', found: 'Rule'
-- jsonschema/shader.schema.json: top-level title should equal 'shader.schema', found: 'Shader'
-- jsonschema/synesthetic-asset.schema.json: top-level title should equal 'synesthetic-asset.schema', found: 'SynestheticAsset'
-- jsonschema/tone.schema.json: top-level title should equal 'tone.schema', found: 'Tone'
 - README describes preflight and versioning workflows
 - CONTRIBUTING mentions contributor workflows
 - Checks: Verify `$defs` keys use canonical `PascalCase` names.; Verify top-level schema `title` matches the kebab-case filename stem (e.g., `synesthetic-asset`).; Verify each schema `$id` ends with the schema filename (e.g., `.../synesthetic-asset.schema.json`).; Confirm that reusable object structures are defined within a schema's `$defs` section (manual spot-check acceptable).; Verify that `README.md` and `CONTRIBUTING.md` describe the preflight and versioning workflows.; Optional: Manual/External — consider Spectral for extended style rules.
