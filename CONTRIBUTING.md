@@ -1,3 +1,9 @@
+---
+version: v0.7.3
+lastReviewed: 2025-09-01
+owner: delk73
+---
+
 # Contributing
 
 Thanks for helping improve Synesthetic Schemas! This repo is the single source of truth (SSOT) for schemas and generated models. The pipeline is designed to be deterministic and CI‑mirrored.

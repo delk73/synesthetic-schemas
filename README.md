@@ -1,3 +1,9 @@
+---
+version: v0.7.3
+lastReviewed: 2025-09-01
+owner: delk73
+---
+
 # Synesthetic Schemas
 
 Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
