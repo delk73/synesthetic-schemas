@@ -62,4 +62,4 @@ bump-version:
 	@$(PY) scripts/bump_version.py --set "$(VERSION)"
 
 audit:
-	@$(PY) scripts/ssot_audit.py --spec meta/prompts/ssot.audit.json --out meta/SSOT_AUDIT.md
+	@$(PY) scripts/ssot_audit.py --spec meta/prompts/ssot.audit.json
