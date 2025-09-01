@@ -562,7 +562,7 @@ class SynestheticAsset(BaseModel):
                 }
             ],
         },
-        title='RuleBundle',
+        title='rule-bundle',
     )
     shader: Optional[Shader] = None
     tone: Optional[Tone] = None

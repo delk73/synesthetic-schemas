@@ -1,5 +1,5 @@
 {
-  "$id": "https://schemas.synesthetic.dev/0.7.0/control-bundle.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
@@ -130,7 +130,7 @@
             "type": "object"
           }
         },
-        "$id": "https://schemas.synesthetic.dev/0.7.0/control.schema.json",
+        "$id": "https://schemas.synesthetic.dev/0.7.3/control.schema.json",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "additionalProperties": false,
         "properties": {
@@ -241,9 +241,9 @@
           "default",
           "mappings"
         ],
-        "title": "Control",
+        "title": "control",
         "type": "object",
-        "x-schema-version": "0.7.0"
+        "x-schema-version": "0.7.3"
       },
       "title": "Control Parameters",
       "type": "array"
@@ -279,5 +279,5 @@
   ],
   "title": "control-bundle",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }

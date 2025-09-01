@@ -14,7 +14,7 @@ PY := $(shell \
     echo "python3"; \
   fi)
 
-.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version
+.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit
 
 normalize:
 	@$(PY) scripts/normalize_schemas.py
@@ -60,3 +60,6 @@ preflight-fix:
 bump-version:
 	@if [[ -z "$(VERSION)" ]]; then echo "Usage: make bump-version VERSION=X.Y.Z" >&2; exit 2; fi
 	@$(PY) scripts/bump_version.py --set "$(VERSION)"
+
+audit:
+	@$(PY) scripts/ssot_audit.py --spec meta/prompts/ssot.audit.json --out meta/SSOT_AUDIT.md

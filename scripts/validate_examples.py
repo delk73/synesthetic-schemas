@@ -39,7 +39,13 @@ if str(PY_SRC) not in sys.path:
 
 # JSON Schema validator
 import jsonschema
+import warnings
 from jsonschema.validators import Draft202012Validator
+try:
+    from referencing import Registry, Resource  # jsonschema >=4.18
+    _HAVE_REFERENCING = True
+except Exception:  # pragma: no cover
+    _HAVE_REFERENCING = False
 
 # filename token  -> (python module name, candidate class names, schema filename)
 TOKENS = {
@@ -146,7 +152,25 @@ def _validator_for(schema_name: str) -> Draft202012Validator:
         raise FileNotFoundError(f"schema not found: {schema_path}")
     schema = json.loads(schema_path.read_text())
     store = _load_schema_store()
-    resolver = jsonschema.RefResolver.from_schema(schema, store=store)  # internal use is fine
+    if _HAVE_REFERENCING:
+        try:
+            # Build a registry of resources keyed by $id, which our schemas use.
+            resources = {}
+            for k, v in store.items():
+                if isinstance(k, str) and k.startswith("http"):
+                    resources[k] = Resource.from_contents(v)
+            registry = Registry().with_resources(resources)
+            return Draft202012Validator(schema, registry=registry)
+        except Exception:
+            # Fall back to RefResolver if the runtime combo of jsonschema/referencing misbehaves
+            pass
+    # Fallback for older jsonschema (<4.18) or registry failures: use deprecated RefResolver
+    warnings.filterwarnings(
+        "ignore",
+        message=r"jsonschema\.RefResolver is deprecated",
+        category=DeprecationWarning,
+    )
+    resolver = jsonschema.RefResolver.from_schema(schema, store=store)  # type: ignore[attr-defined]
     return Draft202012Validator(schema, resolver=resolver)
 
 def _pick_model_and_schema(example_path: pathlib.Path, data: Dict[str, Any], strict: bool = False):

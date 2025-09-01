@@ -103,7 +103,10 @@
         "All schemas are uniquely identified and use the correct draft.",
         "All schema `$id` values are unique across the project."
       ],
-      "commands": []
+      "commands": [
+        "poetry run python scripts/normalize_schemas.py --check",
+        "poetry run python scripts/schema_lint.py"
+      ]
     },
     {
       "id": "C4",
@@ -144,7 +147,10 @@
         "Codegen on a clean tree produces a zero-change diff.",
         "Local and CI validation workflows execute identical steps."
       ],
-      "commands": []
+      "commands": [
+        "bash scripts/ensure_codegen_clean.sh",
+        "bash ./preflight.sh"
+      ]
     },
     {
       "id": "C6",
@@ -158,19 +164,23 @@
         "scripts/validate_examples.py"
       ],
       "audit": [
-        "Verify schema `title` and `$defs` keys use canonical `PascalCase` names.",
-        "Confirm that validator scripts reference schemas using their canonical titles.",
-        "Confirm that reusable object structures are defined within a schema's `$defs` section.",
-        "Verify that `README.md` and `CONTRIBUTING.md` describe the preflight and versioning workflows."
+        "Verify `$defs` keys use canonical `PascalCase` names.",
+        "Verify top-level schema `title` matches the kebab-case filename stem (e.g., `synesthetic-asset`).",
+        "Verify each schema `$id` ends with the schema filename (e.g., `.../synesthetic-asset.schema.json`).",
+        "Confirm that reusable object structures are defined within a schema's `$defs` section (manual spot-check acceptable).",
+        "Verify that `README.md` and `CONTRIBUTING.md` describe the preflight and versioning workflows.",
+        "Optional: Manual/External — consider Spectral for extended style rules."
       ],
       "acceptance": [
-        "All names for schema entities are canonical and consistent across the codebase.",
+        "`$defs` names are PascalCase across schemas.",
+        "Top-level titles match file stem (kebab-case).",
+        "Each `$id` ends with its schema filename.",
         "Reusable schema objects are defined centrally within `$defs`.",
         "Contributor docs provide clear guidance for essential workflows."
       ],
       "commands": [
-        "rg -n 'Schema\"|Def\"|Object\"' jsonschema",
-        "rg -n '\\|' scripts/validate_examples.py"
+        "rg -n '\"\\$id\"' jsonschema/*.schema.json",
+        "rg -n '\\| preflight' README.md CONTRIBUTING.md"
       ]
     }
   ],

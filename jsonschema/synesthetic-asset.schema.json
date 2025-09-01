@@ -1,12 +1,12 @@
 {
-  "$id": "https://schemas.synesthetic.dev/0.7.0/synesthetic-asset.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/synesthetic-asset.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
     "control": {
       "anyOf": [
         {
-          "$ref": "https://schemas.synesthetic.dev/0.7.0/control-bundle.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json"
         },
         {
           "type": "null"
@@ -38,7 +38,7 @@
     "haptic": {
       "anyOf": [
         {
-          "$ref": "https://schemas.synesthetic.dev/0.7.0/haptic.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.7.3/haptic.schema.json"
         },
         {
           "type": "null"
@@ -123,12 +123,12 @@
       "type": "string"
     },
     "rule_bundle": {
-      "$ref": "https://schemas.synesthetic.dev/0.7.0/rule-bundle.schema.json"
+      "$ref": "https://schemas.synesthetic.dev/0.7.3/rule-bundle.schema.json"
     },
     "shader": {
       "anyOf": [
         {
-          "$ref": "https://schemas.synesthetic.dev/0.7.0/shader.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.7.3/shader.schema.json"
         },
         {
           "type": "null"
@@ -139,7 +139,7 @@
     "tone": {
       "anyOf": [
         {
-          "$ref": "https://schemas.synesthetic.dev/0.7.0/tone.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.7.3/tone.schema.json"
         },
         {
           "type": "null"
@@ -156,7 +156,7 @@
   "required": [
     "name"
   ],
-  "title": "SynestheticAsset",
+  "title": "synesthetic-asset",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }

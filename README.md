@@ -74,7 +74,14 @@ Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "wor
 - Python 3.11 (conda env recommended):
   - `conda create -n schemas311 python=3.11`
   - `conda activate schemas311`
-  - Install Poetry and dev tools in this env
+  - Install Poetry and deps in this env
+  
+```bash
+# inside the conda env
+pip install poetry
+poetry install --with dev --no-root
+npm ci
+```
 - Node 20+ dev deps:
   - `npm ci` (at repo root)
 
@@ -89,7 +96,7 @@ The Makefile auto-detects and prefers `conda run -n schemas311 poetry run python
 - Bump the version and normalize:
 
 ```bash
-make bump-version VERSION=0.7.1
+make bump-version VERSION=0.7.3
 # then regenerate and validate
 make codegen-py codegen-ts validate
 ```
@@ -114,6 +121,14 @@ make preflight-fix   # writes normalized schemas, then runs preflight
 
 On success, preflight stamps `.cache/last_preflight.txt` with the UTC timestamp.
 
+- Selective skip (useful when only docs changed):
+
+```bash
+SKIP_CODEGEN_CHECK=1 ./preflight.sh
+```
+
+- CI notes: The GitHub Actions workflow installs via Poetry and uses a paths filter to only run `codegen-check` when schemas/codegen or tooling inputs change.
+
 ---
 
 ## Make Targets
@@ -128,6 +143,7 @@ On success, preflight stamps `.cache/last_preflight.txt` with the UTC timestamp.
 - `preflight`: run the full read-only gate (CI parity).
 - `preflight-fix`: write normalization first, then run `preflight`.
 - `bump-version VERSION=X.Y.Z`: update `version.json` and normalize.
+- `audit`: generate deterministic repo audit at `meta/SSOT_AUDIT.md`.
 
 ---
 
@@ -153,6 +169,19 @@ python scripts/validate_examples.py --file examples/SynestheticAsset_Example1.js
 - TypeScript: `codegen/gen_ts.sh` uses repo-local `json-schema-to-typescript` (no `npx`), after bundling refs locally.
 
 Generated code must be committed; `codegen-check` ensures the repo is in sync.
+
+---
+
+## Audit
+
+- Deterministic checks and report:
+
+```bash
+make audit
+# writes meta/SSOT_AUDIT.md
+```
+
+Covers foundations, validation, codegen parity, and naming/docs hygiene.
 
 ---
 
