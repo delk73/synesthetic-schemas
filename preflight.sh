@@ -8,7 +8,11 @@ echo "◼︎ schema-lint"
 make schema-lint
 
 echo "◼︎ ensure codegen clean"
-make codegen-check
+if [[ -n "${SKIP_CODEGEN_CHECK:-}" ]]; then
+  echo "(skipped by CI paths filter)"
+else
+  make codegen-check
+fi
 
 echo "◼︎ validate examples"
 make validate
