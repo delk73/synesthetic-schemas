@@ -263,7 +263,12 @@ def normalize_file(fp: pathlib.Path, check_only: bool) -> tuple[dict[str, Any], 
 
     # root cosmetics/strictness
     data.pop("description", None)
-    data["title"] = data.get("title") or kebab(fp.stem)
+    # Normalize title deterministically to kebab-case of the base name without the ".schema" suffix.
+    # e.g., synesthetic-asset.schema.json -> "synesthetic-asset"
+    base = fp.stem  # e.g., "synesthetic-asset.schema"
+    if base.endswith(".schema"):
+        base = base[: -len(".schema")]
+    data["title"] = kebab(base)
     if fp.name not in ALLOW_ADDITIONAL_PROPS:
         data["additionalProperties"] = data.get("additionalProperties", False)
 

@@ -30,7 +30,9 @@ class Waveform(Enum):
 
 
 class ModulationItem(BaseModel):
-    amplitude: float = Field(..., description='Amplitude of the modulation', title='Amplitude')
+    amplitude: float = Field(
+        ..., description='Amplitude of the modulation', title='Amplitude'
+    )
     frequency: float = Field(
         ..., description='Frequency of the modulation in Hz', title='Frequency'
     )
@@ -41,7 +43,9 @@ class ModulationItem(BaseModel):
     min: Optional[float] = Field(
         None, description='Minimum allowable value for the modulation', title='Min'
     )
-    offset: float = Field(..., description='Offset/base value of the modulation', title='Offset')
+    offset: float = Field(
+        ..., description='Offset/base value of the modulation', title='Offset'
+    )
     phase: float = Field(..., description='Phase offset in radians', title='Phase')
     scale: Optional[float] = Field(
         1, description='Scaling factor applied to the modulation output', title='Scale'

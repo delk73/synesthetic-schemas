@@ -95,7 +95,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.7.0/rule-bundle.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/rule-bundle.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "example": {
@@ -221,7 +221,7 @@
     "name",
     "rules"
   ],
-  "title": "RuleBundle",
+  "title": "rule-bundle",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }

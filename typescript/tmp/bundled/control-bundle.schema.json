@@ -1,5 +1,5 @@
 {
-  "$id": "https://schemas.synesthetic.dev/0.7.0/control-bundle.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
@@ -9,10 +9,10 @@
           "ActionType": {
             "properties": {
               "axis": {
-                "$ref": "#/properties/control_parameters/items/%24defs/AxisType"
+                "$ref": "#/properties/control_parameters/items/$defs/AxisType"
               },
               "curve": {
-                "$ref": "#/properties/control_parameters/items/%24defs/CurveType"
+                "$ref": "#/properties/control_parameters/items/$defs/CurveType"
               },
               "scale": {
                 "default": 1,
@@ -116,10 +116,10 @@
           "Mapping": {
             "properties": {
               "action": {
-                "$ref": "#/properties/control_parameters/items/%24defs/ActionType"
+                "$ref": "#/properties/control_parameters/items/$defs/ActionType"
               },
               "combo": {
-                "$ref": "#/properties/control_parameters/items/%24defs/ComboType"
+                "$ref": "#/properties/control_parameters/items/$defs/ComboType"
               }
             },
             "required": [
@@ -130,7 +130,7 @@
             "type": "object"
           }
         },
-        "$id": "https://schemas.synesthetic.dev/0.7.0/control.schema.json",
+        "$id": "https://schemas.synesthetic.dev/0.7.3/control.schema.json",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "additionalProperties": false,
         "properties": {
@@ -158,7 +158,7 @@
           },
           "mappings": {
             "items": {
-              "$ref": "#/properties/control_parameters/items/%24defs/Mapping"
+              "$ref": "#/properties/control_parameters/items/$defs/Mapping"
             },
             "title": "Mappings",
             "type": "array"
@@ -225,7 +225,7 @@
             "title": "Step"
           },
           "type": {
-            "$ref": "#/properties/control_parameters/items/%24defs/DataType"
+            "$ref": "#/properties/control_parameters/items/$defs/DataType"
           },
           "unit": {
             "minLength": 1,
@@ -241,9 +241,9 @@
           "default",
           "mappings"
         ],
-        "title": "Control",
+        "title": "control",
         "type": "object",
-        "x-schema-version": "0.7.0"
+        "x-schema-version": "0.7.3"
       },
       "title": "Control Parameters",
       "type": "array"
@@ -279,5 +279,5 @@
   ],
   "title": "control-bundle",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }

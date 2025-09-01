@@ -17,7 +17,7 @@ fi
 # at this point, only timestamp lines differ; clean them out of the index
 if ! git diff --quiet -- python/src typescript/src; then
   echo "ℹ️ Only timestamp lines changed — discarding them."
-  git checkout -- python/src typescript/src
+  git restore --source=HEAD --worktree -- python/src typescript/src
 fi
 
 echo "✅ Codegen is clean (ignoring timestamps)."
