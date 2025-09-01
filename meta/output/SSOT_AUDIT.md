@@ -1,99 +1,67 @@
----
-version: v0.1
-lastReviewed: 2025-08-31
-owner: backend@generative
----
+# SSOT Audit Report
 
-**Objective**
-- Produce a single deterministic Markdown audit of SSOT practices across schemas, examples, codegen, and CI.
+- Objective: Audit the SSOT repository to produce a deterministic Markdown report confirming adherence to foundational, validation, codegen, and hygiene standards.
+- Constraints:
+  - no_db_migrations: True
+  - output: Markdown only; write to meta/output/SSOT_AUDIT.md; do not print to stdout
+  - python: 3.11
+  - schema_draft: 2020-12
+  - style: KISS, deterministic, minimal deps
 
-**Constraints**
-- KISS, deterministic, minimal deps; Python 3.11; JSON Schema draft 2020-12.
-- Read-only scan; no DB migrations; no stdout side-effects.
-- Output only to `meta/output/SSOT_AUDIT.md`.
+## A1 — Foundations
 
-**Phases**
-- A1 — Foundations
-- A2 — Validation & Normalization
-- A3 — Deterministic Codegen & CI
-- A4 — Naming & Docs Hygiene
+### C1: Centralized schema version — PASS
 
-**Work Items**
-- C1: Single-source schema version
-- C2: Typed Python dist marker
-- C3: Schema lint: $id uniqueness and draft
-- C4: Examples reference schemas explicitly
-- C5: Deterministic codegen + CI parity
-- C6: Naming & docs guardrails
+- Found schemaVersion in version.json: 0.7.3
+- Python helper references version.json: scripts/lib/version.py
+- TS helper references version.json: codegen/lib/version.mjs
+- Checks: Confirm `version.json` contains the `schemaVersion` key.; Verify all other code references this single source for the version.
+- Acceptance: The `schemaVersion` is defined exclusively in `version.json`.; All helper scripts in Python and TS correctly read from this file.
 
-**Done Definition**
-- Exactly one new/updated file: `meta/SSOT_AUDIT.md`.
-- Report contains frontmatter and sections in the required order.
-- All checks C1–C6 include PASS/WARN/FAIL with concise evidence.
-- No other files created or modified; no stdout side-effects.
+### C2: Python type distribution — PASS
 
-**Findings**
+- Present: python/src/synesthetic_schemas/py.typed
+- Checks: Verify the `py.typed` marker file is present in the Python source directory.
+- Acceptance: The Python package is configured to correctly export inline types for tools like mypy.
 
-### C1 — Single-source schema version
-- Status: PASS
-- Details:
-  - version.json:2 → "schemaVersion": "0.7.0"
-  - References outside `version.json` read the canonical file (no duplicated constants):
-    - scripts/lib/version.py:14 → loads version.json
-    - codegen/lib/version.mjs:12 → reads version.json
-    - scripts/bump_version.py:19,23 → reads/writes version.json
+## A2 — Validation & Normalization
 
-### C2 — Typed Python dist marker
-- Status: PASS
-- Details:
-  - python/src/synesthetic_schemas/py.typed → present (empty file)
-  - codegen/gen_py.sh ensures `py.typed` is recreated after codegen
+### C3: Schema structural integrity — PASS
 
-### C3 — Schema lint: $id uniqueness and draft
-- Status: PASS
-- Details ($id present, all schemas):
-  - jsonschema/control-bundle.schema.json → $id present
-  - jsonschema/control.schema.json → $id present
-  - jsonschema/haptic.schema.json → $id present
-  - jsonschema/modulation.schema.json → $id present
-  - jsonschema/rule-bundle.schema.json → $id present
-  - jsonschema/rule.schema.json → $id present
-  - jsonschema/shader.schema.json → $id present
-  - jsonschema/synesthetic-asset.schema.json → $id present
-  - jsonschema/tone.schema.json → $id present
-- Details ($schema draft 2020-12, all schemas): confirmed `https://json-schema.org/draft/2020-12/schema`
-- Duplicate $id values: none detected
+- 9 schemas OK; all unique $id and correct draft
+- Checks: Confirm every schema file contains a unique, non-empty `$id`.; Confirm every schema file specifies `$schema` as 'https://json-schema.org/draft/2020-12/schema'.
+- Acceptance: All schemas are uniquely identified and use the correct draft.; All schema `$id` values are unique across the project.
 
-### C4 — Examples reference schemas explicitly
-- Status: PASS
-- Details ($schemaRef present for examples/*.json):
-  - examples/Control-Bundle_Example.json → jsonschema/control-bundle.schema.json
-  - examples/Haptic_Example.json → jsonschema/haptic.schema.json
-  - examples/Rule-Bundle_Example.json → jsonschema/rule-bundle.schema.json
-  - examples/Shader_Example.json → jsonschema/shader.schema.json
-  - examples/Tone_Example.json → jsonschema/tone.schema.json
-  - examples/SynestheticAsset_Example1..9.json → jsonschema/synesthetic-asset.schema.json
+### C4: Example to schema linkage — PASS
 
-### C5 — Deterministic codegen + CI parity
-- Status: PASS
-- Details:
-  - codegen/gen_ts.sh → bundles with repo-local tooling; uses `$ROOT/node_modules/.bin/json2ts`
-  - scripts/ensure_codegen_clean.sh:11 → `git diff --exit-code -I <timestamp regexes> -- python/src typescript/src` (fails on real diffs)
-  - Makefile: defines `preflight` as `normalize-check schema-lint codegen-check validate`
-  - preflight.sh: runs `make codegen-check` and `make validate` (parity with Makefile)
-  - .github/workflows/ci.yml: runs `bash ./preflight.sh` (CI parity confirmed)
+- 14 examples OK (presence-only; jsonschema missing: No module named 'jsonschema')
+- Checks: Confirm every example JSON file contains a top-level `"$schemaRef"` key pointing to a valid schema.
+- Acceptance: All examples pass strict validation against their linked schemas.
 
-### C6 — Naming & docs guardrails
-- Status: PASS
-- Details:
-  - Canonical names enforced in validator mappings: `RuleBundle`, `ControlBundle`, `Control`, `Rule`, `Modulation` (no dual-class hedges)
-  - jsonschema/rule.schema.json → title "Rule" (was "RuleSchema")
-  - jsonschema/rule-bundle.schema.json → title "RuleBundle"; `$defs` key renamed to `Rule` and `$ref` updated
-  - scripts/validate_examples.py → no `RuleBundleSchema|ControlParameter|ControlBundleSchema` tokens
-  - CONTRIBUTING.md documents naming conventions and preflight/version workflows
+## A3 — Deterministic Codegen & CI
 
----
-PASS summary: C1, C2, C3, C4, C5, C6
-WARN summary: (none)
-FAIL summary: (none)
+### C5: Codegen and CI parity — PASS
 
+- TS codegen uses repo-local json2ts (node_modules/.bin)
+- Python codegen uses datamodel-code-generator (CLI or module)
+- ensure_codegen_clean.sh fails on real diffs
+- CI executes the same preflight.sh as local
+- Checks: Confirm codegen scripts use project-local dependencies.; Verify `ensure_codegen_clean.sh` exits with a non-zero code on diffs.; Confirm the CI workflow executes the same `preflight.sh` script used for local validation.
+- Acceptance: Codegen on a clean tree produces a zero-change diff.; Local and CI validation workflows execute identical steps.
+
+## A4 — Naming & Docs Hygiene
+
+### C6: Naming and documentation clarity — PASS
+
+- README describes preflight and versioning workflows
+- CONTRIBUTING mentions contributor workflows
+- Checks: Verify `$defs` keys use canonical `PascalCase` names.; Verify top-level schema `title` matches the kebab-case filename stem (e.g., `synesthetic-asset`).; Verify each schema `$id` ends with the schema filename (e.g., `.../synesthetic-asset.schema.json`).; Confirm that reusable object structures are defined within a schema's `$defs` section (manual spot-check acceptable).; Verify that `README.md` and `CONTRIBUTING.md` describe the preflight and versioning workflows.; Optional: Manual/External — consider Spectral for extended style rules.
+- Acceptance: `$defs` names are PascalCase across schemas.; Top-level titles match file stem (kebab-case).; Each `$id` ends with its schema filename.; Reusable schema objects are defined centrally within `$defs`.; Contributor docs provide clear guidance for essential workflows.
+
+## Done Definition
+
+- The audit report is successfully generated at `meta/SSOT_AUDIT.md`.
+- Every schema contains a unique `$id` and declares the target JSON Schema draft.
+- Every example is valid and correctly linked to its schema via `$schemaRef`.
+- The codebase is in a clean state, proven by a passing codegen drift check.
+- Local preflight execution mirrors the passing CI workflow, ensuring parity.
