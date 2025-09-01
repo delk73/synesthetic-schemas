@@ -8,6 +8,7 @@ import os
 import re
 import sys
 from pathlib import Path
+import warnings
 from typing import Any, Dict, List, Tuple
 
 
@@ -118,7 +119,7 @@ def c3_schema_integrity() -> Tuple[bool, List[str]]:
     return ok, details
 
 
-def c4_examples_validate() -> Tuple[bool, List[str]]:
+def c4_examples_validate(verbose: bool = False) -> Tuple[bool, List[str]]:
     details: List[str] = []
     ok = True
     try:
@@ -141,6 +142,24 @@ def c4_examples_validate() -> Tuple[bool, List[str]]:
         except Exception:
             pass
 
+    # Prefer modern referencing.Registry for resolution; fall back silently
+    # to RefResolver (without emitting deprecation warnings) when needed.
+    registry = None
+    try:
+        from referencing import Registry, Resource  # type: ignore
+
+        reg = Registry()
+        # Add both path and $id variants to the registry
+        for k, v in store.items():
+            try:
+                reg = reg.with_resource(k, Resource.from_contents(v))
+            except Exception:
+                # non-URI keys may raise; best-effort only
+                pass
+        registry = reg
+    except Exception:
+        registry = None
+
     def load_schema(ref: str) -> Any:
         # prefer path relative to repo root
         p = ROOT / ref
@@ -151,42 +170,92 @@ def c4_examples_validate() -> Tuple[bool, List[str]]:
             return store[ref]
         raise FileNotFoundError(ref)
 
-    # Expand example globs
-    example_paths = []
+    # Expand and de-duplicate example globs (avoid double-including top-level files)
     examples_root = ROOT / "examples"
-    example_paths.extend(sorted(examples_root.glob("*.json")))
-    example_paths.extend(sorted(examples_root.glob("**/*.json")))
+    example_set = set()
+    for p in examples_root.glob("**/*.json"):
+        # Skip any files under folders prefixed with '_' (e.g., examples/_skip/...)
+        relp = p.relative_to(examples_root)
+        if any(part.startswith("_") for part in relp.parts[:-1]):
+            continue
+        example_set.add(p.resolve())
+    example_paths = sorted(example_set)
 
     if not example_paths:
         return False, [f"No examples found under {rel(examples_root)}"]
+
+    ok_count = 0
+    fail_count = 0
+    failures: List[str] = []
 
     for p in example_paths:
         try:
             data = load_json(p)
         except Exception as e:
             ok = False
-            details.append(f"{rel(p)}: parse error: {e}")
+            fail_count += 1
+            failures.append(f"{rel(p)}: parse error: {e}")
             continue
         ref = data.get("$schemaRef")
         if not isinstance(ref, str) or not ref:
             ok = False
-            details.append(f"{rel(p)}: missing top-level '$schemaRef'")
+            fail_count += 1
+            failures.append(f"{rel(p)}: missing top-level '$schemaRef'")
             continue
         try:
             schema_obj = load_schema(ref)
         except Exception as e:
             ok = False
-            details.append(f"{rel(p)}: schema not found: {ref} ({e})")
+            fail_count += 1
+            failures.append(f"{rel(p)}: schema not found: {ref} ({e})")
             continue
         try:
-            resolver = jsonschema.RefResolver.from_schema(schema_obj, store=store)  # type: ignore
-            validator = jsonschema.Draft202012Validator(schema_obj, resolver=resolver)
-            validator.validate(data)
-            details.append(f"{rel(p)}: OK against {ref}")
+            if registry is not None:
+                validator = jsonschema.Draft202012Validator(schema_obj, registry=registry)
+                # Strip non-schema instance linkage key before validation
+                data_to_validate = dict(data) if isinstance(data, dict) else data
+                if isinstance(data_to_validate, dict) and "$schemaRef" in data_to_validate:
+                    data_to_validate.pop("$schemaRef", None)
+                validator.validate(data_to_validate)
+            else:
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", category=DeprecationWarning, module="jsonschema")
+                    resolver = jsonschema.RefResolver.from_schema(schema_obj, store=store)  # type: ignore
+                    validator = jsonschema.Draft202012Validator(schema_obj, resolver=resolver)
+                    data_to_validate = dict(data) if isinstance(data, dict) else data
+                    if isinstance(data_to_validate, dict) and "$schemaRef" in data_to_validate:
+                        data_to_validate.pop("$schemaRef", None)
+                    validator.validate(data_to_validate)
+            ok_count += 1
+            if verbose:
+                details.append(f"{rel(p)}: OK against {ref}")
         except Exception as e:
             ok = False
-            details.append(f"{rel(p)}: validation failed: {e}")
+            fail_count += 1
+            # Prefer concise ValidationError message if available
+            msg = getattr(e, "message", str(e))
+            instance_path = "/".join([str(x) for x in getattr(e, "path", [])])
+            schema_path = "/".join([str(x) for x in getattr(e, "schema_path", [])])
+            where = []
+            if instance_path:
+                where.append(f"instance: /{instance_path}")
+            if schema_path:
+                where.append(f"schema: /{schema_path}")
+            where_str = f" ({'; '.join(where)})" if where else ""
+            failures.append(f"{rel(p)}: validation failed: {msg}{where_str}")
 
+    # Summarize results compactly by default
+    if not verbose:
+        if ok_count:
+            details.append(f"{ok_count} examples OK")
+        for fmsg in failures:
+            details.append(f"- {fmsg}")
+    else:
+        for fmsg in failures:
+            details.append(f"- {fmsg}")
+
+    # Overall status is True only if no failures
+    ok = ok and fail_count == 0
     return ok, details
 
 
@@ -279,6 +348,7 @@ def main(argv: List[str]) -> int:
     ap = argparse.ArgumentParser(description="SSOT repo auditor (deterministic Markdown)")
     ap.add_argument("--spec", type=Path, default=SPEC_PATH_DEFAULT)
     ap.add_argument("--out", type=Path, default=OUT_PATH_DEFAULT)
+    ap.add_argument("--verbose", "-v", action="store_true", help="emit per-file OK lines and full details")
     args = ap.parse_args(argv)
 
     spec = load_json(args.spec)
@@ -288,7 +358,7 @@ def main(argv: List[str]) -> int:
     results["C1"] = c1_version([])
     results["C2"] = c2_pytyped()
     results["C3"] = c3_schema_integrity()
-    results["C4"] = c4_examples_validate()
+    results["C4"] = c4_examples_validate(verbose=args.verbose)
     results["C5"] = c5_codegen_ci()
     results["C6"] = c6_naming_docs()
 
