@@ -5,7 +5,7 @@
     "python": "3.11",
     "schema_draft": "2020-12",
     "no_db_migrations": true,
-    "output": "Markdown only; write to meta/SSOT_AUDIT.md; do not print to stdout"
+    "output": "Markdown only; write to meta/output/SSOT_AUDIT.md; do not print to stdout"
   },
   "inputs": {
     "schemas": "jsonschema/*.schema.json",
