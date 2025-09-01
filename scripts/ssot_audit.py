@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH_DEFAULT = ROOT / "meta" / "prompts" / "ssot.audit.json"
-OUT_PATH_DEFAULT = ROOT / "meta" / "SSOT_AUDIT.md"
+OUT_PATH_DEFAULT = ROOT / "meta" / "output" / "SSOT_AUDIT.md"
 
 
 def load_json(path: Path) -> Any:

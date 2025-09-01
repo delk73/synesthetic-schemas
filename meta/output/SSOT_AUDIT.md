@@ -34,7 +34,7 @@
 
 ### C4: Example to schema linkage — PASS
 
-- 14 examples OK (presence-only; jsonschema missing: No module named 'jsonschema')
+- 14 examples OK
 - Checks: Confirm every example JSON file contains a top-level `"$schemaRef"` key pointing to a valid schema.
 - Acceptance: All examples pass strict validation against their linked schemas.
 
