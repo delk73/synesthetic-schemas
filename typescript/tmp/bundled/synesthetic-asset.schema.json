@@ -1,12 +1,12 @@
 {
-  "$id": "https://schemas.synesthetic.dev/0.7.0/synesthetic-asset.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/synesthetic-asset.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
     "control": {
       "anyOf": [
         {
-          "$id": "https://schemas.synesthetic.dev/0.7.0/control-bundle.schema.json",
+          "$id": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "additionalProperties": false,
           "properties": {
@@ -137,7 +137,7 @@
                     "type": "object"
                   }
                 },
-                "$id": "https://schemas.synesthetic.dev/0.7.0/control.schema.json",
+                "$id": "https://schemas.synesthetic.dev/0.7.3/control.schema.json",
                 "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "additionalProperties": false,
                 "properties": {
@@ -248,9 +248,9 @@
                   "default",
                   "mappings"
                 ],
-                "title": "Control",
+                "title": "control",
                 "type": "object",
-                "x-schema-version": "0.7.0"
+                "x-schema-version": "0.7.3"
               },
               "title": "Control Parameters",
               "type": "array"
@@ -286,7 +286,7 @@
           ],
           "title": "control-bundle",
           "type": "object",
-          "x-schema-version": "0.7.0"
+          "x-schema-version": "0.7.3"
         },
         {
           "type": "null"
@@ -474,7 +474,7 @@
               "type": "object"
             }
           },
-          "$id": "https://schemas.synesthetic.dev/0.7.0/haptic.schema.json",
+          "$id": "https://schemas.synesthetic.dev/0.7.3/haptic.schema.json",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "properties": {
             "description": {
@@ -536,9 +536,9 @@
             "input_parameters",
             "name"
           ],
-          "title": "Haptic",
+          "title": "haptic",
           "type": "object",
-          "x-schema-version": "0.7.0"
+          "x-schema-version": "0.7.3"
         },
         {
           "type": "null"
@@ -685,7 +685,7 @@
               "type": "object"
             }
           },
-          "$id": "https://schemas.synesthetic.dev/0.7.0/modulation.schema.json",
+          "$id": "https://schemas.synesthetic.dev/0.7.3/modulation.schema.json",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "additionalProperties": false,
           "properties": {
@@ -787,9 +787,9 @@
             "modulations",
             "name"
           ],
-          "title": "Modulation",
+          "title": "modulation",
           "type": "object",
-          "x-schema-version": "0.7.0"
+          "x-schema-version": "0.7.3"
         },
         {
           "type": "null"
@@ -935,7 +935,7 @@
           "type": "object"
         }
       },
-      "$id": "https://schemas.synesthetic.dev/0.7.0/rule-bundle.schema.json",
+      "$id": "https://schemas.synesthetic.dev/0.7.3/rule-bundle.schema.json",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "additionalProperties": false,
       "example": {
@@ -1061,9 +1061,9 @@
         "name",
         "rules"
       ],
-      "title": "RuleBundle",
+      "title": "rule-bundle",
       "type": "object",
-      "x-schema-version": "0.7.0"
+      "x-schema-version": "0.7.3"
     },
     "shader": {
       "anyOf": [
@@ -1164,7 +1164,7 @@
               "type": "object"
             }
           },
-          "$id": "https://schemas.synesthetic.dev/0.7.0/shader.schema.json",
+          "$id": "https://schemas.synesthetic.dev/0.7.3/shader.schema.json",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "additionalProperties": false,
           "properties": {
@@ -1263,9 +1263,9 @@
             "name",
             "vertex_shader"
           ],
-          "title": "Shader",
+          "title": "shader",
           "type": "object",
-          "x-schema-version": "0.7.0"
+          "x-schema-version": "0.7.3"
         },
         {
           "type": "null"
@@ -1604,7 +1604,7 @@
               "type": "object"
             }
           },
-          "$id": "https://schemas.synesthetic.dev/0.7.0/tone.schema.json",
+          "$id": "https://schemas.synesthetic.dev/0.7.3/tone.schema.json",
           "$schema": "https://json-schema.org/draft/2020-12/schema",
           "additionalProperties": true,
           "properties": {
@@ -1740,9 +1740,9 @@
             "name",
             "synth"
           ],
-          "title": "Tone",
+          "title": "tone",
           "type": "object",
-          "x-schema-version": "0.7.0"
+          "x-schema-version": "0.7.3"
         },
         {
           "type": "null"
@@ -1759,7 +1759,7 @@
   "required": [
     "name"
   ],
-  "title": "SynestheticAsset",
+  "title": "synesthetic-asset",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }

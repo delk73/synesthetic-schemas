@@ -111,7 +111,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.7.0/modulation.schema.json",
+  "$id": "https://schemas.synesthetic.dev/0.7.3/modulation.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
@@ -213,7 +213,7 @@
     "modulations",
     "name"
   ],
-  "title": "Modulation",
+  "title": "modulation",
   "type": "object",
-  "x-schema-version": "0.7.0"
+  "x-schema-version": "0.7.3"
 }
