@@ -10,10 +10,26 @@ Thanks for helping improve Synesthetic Schemas! This repo is the single source o
 
 ## Quick Start
 
-- Python 3.11 environment (conda recommended):
-  - `conda create -n schemas311 python=3.11`
-  - `conda activate schemas311`
-- Node 20 with dev deps installed: `npm ci`
+This project uses [Nix](https://nixos.org/) to provide a reproducible development environment.
+
+1.  **Install Nix:** If you don't have Nix installed, you can install it by following the instructions at [https://nixos.org/download.html](https://nixos.org/download.html).
+
+2.  **Enable Nix Flakes:** You'll need to enable the experimental "flakes" feature. Add the following line to your Nix configuration file (`~/.config/nix/nix.conf` or `/etc/nix/nix.conf`):
+    ```
+    experimental-features = nix-command flakes
+    ```
+
+3.  **Start the development shell:** Open a terminal in your project's root directory and run:
+    ```bash
+    nix develop
+    ```
+    This command will download and configure all the necessary dependencies.
+
+4.  **Install project dependencies:** Once you are inside the Nix shell, run:
+    ```bash
+    npm install
+    poetry install
+    ```
 
 ## Preflight (must pass before pushing)
 

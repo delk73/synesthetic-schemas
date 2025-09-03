@@ -77,21 +77,26 @@ Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "wor
 
 ## Environment Setup
 
-- Python 3.11 (conda env recommended):
-  - `conda create -n schemas311 python=3.11`
-  - `conda activate schemas311`
-  - Install Poetry and deps in this env
-  
-```bash
-# inside the conda env
-pip install poetry
-poetry install --with dev --no-root
-npm ci
-```
-- Node 20+ dev deps:
-  - `npm ci` (at repo root)
+This project uses [Nix](https://nixos.org/) to provide a reproducible development environment.
 
-The Makefile auto-detects and prefers `conda run -n schemas311 poetry run python`, falling back to Poetry or system Python as needed.
+1.  **Install Nix:** If you don't have Nix installed, you can install it by following the instructions at [https://nixos.org/download.html](https://nixos.org/download.html).
+
+2.  **Enable Nix Flakes:** You'll need to enable the experimental "flakes" feature. Add the following line to your Nix configuration file (`~/.config/nix/nix.conf` or `/etc/nix/nix.conf`):
+    ```
+    experimental-features = nix-command flakes
+    ```
+
+3.  **Start the development shell:** Open a terminal in your project's root directory and run:
+    ```bash
+    nix develop
+    ```
+    This command will download and configure all the necessary dependencies.
+
+4.  **Install project dependencies:** Once you are inside the Nix shell, run:
+    ```bash
+    npm install
+    poetry install
+    ```
 
 ---
 
