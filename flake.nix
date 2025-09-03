@@ -19,14 +19,14 @@
           buildInputs = [
             pkgs.python311
             pkgs.poetry
-            pkgs.nodejs-20_x
+            pkgs.nodejs_22
           ];
-          shellHook = '''
+          shellHook = ''
             echo "Welcome to the synesthetic-schemas development environment!"
             echo "To get started, run:"
             echo "  poetry install"
             echo "  npm install"
-          ''';
+          ''; # <-- FIXED: Semicolon is correctly placed outside the string.
         };
       });
   };
