@@ -12,6 +12,48 @@ This repo provides canonical JSON Schemas, deterministic code generation for Pyt
 
 ---
 
+## ✅ Quickstart (copy/paste)
+
+Run these in the repo root.
+
+```bash
+# 1) Enter reproducible dev shell
+nix develop
+
+# 2) Install deps
+npm ci
+poetry install
+
+# 3) Build & validate (normalize → codegen → validate)
+make normalize codegen-py codegen-ts validate
+
+# 4) CI-parity (read-only drift check)
+./preflight.sh
+````
+
+**Notes**
+
+* Generated Python/TypeScript code **must be committed**; `./preflight.sh` enforces this via `codegen-check`.
+* Auto-fix local normalization drift, then re-check:
+
+  ```bash
+  make preflight-fix
+  ./preflight.sh
+  ```
+* Bump version and regenerate:
+
+  ```bash
+  make bump-version VERSION=0.7.3
+  make codegen-py codegen-ts validate
+  ./preflight.sh
+  ```
+* If only docs changed, you can skip codegen check:
+
+  ```bash
+  SKIP_CODEGEN_CHECK=1 ./preflight.sh
+  ```
+
+---
 ## Purpose
 
 Canonical JSON Schemas for:
