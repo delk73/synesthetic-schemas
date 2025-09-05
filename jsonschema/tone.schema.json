@@ -11,6 +11,7 @@
         "Tone.DuoSynth",
         "Tone.MembraneSynth",
         "Tone.MetalSynth",
+        "Tone.MetalSynth2",
         "Tone.PluckSynth"
       ],
       "title": "SynthType",
