@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# This script validates the environment and builds the project artifacts.
-# It requires that dependencies have been installed manually first.
+# This script is the single, explicit command to set up and build the project.
+# It is self-contained and idempotent.
 
 # 1. Ensure we are in the correct Nix environment.
 if [ -z "${IN_NIX_SHELL:-}" ]; then
@@ -11,40 +11,23 @@ if [ -z "${IN_NIX_SHELL:-}" ]; then
   exit 1
 fi
 
-ROOT="$(cd "$(dirname "${B_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
-# 2. Validate that dependencies have been installed.
-echo "--> Step 1 of 4: Validating that dependencies are installed..."
+# 2. Explicitly install all dependencies.
+# This step ensures that all required tools are present and up-to-date
+# according to the lock files before any other actions are taken.
+echo "--> Step 1 of 4: Installing/verifying Python and Node.js dependencies..."
+poetry install --no-root
+npm install
 
-# Check for Python dependencies by trying to import a key package.
-if ! poetry run python -c "import datamodel_code_generator" &> /dev/null; then
-  echo "Error: Python dependencies are not installed." >&2
-  echo "Please run the following command manually:" >&2
-  echo "" >&2
-  echo "  poetry install" >&2
-  echo "" >&2
-  exit 1
-fi
-
-# Check for Node.js dependencies by looking for the node_modules directory.
-if [ ! -d "node_modules" ]; then
-  echo "Error: Node.js dependencies are not installed." >&2
-  echo "Please run the following command manually:" >&2
-  echo "" >&2
-  echo "  npm install" >&2
-  echo "" >&2
-  exit 1
-fi
-
-echo "Dependencies verified."
-
-# 3. Run code generation scripts.
+# 3. Explicitly run code generation scripts.
+# This can only succeed because Step 2 has just completed.
 echo "--> Step 2 of 4: Generating code from schemas..."
 bash "$ROOT/codegen/gen_py.sh"
 bash "$ROOT/codegen/gen_ts.sh"
 
-# 4. Run validation and quality control on the generated code.
+# 4. Explicitly run validation and quality control on the generated code.
 echo "--> Step 3 of 4: Validating generated artifacts..."
 poetry run python "$ROOT/scripts/validate_examples.py"
 
