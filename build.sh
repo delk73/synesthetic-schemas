@@ -5,7 +5,8 @@ set -euo pipefail
 # It MUST be run after 'poetry install' has created the .venv.
 
 # 1. Ensure we are in the correct Nix environment.
-if [ -z "${IN_Nix_SHELL:-}" ]; then
+# Corrected variable: IN_NIX_SHELL (all caps)
+if [ -z "${IN_NIX_SHELL:-}" ]; then
   echo "Error: This script must be run inside the Nix shell." >&2
   echo "Please run 'nix develop' first." >&2
   exit 1

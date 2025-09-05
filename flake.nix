@@ -12,25 +12,21 @@
         pkgs = import nixpkgs { inherit system; };
       in {
         default = pkgs.mkShell {
-          # Provide the core tools needed for the project.
-          # Nix's job stops here.
           buildInputs = [
             pkgs.python311
-            pkgs.poetry
+            # The Fix: Ensure Poetry is built with the same Python used in the shell.
+            (pkgs.poetry.override { python = pkgs.python311; })
             pkgs.nodejs_20
           ];
 
-          # This hook provides guidance and ensures the venv is in the right place.
           shellHook = ''
             # Tell poetry to create the .venv inside the project directory.
-            poetry config virtualenvs.in-project true
-
-            # Unset variables that can confuse virtual environments.
+            poetry config virtualenvs.in-project true --local
             unset VIRTUAL_ENV
 
             echo ""
             echo "--- Synesthetic Schemas Development Environment ---"
-            echo "Nix has provided: Python, Poetry, and Node.js."
+            echo "Nix has provided: Python, Poetry (pinned to Python 3.11), and Node.js."
             echo ""
             echo "To set up, run 'poetry install' to create the .venv and install dependencies."
             echo "Then, run './build.sh' to generate and validate all artifacts."
