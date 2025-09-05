@@ -8,20 +8,39 @@ on:
 jobs:
   preflight:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Nix and configure Flakes
+      - name: Install Nix and configure Cachix
         uses: cachix/install-nix-action@v26
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+          cachix_name: synesthetic # IMPORTANT: Replace with your Cachix cache name
+          cachix_auth_token: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Cache Poetry virtual environment
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
       - name: Install project dependencies
         run: |
-          # This single command runs inside the Nix shell, ensuring the
-          # correct versions of Poetry and NPM are used to install dependencies.
           nix develop --command bash -c "
             echo '--- Installing project dependencies for CI ---'
             poetry install
@@ -46,13 +65,9 @@ jobs:
       - name: Run preflight (with codegen-check)
         if: steps.changes.outputs.codegen == 'true'
         run: |
-          # We run preflight inside the Nix shell to ensure it uses
-          # the same tools and environment as a local developer.
           nix develop --command ./preflight.sh
 
       - name: Run preflight (skip codegen-check)
         if: steps.changes.outputs.codegen != 'true'
         run: |
-          # We wrap the command in bash -c to pass the environment variable
-          # into the Nix shell correctly.
           nix develop --command bash -c "SKIP_CODEGEN_CHECK=1 ./preflight.sh"
