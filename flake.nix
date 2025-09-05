@@ -10,11 +10,14 @@
     devShells = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
+
+        # force poetry to use python311 as its own runtime
+        poetry311 = pkgs.poetry.override { python3 = pkgs.python311; };
       in {
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.python311
-            pkgs.poetry
+            poetry311
             pkgs.nodejs_20
           ];
           shellHook = ''
