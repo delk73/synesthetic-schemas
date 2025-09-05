@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# This script runs pre-commit style checks.
+# We use 'poetry run' before each 'make' command to ensure that the Makefile
+# and all scripts it calls are executed within the project's Python virtual
+# environment (.venv), giving them access to the installed dependencies.
+
 echo "◼︎ normalize --check"
-make normalize-check
+poetry run make normalize-check
 
 echo "◼︎ schema-lint"
-make schema-lint
+poetry run make schema-lint
 
 echo "◼︎ ensure codegen clean"
 if [[ -n "${SKIP_CODEGEN_CHECK:-}" ]]; then
   echo "(skipped by CI paths filter)"
 else
-  make codegen-check
+  poetry run make codegen-check
 fi
 
 echo "◼︎ validate examples"
-make validate
+poetry run make validate
 
 echo "✅ preflight OK"
 
