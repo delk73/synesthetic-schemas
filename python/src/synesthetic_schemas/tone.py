@@ -18,7 +18,6 @@ class SynthType(Enum):
     Tone_DuoSynth = 'Tone.DuoSynth'
     Tone_MembraneSynth = 'Tone.MembraneSynth'
     Tone_MetalSynth = 'Tone.MetalSynth'
-    Tone_MetalSynth2 = 'Tone.MetalSynth2'
     Tone_PluckSynth = 'Tone.PluckSynth'
 
 
