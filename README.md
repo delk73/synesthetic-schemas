@@ -12,24 +12,27 @@ This repo provides canonical JSON Schemas, deterministic code generation for Pyt
 
 ---
 
-## ✅ Quickstart (copy/paste)
+## ✅ Quickstart (single entry)
 
-Run these in the repo root.
+In the repo root:
 
 ```bash
-# 1) Enter reproducible dev shell
+# Optional but recommended for reproducible compilers
 nix develop
 
-# 2) Install deps
+# Install Node deps once
 npm ci
-poetry install
 
-# 3) Build & validate (normalize → codegen → validate)
-make normalize codegen-py codegen-ts validate
+# One command: normalize → codegen → validate → examples QC
+./test.sh
+```
 
-# 4) CI-parity (read-only drift check)
-./preflight.sh
-````
+`./test.sh` uses a project-local Poetry venv (`.venv/`) automatically and will:
+
+- Normalize schemas
+- Regenerate Python/TypeScript code
+- Validate examples against the canonical schemas
+- Run Examples QC and write reports to `meta/output/`
 
 **Notes**
 
@@ -136,7 +139,7 @@ This project uses [Nix](https://nixos.org/) to provide a reproducible developmen
 
 4.  **Install project dependencies:** Once you are inside the Nix shell, run:
     ```bash
-    npm install
+    npm ci
     poetry env use 3.11
     poetry install
     ```
@@ -155,6 +158,7 @@ This project uses [Nix](https://nixos.org/) to provide a reproducible developmen
   ```bash
   poetry run python -V
   poetry run ./preflight.sh
+  poetry run python scripts/examples_qc.py --ci || true
   ```
 - Troubleshooting: If you see `ModuleNotFoundError` after previously installing with a
   different Python, re-create the env:
