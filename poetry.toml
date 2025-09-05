@@ -1,2 +1,4 @@
 [virtualenvs]
-create = false
+# Always use a project-local virtualenv to avoid leaking into user/site Pythons
+create = true
+in-project = true
