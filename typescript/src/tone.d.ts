@@ -125,6 +125,7 @@ export type SynthType =
   | "Tone.DuoSynth"
   | "Tone.MembraneSynth"
   | "Tone.MetalSynth"
+  | "Tone.MetalSynth2"
   | "Tone.PluckSynth";
 
 export interface Tone {
