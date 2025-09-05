@@ -137,8 +137,32 @@ This project uses [Nix](https://nixos.org/) to provide a reproducible developmen
 4.  **Install project dependencies:** Once you are inside the Nix shell, run:
     ```bash
     npm install
+    poetry env use 3.11
     poetry install
     ```
+    Poetry is configured to use a project-local virtual environment at `.venv/` (see `poetry.toml`).
+    This prevents packages from being installed into user/global Pythons and guarantees
+    a consistent Python 3.11 runtime across machines.
+
+### Python & Poetry Policy
+
+- Local venv: The repo enforces a project-local venv (`.venv/`) via `poetry.toml`.
+- Python version: `pyproject.toml` requires `>=3.11,<3.13`. Always select 3.11 with:
+  ```bash
+  poetry env use 3.11
+  ```
+- Run tools through Poetry to ensure the correct interpreter and site-packages are used:
+  ```bash
+  poetry run python -V
+  poetry run ./preflight.sh
+  ```
+- Troubleshooting: If you see `ModuleNotFoundError` after previously installing with a
+  different Python, re-create the env:
+  ```bash
+  poetry env remove --all
+  poetry env use 3.11
+  poetry install
+  ```
 
 ---
 
