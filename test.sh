@@ -23,9 +23,19 @@ ensure_poetry_env () {
     echo "✖ Failed to select Python 3.11 at $PY311_PATH for Poetry env." >&2
     exit 3
   fi
-  # Install main deps deterministically (quiet); safe to re-run
-  if ! poetry install --only main --no-interaction -q; then
-    echo "✖ Poetry install failed. Try: 'poetry env remove --all && poetry env use $PY311_PATH && poetry install'" >&2
+}
+
+# Verify key deps exist; if not, instruct user to install once explicitly.
+require_python_deps () {
+  if ! ( cd "$ROOT" && poetry run python - <<'PY' 2>/dev/null
+import sys
+import jsonschema  # validate schema
+import pydantic    # validate codegen deps present
+print('OK')
+PY
+  ) >/dev/null; then
+    echo "✖ Missing Python dependencies in the Poetry env." >&2
+    echo "  Run once: 'poetry install' (inside nix develop if you use it)." >&2
     exit 3
   fi
 }
@@ -57,6 +67,7 @@ PYTHONPATH="$ROOT/python/src" run_py "$ROOT/scripts/validate_examples.py"
 
 # --- 4) Examples QC (reports to meta/output) ------------------------------
 echo "◼︎ Running examples QC (reports only; does not gate locally)…"
+require_python_deps
 run_py "$ROOT/scripts/examples_qc.py" --ci || true
 echo "   ↳ Wrote: meta/output/SCHEMAS_EXAMPLES_QA.{json,md} and BLESSED_EXAMPLES.json"
 
