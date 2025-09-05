@@ -17,7 +17,7 @@ This repo provides canonical JSON Schemas, deterministic code generation for Pyt
 In the repo root:
 
 ```bash
-# Optional but recommended for reproducible compilers
+# Optional but recommended for reproducible compilers (includes Poetry)
 nix develop
 
 # Install Node deps once
@@ -27,7 +27,7 @@ npm ci
 ./test.sh
 ```
 
-`./test.sh` uses a project-local Poetry venv (`.venv/`) automatically and will:
+`./test.sh` requires Poetry and uses a project-local venv (`.venv/`) automatically and will:
 
 - Normalize schemas
 - Regenerate Python/TypeScript code
