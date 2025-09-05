@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# This script is the single, explicit command to set up and build the project.
-# It is self-contained and idempotent.
+# This script builds and validates the project artifacts.
+# It MUST be run after 'poetry install' has created the .venv.
 
 # 1. Ensure we are in the correct Nix environment.
-if [ -z "${IN_NIX_SHELL:-}" ]; then
+if [ -z "${IN_Nix_SHELL:-}" ]; then
   echo "Error: This script must be run inside the Nix shell." >&2
   echo "Please run 'nix develop' first." >&2
   exit 1
@@ -14,24 +14,25 @@ fi
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
-# 2. Explicitly install all dependencies.
-# This step ensures that all required tools are present and up-to-date
-# according to the lock files before any other actions are taken.
-echo "--> Step 1 of 4: Installing/verifying Python and Node.js dependencies..."
-poetry install --no-root
-npm install
+# 2. Validate that the Poetry venv exists and is active.
+# This ensures 'poetry install' has been run.
+if ! poetry env info --path &> /dev/null; then
+    echo "Error: Poetry environment not found." >&2
+    echo "Please run 'poetry install' to create the .venv and install dependencies first." >&2
+    exit 1
+fi
 
-# 3. Explicitly run code generation scripts.
-# This can only succeed because Step 2 has just completed.
-echo "--> Step 2 of 4: Generating code from schemas..."
-bash "$ROOT/codegen/gen_py.sh"
-bash "$ROOT/codegen/gen_ts.sh"
+# 3. Run code generation.
+echo "--> Generating code from schemas..."
+# We use 'poetry run' to ensure we use the tools from the .venv.
+poetry run bash "$ROOT/codegen/gen_py.sh"
+bash "$ROOT/codegen/gen_ts.sh" # Node is provided directly by Nix.
 
-# 4. Explicitly run validation and quality control on the generated code.
-echo "--> Step 3 of 4: Validating generated artifacts..."
+# 4. Run validation and quality control.
+echo "--> Validating generated artifacts..."
 poetry run python "$ROOT/scripts/validate_examples.py"
 
-echo "--> Step 4 of 4: Running quality control checks..."
+echo "--> Running quality control checks..."
 poetry run python "$ROOT/scripts/examples_qc.py" --ci || true
 
 echo ""

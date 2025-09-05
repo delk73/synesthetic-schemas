@@ -1,5 +1,5 @@
 {
-  description = "synesthetic-schemas dev env";
+  description = "A simple and resilient development environment for the synesthetic-schemas project";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -10,21 +10,32 @@
     devShells = forAllSystems (system:
       let
         pkgs = import nixpkgs { inherit system; };
-
-        # force poetry to use python311 as its own runtime
-        poetry311 = pkgs.poetry.override { python3 = pkgs.python311; };
       in {
         default = pkgs.mkShell {
+          # Provide the core tools needed for the project.
+          # Nix's job stops here.
           buildInputs = [
             pkgs.python311
-            poetry311
+            pkgs.poetry
             pkgs.nodejs_20
           ];
+
+          # This hook provides guidance and ensures the venv is in the right place.
           shellHook = ''
-            poetry config virtualenvs.create false --local
-            echo "Python: $(python --version)"
-            echo "Poetry: $(poetry --version)"
-            echo "Node:   $(node --version)"
+            # Tell poetry to create the .venv inside the project directory.
+            poetry config virtualenvs.in-project true
+
+            # Unset variables that can confuse virtual environments.
+            unset VIRTUAL_ENV
+
+            echo ""
+            echo "--- Synesthetic Schemas Development Environment ---"
+            echo "Nix has provided: Python, Poetry, and Node.js."
+            echo ""
+            echo "To set up, run 'poetry install' to create the .venv and install dependencies."
+            echo "Then, run './build.sh' to generate and validate all artifacts."
+            echo "-------------------------------------------------"
+            echo ""
           '';
         };
       });
