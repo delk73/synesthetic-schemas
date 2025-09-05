@@ -2,8 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SCHEMAS_DIR="$ROOT/jsonschema"
-BUNDLE_DIR="$ROOT/typescript/tmp/bundled"     # produced by ts_bundle.mjs
+BUNDLE_DIR="$ROOT/typescript/tmp/bundled"
 OUT="$ROOT/python/src/synesthetic_schemas"
 
 # 1) Bundle all schemas (no network; uses our custom resolver)
@@ -17,7 +16,8 @@ mkdir -p "$OUT"
 
 # 3) Decide if the CLI supports the pydantic v2 flag
 EXTRA_FLAGS=()
-if datamodel-codegen --help 2>&1 | grep -q -- '--use-pydantic-v2'; then
+# Use the direct python -m call here for consistency
+if python -m datamodel_code_generator --help 2>&1 | grep -q -- '--use-pydantic-v2'; then
   EXTRA_FLAGS+=(--use-pydantic-v2)
 fi
 
@@ -30,16 +30,17 @@ COMMON_ARGS=(
 
 # 4) Generate one .py per bundled schema (hyphens → underscores)
 for schema in "$BUNDLE_DIR"/*.schema.json; do
-  base="$(basename "$schema")"          # e.g. synesthetic-asset.schema.json
-  mod="${base%.schema.json}"            # synesthetic-asset
-  mod="${mod//-/_}"                     # synesthetic_asset
+  base="$(basename "$schema")"
+  mod="${base%.schema.json}"
+  mod="${mod//-/_}"
   out_py="$OUT/$mod.py"
 
-  if command -v datamodel-codegen >/dev/null 2>&1; then
-    datamodel-codegen "${COMMON_ARGS[@]}" "${EXTRA_FLAGS[@]}" --input "$schema" --output "$out_py"
-  else
-    python -m datamodel_code_generator "${COMMON_ARGS[@]}" "${EXTRA_FLAGS[@]}" --input "$schema" --output "$out_py"
-  fi
+  # THIS IS THE FIX:
+  # We call the tool directly as a Python module. This forces the use of the
+  # correct Nix Python interpreter from the current shell, bypassing the
+  # broken executable script with the wrong shebang.
+  python -m datamodel_code_generator "${COMMON_ARGS[@]}" "${EXTRA_FLAGS[@]}" --input "$schema" --output "$out_py"
+  
   echo "generated: $(basename "$out_py")"
 done
 

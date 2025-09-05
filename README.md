@@ -1,6 +1,6 @@
 ---
 version: v0.7.3
-lastReviewed: 2025-09-01
+lastReviewed: 2025-09-03
 owner: delk73
 ---
 
@@ -8,7 +8,85 @@ owner: delk73
 
 Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
 
-This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a no-“works-on-my-machine” preflight that matches CI.
+This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible development environment via Nix that matches CI.
+
+---
+
+
+## Install Nix (First Time Only)
+
+If you do not have Nix installed, run the following command. If you already have Nix, you can skip to the next step.
+
+```bash
+# Install the Nix package manager (multi-user installation)
+sh <(curl -L https://nixos.org/nix/install) --daemon
+```
+After installation, you may need to restart your shell.
+
+
+
+## ✅ Development Workflow
+
+This project uses [Nix](https://nixos.org/) to provide a reproducible environment. 
+
+### 1. First-Time Setup (Run Once)
+
+After cloning the repository, follow these steps to set up the environment.
+
+```bash
+# Step 1: Enter the Nix development shell.
+# This provides the correct, pinned versions of Python 3.11, Poetry, and Node.js.
+exit 
+nix develop 
+
+# Step 2: Install project dependencies.
+# This creates a local .venv/ for Python and a node_modules/ for TypeScript.
+poetry install
+npm install
+```
+
+### 2. Daily Workflow
+
+After the initial setup, you will only need these commands for day-to-day development.
+
+```bash
+# To generate all code artifacts from the schemas and run validations:
+./build.sh
+
+# To run the fast, read-only pre-commit checks that match CI:
+./preflight.sh
+```
+
+---
+
+## 🛠️ Troubleshooting: Resetting the Environment
+
+If you ever encounter a persistent or strange environment issue, you can perform a hard reset to return to a clean slate. This is a safe operation that deletes temporary build artifacts and dependencies.
+
+1.  **Exit all shells:** Make sure you are at your normal system prompt (not inside a `nix develop` shell or a `.venv`).
+    ```bash
+    exit
+    ```
+
+2.  **Clean the project directory:** Run this command from the repo root.
+    ```bash
+    rm -rf .venv/ node_modules/ flake.lock poetry.toml .cache/ meta/output/ python/src/synesthetic_schemas/ typescript/src/ typescript/tmp/
+    ```
+
+3.  **Restart the workflow:** After cleaning, simply follow the **First-Time Setup** steps again.
+
+---
+
+## One-Time Nix Installation
+
+If this is your first time using Nix, you'll need a brief setup.
+
+1.  **Install Nix:** Follow the instructions at [nixos.org/download.html](https://nixos.org/download.html).
+
+2.  **Enable Nix Flakes:** Add the following line to your Nix configuration file (`~/.config/nix/nix.conf` or `/etc/nix/nix.conf`):
+    ```
+    experimental-features = nix-command flakes
+    ```
 
 ---
 
@@ -29,14 +107,6 @@ Schemas are normalized and versioned here, then used to generate:
 - Backend Pydantic v2 models (Python)
 - Frontend `.d.ts` types (TypeScript)
 - Validation of real examples with round-trip checks
-
----
-
-## IDs vs Canonical Schema
-
-- Canonical schemas do not include database IDs (`*_id`). They describe portable asset documents only.
-- APIs may wrap canonical assets with an envelope that adds `id`. This `id` is part of the API contract, not the canonical schema.
-- Clients validate/build assets from canonical schemas and handle IDs only at API boundaries.
 
 ---
 
@@ -72,26 +142,6 @@ flowchart TD
 ```
 
 Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "works on my machine" drift.
-
----
-
-## Environment Setup
-
-- Python 3.11 (conda env recommended):
-  - `conda create -n schemas311 python=3.11`
-  - `conda activate schemas311`
-  - Install Poetry and deps in this env
-  
-```bash
-# inside the conda env
-pip install poetry
-poetry install --with dev --no-root
-npm ci
-```
-- Node 20+ dev deps:
-  - `npm ci` (at repo root)
-
-The Makefile auto-detects and prefers `conda run -n schemas311 poetry run python`, falling back to Poetry or system Python as needed.
 
 ---
 
@@ -150,44 +200,6 @@ SKIP_CODEGEN_CHECK=1 ./preflight.sh
 - `preflight-fix`: write normalization first, then run `preflight`.
 - `bump-version VERSION=X.Y.Z`: update `version.json` and normalize.
 - `audit`: generate deterministic repo audit at `meta/SSOT_AUDIT.md`.
-
----
-
-## Validation & Examples
-
-- Each example JSON includes a top-level `$schemaRef` pointing to its schema (e.g., `jsonschema/synesthetic-asset.schema.json`).
-- The validator prefers `$schemaRef`; in strict mode it is required.
-- Transport-only metadata keys starting with `$` are ignored during validation.
-
-CLI:
-
-```bash
-PYTHONPATH=python/src \
-python scripts/validate_examples.py --strict --dir examples
-python scripts/validate_examples.py --file examples/SynestheticAsset_Example1.json
-```
-
----
-
-## Codegen
-
-- Python: `codegen/gen_py.sh` via datamodel-code-generator (Pydantic v2, deterministic output).
-- TypeScript: `codegen/gen_ts.sh` uses repo-local `json-schema-to-typescript` (no `npx`), after bundling refs locally.
-
-Generated code must be committed; `codegen-check` ensures the repo is in sync.
-
----
-
-## Audit
-
-- Deterministic checks and report:
-
-```bash
-make audit
-# writes meta/SSOT_AUDIT.md
-```
-
-Covers foundations, validation, codegen parity, and naming/docs hygiene.
 
 ---
 
