@@ -28,6 +28,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
 import jsonschema
+# --- NEW IMPORTS START ---
+from referencing import Registry, Resource
+from referencing.jsonschema import DRAFT202012
+# --- NEW IMPORTS END ---
 
 
 # --- Constants / Config ---
@@ -147,28 +151,35 @@ def _collect_field_matrix(instances: List[Tuple[str, Any]]) -> Dict[str, Any]:
     return out
 
 
-def _load_schema(canonical_path: Path) -> Dict[str, Any]:
-    # Load schema and provide a resolver that maps https://schemas.synesthetic.dev/... to local files
+# --- MODIFIED FUNCTION START ---
+def _load_schema(canonical_path: Path) -> Tuple[Dict[str, Any], Registry]:
+    # Load schema and provide a registry that maps https://schemas.synesthetic.dev/... to local files
     schema = _read_json(canonical_path)
 
-    base_url = "https://schemas.synesthetic.dev/"
+    # The new library uses a "retriever" function for custom URI handling.
+    def retrieve_from_filesystem(uri: str) -> Resource:
+        # Maps URIs like https://schemas.synesthetic.dev/0.7.3/tone.schema.json
+        # to a local file at jsonschema/tone.schema.json
+        if uri.startswith("https://schemas.synesthetic.dev/"):
+            name = uri.split("/")[-1]
+            local_path = Path("jsonschema") / name
+            if not local_path.is_file():
+                raise FileNotFoundError(f"Missing local schema for {uri} -> {local_path}")
+            contents = _read_json(local_path)
+            return Resource.from_contents(contents, default_specification=DRAFT202012)
+        # This is an important fallback for any other URIs.
+        # It lets the library handle standard metaschemas (like draft2020-12) correctly.
+        from referencing.retrieval import to_cached_resource
+        return to_cached_resource()(uri)
 
-    def https_handler(url: str):
-        # Map to local by basename
-        # Example: https://schemas.synesthetic.dev/0.7.3/tone.schema.json -> jsonschema/tone.schema.json
-        name = url.split("/")[-1]
-        local = Path("jsonschema") / name
-        if not local.exists():
-            raise FileNotFoundError(f"Missing local schema for {url} -> {local}")
-        with local.open("r", encoding="utf-8") as f:
-            return json.load(f)
-
-    resolver = jsonschema.RefResolver.from_schema(schema, handlers={"https": https_handler})
-    return schema, resolver
+    registry = Registry(retrieve=retrieve_from_filesystem)
+    return schema, registry
+# --- MODIFIED FUNCTION END ---
 
 
+# --- MODIFIED FUNCTION START ---
 def _validate_instance(
-    instance: Dict[str, Any], schema: Dict[str, Any], resolver: jsonschema.RefResolver
+    instance: Dict[str, Any], schema: Dict[str, Any], registry: Registry
 ) -> List[FileError]:
     # Validate instance after dropping ONLY top-level $schemaRef
     if isinstance(instance, dict) and "$schemaRef" in instance:
@@ -176,12 +187,14 @@ def _validate_instance(
     else:
         inst = instance
 
-    validator = jsonschema.Draft202012Validator(schema, resolver=resolver)
+    # The modern validator takes a registry instead of a resolver.
+    validator = jsonschema.Draft202012Validator(schema, registry=registry)
     errors: List[FileError] = []
     for err in sorted(validator.iter_errors(inst), key=lambda e: (list(e.absolute_path), e.message)):
         pointer = _json_pointer(err.absolute_path)
         errors.append(FileError(file="", pointer=pointer, message=err.message))
     return errors
+# --- MODIFIED FUNCTION END ---
 
 
 def _detect_duplicates(blessed: List[Tuple[str, Dict[str, Any]]]) -> Dict[str, List[str]]:
@@ -282,7 +295,7 @@ def main(argv: List[str]) -> int:
         assert canonical_path is not None
 
         # Prepare validator
-        schema, resolver = _load_schema(canonical_path)
+        schema, registry = _load_schema(canonical_path) # Changed from resolver to registry
 
         # S3/S4: Validate + Bless
         per_file_errors: Dict[str, List[FileError]] = {}
@@ -311,7 +324,7 @@ def main(argv: List[str]) -> int:
 
             # Schema validation
             try:
-                v_errors = _validate_instance(obj if isinstance(obj, dict) else obj, schema, resolver)
+                v_errors = _validate_instance(obj if isinstance(obj, dict) else obj, schema, registry) # Changed from resolver to registry
                 for e in v_errors:
                     file_errors.append(FileError(file=path, pointer=e.pointer, message=e.message))
             except Exception as e:
@@ -446,4 +459,3 @@ def main(argv: List[str]) -> int:
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
-
