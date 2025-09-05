@@ -1,18 +1,11 @@
 SHELL := /bin/bash
 
-# Detect best Python runner: conda(schemas311)+poetry > poetry > conda(schemas311) > python
-PY := $(shell \
-  if command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s'; then \
-    if command -v poetry >/dev/null 2>&1; then \
-      echo "conda run -n schemas311 poetry run python"; \
-    else \
-      echo "conda run -n schemas311 python"; \
-    fi; \
-  elif command -v poetry >/dev/null 2>&1; then \
-    echo "poetry run python"; \
-  else \
-    echo "python3"; \
-  fi)
+# Require Poetry-managed Python for reproducibility
+ifeq (,$(shell command -v poetry 2>/dev/null))
+$(error Poetry is required. Install Poetry or run 'nix develop')
+endif
+
+PY := poetry run python
 
 .PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit
 
@@ -26,23 +19,13 @@ schema-lint:
 	@$(PY) scripts/schema_lint.py
 
 codegen-py:
-	@if command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s' && command -v poetry >/dev/null 2>&1; then \
-		conda run -n schemas311 poetry run bash codegen/gen_py.sh; \
-	elif command -v poetry >/dev/null 2>&1; then \
-		poetry run bash codegen/gen_py.sh; \
-	else \
-		bash codegen/gen_py.sh; \
-	fi
+	@poetry run bash codegen/gen_py.sh
 
 codegen-ts:
 	@bash codegen/gen_ts.sh
 
 codegen-check:
-	@if command -v conda >/dev/null 2>&1 && conda env list | grep -qE '^\s*schemas311\s'; then \
-		conda run -n schemas311 bash scripts/ensure_codegen_clean.sh; \
-	else \
-		bash scripts/ensure_codegen_clean.sh; \
-	fi
+	@bash scripts/ensure_codegen_clean.sh
 
 validate:
 	@PYTHONPATH=python/src $(PY) scripts/validate_examples.py --strict --dir examples
