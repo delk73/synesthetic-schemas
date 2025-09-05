@@ -12,6 +12,19 @@ This repo provides canonical JSON Schemas, deterministic code generation for Pyt
 
 ---
 
+
+## Install Nix (First Time Only)
+
+If you do not have Nix installed, run the following command. If you already have Nix, you can skip to the next step.
+
+```bash
+# Install the Nix package manager (multi-user installation)
+sh <(curl -L https://nixos.org/nix/install) --daemon
+```
+After installation, you may need to restart your shell.
+
+
+
 ## ✅ Development Workflow
 
 This project uses [Nix](https://nixos.org/) to provide a reproducible environment. 
