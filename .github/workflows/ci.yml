@@ -9,32 +9,26 @@ jobs:
   preflight:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Install Nix and configure Flakes
+        uses: cachix/install-nix-action@v26
         with:
-          node-version: '20'
-          cache: 'npm'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
-      - name: Install Node deps
-        run: npm ci
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Poetry
+      - name: Install project dependencies
         run: |
-          python -m pip install --upgrade pip wheel poetry
+          # This single command runs inside the Nix shell, ensuring the
+          # correct versions of Poetry and NPM are used to install dependencies.
+          nix develop --command bash -c "
+            echo '--- Installing project dependencies for CI ---'
+            poetry install
+            npm install
+          "
 
-      - name: Install Python deps (Poetry)
-        run: |
-          poetry install --with dev --no-root --no-interaction --no-ansi
-
-      - name: Selective paths (codegen-related)
+      - name: Check for codegen-related file changes
         id: changes
         uses: dorny/paths-filter@v3
         with:
@@ -52,9 +46,13 @@ jobs:
       - name: Run preflight (with codegen-check)
         if: steps.changes.outputs.codegen == 'true'
         run: |
-          bash ./preflight.sh
+          # We run preflight inside the Nix shell to ensure it uses
+          # the same tools and environment as a local developer.
+          nix develop --command ./preflight.sh
 
       - name: Run preflight (skip codegen-check)
         if: steps.changes.outputs.codegen != 'true'
         run: |
-          SKIP_CODEGEN_CHECK=1 bash ./preflight.sh
+          # We wrap the command in bash -c to pass the environment variable
+          # into the Nix shell correctly.
+          nix develop --command bash -c "SKIP_CODEGEN_CHECK=1 ./preflight.sh"
