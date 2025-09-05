@@ -14,13 +14,12 @@
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.python311
-            # The Fix: Ensure Poetry is built with the same Python used in the shell.
-            (pkgs.poetry.override { python = pkgs.python311; })
+            # The Fix: The attribute name is 'python3', not 'python'.
+            (pkgs.poetry.override { python3 = pkgs.python311; })
             pkgs.nodejs_20
           ];
 
           shellHook = ''
-            # Tell poetry to create the .venv inside the project directory.
             poetry config virtualenvs.in-project true --local
             unset VIRTUAL_ENV
 
