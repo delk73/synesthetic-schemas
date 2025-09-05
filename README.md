@@ -140,7 +140,7 @@ This project uses [Nix](https://nixos.org/) to provide a reproducible developmen
 4.  **Install project dependencies:** Once you are inside the Nix shell, run:
     ```bash
     npm ci
-    poetry env use 3.11
+    poetry env use $(command -v python3.11)
     poetry install
     ```
     Poetry is configured to use a project-local virtual environment at `.venv/` (see `poetry.toml`).

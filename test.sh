@@ -9,11 +9,24 @@ ensure_poetry_env () {
     echo "✖ Poetry is required. Install Poetry or run 'nix develop' (which provides it)." >&2
     exit 3
   fi
-  # Ensure project-local venv with Python 3.11 exists and is installed
-  if ! poetry env info -p >/dev/null 2>&1; then
-    echo "◼︎ Creating local Poetry env (3.11)…"
-    poetry env use 3.11 >/dev/null 2>&1 || true
-    poetry install --only main --no-interaction >/dev/null
+  # Force-bind this project to a Python 3.11 interpreter every time (idempotent)
+  if command -v python3.11 >/dev/null 2>&1; then
+    PY311_PATH="$(command -v python3.11)"
+  elif command -v python3 >/dev/null 2>&1 && python3 -c 'import sys; print(sys.version_info[:2]==(3,11))' | grep -q True; then
+    PY311_PATH="$(command -v python3)"
+  else
+    echo "✖ Python 3.11 not found on PATH. Install it or run 'nix develop'." >&2
+    exit 3
+  fi
+  echo "◼︎ Ensuring Poetry uses Python: $PY311_PATH"
+  if ! poetry env use "$PY311_PATH" >/dev/null 2>&1; then
+    echo "✖ Failed to select Python 3.11 at $PY311_PATH for Poetry env." >&2
+    exit 3
+  fi
+  # Install main deps deterministically (quiet); safe to re-run
+  if ! poetry install --only main --no-interaction -q; then
+    echo "✖ Poetry install failed. Try: 'poetry env remove --all && poetry env use $PY311_PATH && poetry install'" >&2
+    exit 3
   fi
 }
 
