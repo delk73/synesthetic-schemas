@@ -36,7 +36,8 @@ After cloning the repository, follow these steps to set up the environment.
 ```bash
 # Step 1: Enter the Nix development shell.
 # This provides the correct, pinned versions of Python 3.11, Poetry, and Node.js.
-nix develop
+exit 
+nix develop 
 
 # Step 2: Install project dependencies.
 # This creates a local .venv/ for Python and a node_modules/ for TypeScript.
