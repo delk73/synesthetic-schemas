@@ -1,6 +1,9 @@
 # General cache
 .cache/
 
+# Local virtual environments
+.venv/
+
 # Python cache and artifacts
 __pycache__/
 *.pyc
