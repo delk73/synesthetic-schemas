@@ -7,7 +7,7 @@ endif
 
 PY := poetry run python
 
-.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit
+.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat
 
 normalize:
 	@$(PY) scripts/normalize_schemas.py
@@ -47,3 +47,13 @@ bump-version:
 
 audit:
 	@$(PY) scripts/ssot_audit.py --spec meta/prompts/ssot.audit.json
+
+checkbloat:
+	@echo "🔍 Checking repo for bloat (venv, node_modules, caches)..."
+	@if git ls-files | grep -E '(\.venv|node_modules|\.cache|__pycache__|\.pytest_cache|\.mypy_cache|\.ruff_cache)' >/dev/null; then \
+		echo "❌ Found tracked junk files!"; \
+		git ls-files | grep -E '(\.venv|node_modules|\.cache|__pycache__|\.pytest_cache|\.mypy_cache|\.ruff_cache)'; \
+		exit 1; \
+	else \
+		echo "✅ No tracked junk files found."; \
+	fi
