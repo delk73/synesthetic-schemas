@@ -22,6 +22,9 @@ fi
 echo "◼︎ validate examples"
 poetry run make validate
 
+echo "◼︎ checkbloat"
+poetry run make checkbloat
+
 echo "✅ preflight OK"
 
 # Record last successful preflight timestamp for quick visibility
