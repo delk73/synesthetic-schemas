@@ -1,11 +1,11 @@
 {
-  "objective": "Interrogate synesthetic-schemas for gaps preventing inline compute shader support inside the shader block (Option A, transparency-first).",
+  "objective": "Interrogate synesthetic-schemas for gaps preventing full inline shader support across vertex, fragment, and compute stages (transparency-first, Option A).",
   "constraints": {
     "style": "KISS, deterministic, minimal deps",
     "schema_draft": "2020-12",
     "ssot": "synesthetic-schemas defines all shader payloads",
-    "transparency": "shader block must support fragment and compute",
-    "report_output": "meta/output/compute_shader_gap_report.md"
+    "transparency": "shader block must support vertex, fragment, and compute",
+    "report_output": "meta/output/shader_gap_report.md"
   },
   "current_capabilities": [
     "shader.json defines fragment_shader and vertex_shader as GLSL source fields",
@@ -15,19 +15,19 @@
     "examples currently cover fragment shader assets only"
   ],
   "desired_state": [
-    "shader.type enum supports 'fragment' and 'compute'",
-    "shader.json defines compute_shader field for GLSL source",
-    "dispatch parameters (x, y, z) schema-defined",
-    "outputs array describes texture/buffer targets with type and format",
-    "input_parameters and uniforms schema reusable across both fragment and compute",
-    "examples include at least one canonical compute shader asset",
-    "docs updated with schema fields and usage example",
+    "shader.type enum supports 'vertex', 'fragment', and 'compute'",
+    "shader.json defines vertex_shader, fragment_shader, and compute_shader fields for GLSL sources",
+    "dispatch parameters (x, y, z) schema-defined for compute",
+    "outputs array describes texture/buffer targets with type and format (compute only)",
+    "input_parameters and uniforms schema reusable across all stages",
+    "examples include canonical vertex, fragment, and compute shader assets",
+    "docs updated with schema fields and usage examples for all stages",
     "gap interrogation produces human-readable report under meta/output/"
   ],
   "gap_analysis": [
     {
       "id": "S1",
-      "summary": "shaderType enum does not include 'compute'",
+      "summary": "shaderType enum does not include 'vertex' and 'compute'",
       "touches": ["defs/common_defs/shaderType.json"]
     },
     {
@@ -47,26 +47,27 @@
     },
     {
       "id": "S5",
-      "summary": "No canonical compute shader example asset",
-      "touches": ["examples/shaders/ComputeShader_Example.json"]
+      "summary": "Examples omit canonical vertex and compute shader assets",
+      "touches": ["examples/shaders/VertexShader_Example.json", "examples/shaders/ComputeShader_Example.json"]
     },
     {
       "id": "S6",
-      "summary": "Docs do not cover compute shader schema usage",
+      "summary": "Docs do not cover vertex or compute shader schema usage",
       "touches": ["docs/shaders.md"]
     },
     {
       "id": "S7",
       "summary": "No meta/output report documenting gaps and resolutions",
-      "touches": ["meta/output/compute_shader_gap_report.md"]
+      "touches": ["meta/output/shader_gap_report.md"]
     }
   ],
   "done_definition": [
-    "shader.type enum validates 'fragment' and 'compute'",
-    "shader.json defines compute_shader, dispatch, and outputs",
-    "input_parameters/uniforms validated for compute stage",
-    "Canonical compute shader example asset passes schema validation",
-    "Docs updated with schema details and usage example",
-    "Gap interrogation report exists under meta/output/compute_shader_gap_report.md"
+    "shader.type enum validates 'vertex', 'fragment', and 'compute'",
+    "shader.json defines vertex_shader, fragment_shader, and compute_shader fields",
+    "dispatch + outputs schema support exists for compute",
+    "input_parameters/uniforms validated for all stages",
+    "Canonical vertex, fragment, and compute shader examples pass schema validation",
+    "Docs updated with schema details and usage examples for all stages",
+    "Gap interrogation report exists under meta/output/shader_gap_report.md"
   ]
 }
