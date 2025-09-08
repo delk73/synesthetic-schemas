@@ -1,0 +1,62 @@
+{
+  "objective": "Interrogate synesthetic-schemas for gaps preventing transparent inline support of compute shaders inside the shader block (Option A).",
+  "constraints": {
+    "style": "KISS, deterministic, minimal deps",
+    "schema_draft": "2020-12",
+    "ssot": "synesthetic-schemas defines all shader payload structure",
+    "transparency": "shader block handles both fragment and compute"
+  },
+  "current_capabilities": [
+    "shader.json defines fragment_shader and vertex_shader fields",
+    "shaderType enum limited to 'fragment'",
+    "input_parameters schema supports uniform bindings for fragment shaders",
+    "uniforms array describes per-stage shader variables"
+  ],
+  "desired_state": [
+    "shader.type enum supports 'fragment' and 'compute'",
+    "shader.json supports a compute_shader field (GLSL source)",
+    "dispatch parameters (x,y,z) schema-defined",
+    "outputs array describes buffer/texture targets with type/format",
+    "input_parameters and uniforms schema reusable across fragment and compute",
+    "examples and docs include at least one compute shader asset"
+  ],
+  "gap_analysis": [
+    {
+      "id": "S1",
+      "summary": "shaderType enum lacks 'compute'",
+      "touches": ["defs/common_defs/shaderType.json"]
+    },
+    {
+      "id": "S2",
+      "summary": "shader.json lacks compute_shader field",
+      "touches": ["defs/shader.json"]
+    },
+    {
+      "id": "S3",
+      "summary": "No schema support for dispatch dimensions",
+      "touches": ["defs/shader.json"]
+    },
+    {
+      "id": "S4",
+      "summary": "No schema support for compute outputs (textures/buffers)",
+      "touches": ["defs/shader.json", "defs/common_defs/texture.json"]
+    },
+    {
+      "id": "S5",
+      "summary": "No canonical compute shader example asset",
+      "touches": ["examples/shaders/ComputeShader_Example.json"]
+    },
+    {
+      "id": "S6",
+      "summary": "Docs omit compute shader usage",
+      "touches": ["docs/shaders.md"]
+    }
+  ],
+  "done_definition": [
+    "shader.type = 'fragment' | 'compute' validated at schema level",
+    "shader.json defines compute_shader, dispatch, outputs",
+    "input_parameters/uniforms validated for compute stage",
+    "Canonical compute shader example asset validates successfully",
+    "Docs updated with schema fields and example usage"
+  ]
+}
