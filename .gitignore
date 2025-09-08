@@ -1,5 +1,8 @@
 # General cache
 .cache/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
 
 # Local virtual environments
 .venv/
@@ -7,15 +10,14 @@
 # Python cache and artifacts
 __pycache__/
 *.pyc
-.pytest_cache/
-.mypy_cache/
-.venv/
+*.pyo
+*.pyd
 
 # Node.js
 node_modules/
 typescript/tmp/
 
-# IDE configuration
+# IDE / editor config
 .vscode/
 .idea/
 
