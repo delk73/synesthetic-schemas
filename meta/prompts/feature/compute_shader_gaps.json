@@ -1,24 +1,29 @@
 {
-  "objective": "Interrogate synesthetic-schemas for gaps preventing transparent inline support of compute shaders inside the shader block (Option A).",
+  "objective": "Interrogate synesthetic-schemas for gaps preventing transparent inline support of compute shaders inside the shader block (Option A, transparency-first).",
   "constraints": {
     "style": "KISS, deterministic, minimal deps",
     "schema_draft": "2020-12",
     "ssot": "synesthetic-schemas defines all shader payload structure",
-    "transparency": "shader block handles both fragment and compute"
+    "transparency": "shader block must support fragment and compute"
   },
   "current_capabilities": [
     "shader.json defines fragment_shader and vertex_shader fields",
     "shaderType enum limited to 'fragment'",
     "input_parameters schema supports uniform bindings for fragment shaders",
-    "uniforms array describes per-stage shader variables"
+    "uniforms array describes per-stage shader variables",
+    "synesthetic-asset.schema.json references shader schema but assumes fragment/vertex only",
+    "examples cover fragment+vertex shader assets only"
   ],
   "desired_state": [
     "shader.type enum supports 'fragment' and 'compute'",
-    "shader.json supports a compute_shader field (GLSL source)",
-    "dispatch parameters (x,y,z) schema-defined",
-    "outputs array describes buffer/texture targets with type/format",
+    "shader.json defines compute_shader field for GLSL source",
+    "dispatch object with x,y,z integers (≥1) schema-defined",
+    "outputs array describes buffer/texture targets with name, kind, optional format",
     "input_parameters and uniforms schema reusable across fragment and compute",
-    "examples and docs include at least one compute shader asset"
+    "synesthetic-asset.schema.json references updated shader schema and validates compute assets",
+    "examples include canonical compute shader asset and updated synesthetic asset with compute",
+    "docs updated with schema fields and usage examples for compute",
+    "gap interrogation produces human-readable report under meta/output/"
   ],
   "gap_analysis": [
     {
@@ -43,20 +48,38 @@
     },
     {
       "id": "S5",
+      "summary": "synesthetic-asset.schema.json does not validate compute shaders",
+      "touches": ["jsonschema/synesthetic-asset.schema.json"]
+    },
+    {
+      "id": "S6",
       "summary": "No canonical compute shader example asset",
       "touches": ["examples/shaders/ComputeShader_Example.json"]
     },
     {
-      "id": "S6",
+      "id": "S7",
+      "summary": "No canonical synesthetic asset including a compute shader",
+      "touches": ["examples/SynestheticAsset_Compute.json"]
+    },
+    {
+      "id": "S8",
       "summary": "Docs omit compute shader usage",
       "touches": ["docs/shaders.md"]
+    },
+    {
+      "id": "S9",
+      "summary": "No aggregated gap report for compute support",
+      "touches": ["meta/output/compute_shader_gap_report.md"]
     }
   ],
   "done_definition": [
-    "shader.type = 'fragment' | 'compute' validated at schema level",
-    "shader.json defines compute_shader, dispatch, outputs",
+    "shader.type enum supports 'fragment' and 'compute'",
+    "shader.json defines compute_shader, dispatch, and outputs fields",
     "input_parameters/uniforms validated for compute stage",
-    "Canonical compute shader example asset validates successfully",
-    "Docs updated with schema fields and example usage"
+    "synesthetic-asset.schema.json validates assets with compute shader blocks",
+    "canonical compute shader example validates successfully",
+    "canonical synesthetic asset with compute shader validates successfully",
+    "docs updated with schema fields and usage examples",
+    "gap interrogation report exists under meta/output/compute_shader_gap_report.md"
   ]
 }
