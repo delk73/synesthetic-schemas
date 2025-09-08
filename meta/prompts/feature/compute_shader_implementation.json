@@ -1,0 +1,60 @@
+{
+  "objective": "Implement transparent compute shader support in synesthetic-schemas, ensuring full asset-level validation (Option A, transparency-first).",
+  "constraints": {
+    "style": "KISS, deterministic, minimal deps",
+    "schema_draft": "2020-12",
+    "ssot": "synesthetic-asset.schema.json drives all examples"
+  },
+  "phases": [
+    {
+      "id": "P1",
+      "name": "Schema Update",
+      "work_items": [
+        { "id": "S1", "summary": "Add type enum: fragment | compute", "touches": ["jsonschema/shader.schema.json"] },
+        { "id": "S2", "summary": "Add compute_shader: string", "touches": ["jsonschema/shader.schema.json"] },
+        { "id": "S3", "summary": "Add dispatch {x,y,z}", "touches": ["jsonschema/shader.schema.json"] },
+        { "id": "S4", "summary": "Add outputs[] {name, kind, format}", "touches": ["jsonschema/shader.schema.json"] },
+        { "id": "S5", "summary": "Constrain uniform.stage to fragment|compute", "touches": ["jsonschema/shader.schema.json"] },
+        { "id": "S6", "summary": "Bump $id version and update synesthetic-asset.schema.json ref", "touches": ["jsonschema/shader.schema.json", "jsonschema/synesthetic-asset.schema.json"] }
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "Examples",
+      "work_items": [
+        { "id": "E1", "summary": "Add ComputeShader_Example.json (shader-only)", "touches": ["examples/shaders/ComputeShader_Example.json"] },
+        { "id": "E2", "summary": "Add SynestheticAsset_Compute.json embedding compute shader", "touches": ["examples/SynestheticAsset_Compute.json"] },
+        { "id": "E3", "summary": "Update BLESSED_EXAMPLES.json to include SynestheticAsset_Compute", "touches": ["meta/output/BLESSED_EXAMPLES.json"] }
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "Types & Codegen",
+      "work_items": [
+        { "id": "T1", "summary": "Regenerate TS types with compute support", "touches": ["typescript/src/shader.d.ts"] },
+        { "id": "T2", "summary": "Regenerate Python models with compute support", "touches": ["python/src/synesthetic_schemas/shader.py"] }
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "Docs & Validation",
+      "work_items": [
+        { "id": "D1", "summary": "Add docs/shaders.md with compute usage", "touches": ["docs/shaders.md"] },
+        { "id": "D2", "summary": "Update README with compute section", "touches": ["README.md"] },
+        { "id": "V1", "summary": "Validate all examples incl. SynestheticAsset_Compute.json", "touches": ["examples/"] },
+        { "id": "V2", "summary": "Finalize gap report", "touches": ["meta/output/compute_shader_gap_report.md"] }
+      ]
+    }
+  ],
+  "done_definition": [
+    "shader.type enum validates fragment|compute",
+    "shader.schema.json defines compute_shader, dispatch, outputs",
+    "synesthetic-asset.schema.json validates compute assets",
+    "TS + Python models regenerated and valid",
+    "ComputeShader_Example.json validates",
+    "SynestheticAsset_Compute.json validates",
+    "BLESSED_EXAMPLES.json includes compute asset",
+    "Docs updated with compute usage",
+    "Gap report finalized in meta/output"
+  ]
+}
