@@ -4,13 +4,15 @@
     "style": "KISS, deterministic, minimal deps",
     "schema_draft": "2020-12",
     "ssot": "synesthetic-schemas defines all shader payloads",
-    "transparency": "shader block must support fragment and compute"
+    "transparency": "shader block must support fragment and compute",
+    "report_output": "meta/output/compute_shader_gap_report.md"
   },
   "current_capabilities": [
     "shader.json defines fragment_shader and vertex_shader as GLSL source fields",
     "shaderType enum is limited to 'fragment'",
     "input_parameters schema supports uniform bindings for fragment shaders",
-    "uniforms array describes per-stage shader variables"
+    "uniforms array describes per-stage shader variables",
+    "examples currently cover fragment shader assets only"
   ],
   "desired_state": [
     "shader.type enum supports 'fragment' and 'compute'",
@@ -18,7 +20,9 @@
     "dispatch parameters (x, y, z) schema-defined",
     "outputs array describes texture/buffer targets with type and format",
     "input_parameters and uniforms schema reusable across both fragment and compute",
-    "examples and docs include at least one compute shader asset"
+    "examples include at least one canonical compute shader asset",
+    "docs updated with schema fields and usage example",
+    "gap interrogation produces human-readable report under meta/output/"
   ],
   "gap_analysis": [
     {
@@ -50,6 +54,11 @@
       "id": "S6",
       "summary": "Docs do not cover compute shader schema usage",
       "touches": ["docs/shaders.md"]
+    },
+    {
+      "id": "S7",
+      "summary": "No meta/output report documenting gaps and resolutions",
+      "touches": ["meta/output/compute_shader_gap_report.md"]
     }
   ],
   "done_definition": [
@@ -57,6 +66,7 @@
     "shader.json defines compute_shader, dispatch, and outputs",
     "input_parameters/uniforms validated for compute stage",
     "Canonical compute shader example asset passes schema validation",
-    "Docs updated with schema details and usage example"
+    "Docs updated with schema details and usage example",
+    "Gap interrogation report exists under meta/output/compute_shader_gap_report.md"
   ]
 }
