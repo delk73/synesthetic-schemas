@@ -176,8 +176,8 @@ erDiagram
     jsonb    meta_info
     text     vertex_shader
     text     fragment_shader
-    jsonb    uniforms          // UniformDef[]
-    int      shader_lib_id FK? // optional
+    jsonb    uniforms
+    int      shader_lib_id FK
     timestamptz created_at
     timestamptz updated_at
   }
@@ -186,7 +186,7 @@ erDiagram
     int      shader_lib_id PK
     text     name
     text     description
-    jsonb    helpers           // Helper[]
+    jsonb    helpers
     timestamptz created_at
     timestamptz updated_at
   }
@@ -196,9 +196,9 @@ erDiagram
     text     name
     text     description
     jsonb    meta_info
-    jsonb    synth             // ToneSynth (+ options)
-    jsonb    parts             // TonePart[]
-    jsonb    parameters        // ToneParameter[]
+    jsonb    synth
+    jsonb    parts
+    jsonb    parameters
     timestamptz created_at
     timestamptz updated_at
   }
@@ -208,8 +208,8 @@ erDiagram
     text     name
     text     description
     jsonb    meta_info
-    jsonb    device_config     // DeviceConfig
-    jsonb    parameters        // HapticParameter[]
+    jsonb    device_config
+    jsonb    parameters
     timestamptz created_at
     timestamptz updated_at
   }
@@ -219,7 +219,7 @@ erDiagram
     text     name
     text     description
     jsonb    meta_info
-    jsonb    control_parameters // { key: Control[] } grouped by control_type
+    jsonb    control_parameters
     timestamptz created_at
     timestamptz updated_at
   }
@@ -229,7 +229,7 @@ erDiagram
     text     name
     text     description
     jsonb    meta_info
-    jsonb    modulations       // ModulationItem[]
+    jsonb    modulations
     timestamptz created_at
     timestamptz updated_at
   }
@@ -239,7 +239,7 @@ erDiagram
     text     name
     text     description
     jsonb    meta_info
-    jsonb    rules             // Rule[]
+    jsonb    rules
     timestamptz created_at
     timestamptz updated_at
   }
@@ -247,13 +247,12 @@ erDiagram
   PROTOBUF_ASSET {
     int      protobuf_asset_id PK
     int      synesthetic_asset_id FK
-    bytea    blob              // or text if base64
+    bytea    blob
     jsonb    metadata
     timestamptz created_at
     timestamptz updated_at
   }
 
-  // Relationships
   SYNESTHETIC_ASSET ||--o| SHADER           : "shader_id"
   SYNESTHETIC_ASSET ||--o| TONE             : "tone_id"
   SYNESTHETIC_ASSET ||--o| HAPTIC           : "haptic_id"
@@ -263,6 +262,8 @@ erDiagram
   SHADER        }o--|| SHADER_LIB           : "optional helper source"
   PROTOBUF_ASSET }o--|| SYNESTHETIC_ASSET   : "generated from"
 ```
+
+`shader_lib_id` is optional; store `NULL` when the shader does not reference a shared helper library.
 
 ### API Sequence Diagram
 
@@ -361,6 +362,6 @@ SKIP_CODEGEN_CHECK=1 ./preflight.sh
 Draft issues live in `meta/issues/*.md`. To create them with GitHub CLI:
 
 ```bash
-./scripts/create_issues.sh          # create
-DRY_RUN=1 ./scripts/create_issues.sh # preview only
+./scripts/create_issues.sh
+DRY_RUN=1 ./scripts/create_issues.sh
 ```
