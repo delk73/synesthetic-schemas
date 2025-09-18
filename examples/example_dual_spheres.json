@@ -1,0 +1,811 @@
+{
+  "$schemaRef": "jsonschema/synesthetic-asset.schema.json",
+  "control": {
+    "control_parameters": [
+      {
+        "default": 0.0,
+        "label": "Position X",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.001
+            },
+            "combo": {
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": -1.0,
+        "parameter": "shader.u_px",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.0,
+        "label": "Position Y",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": -0.001
+            },
+            "combo": {
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": -1.0,
+        "parameter": "shader.u_py",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.3,
+        "label": "Left Radius",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.01
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.1,
+        "parameter": "shader.u_r1",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.0,
+        "label": "Detune",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 3.0
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 444.0,
+        "min": 0.0,
+        "parameter": "tone.detune",
+        "smoothingTime": 0.1,
+        "step": 1.0,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.3,
+        "label": "Right Radius",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.wheel",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": 0.01
+            },
+            "combo": {
+              "keys": [
+                "Shift"
+              ],
+              "strict": true,
+              "wheel": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.1,
+        "parameter": "shader.u_r2",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.5,
+        "label": "Sphere Offset",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "linear",
+              "scale": 1.0,
+              "sensitivity": -0.01
+            },
+            "combo": {
+              "keys": [
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.1,
+        "parameter": "shader.u_offset",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 0.7,
+        "label": "Vibration Intensity",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.y",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": -0.01
+            },
+            "combo": {
+              "keys": [
+                "Ctrl",
+                "Alt"
+              ],
+              "mouseButtons": [
+                "left"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 1.0,
+        "min": 0.0,
+        "parameter": "haptic.intensity",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 150.0,
+        "label": "Vibration Frequency",
+        "mappings": [
+          {
+            "action": {
+              "axis": "mouse.x",
+              "curve": "exponential",
+              "scale": 1.0,
+              "sensitivity": 0.5
+            },
+            "combo": {
+              "keys": [
+                "Ctrl"
+              ],
+              "mouseButtons": [
+                "right"
+              ],
+              "strict": true
+            }
+          }
+        ],
+        "max": 250.0,
+        "min": 10.0,
+        "parameter": "haptic.frequency",
+        "smoothingTime": 0.1,
+        "step": 1.0,
+        "type": "float",
+        "unit": "Hz"
+      }
+    ],
+    "description": "Interactive controls for positioning and blending dual smooth-min spheres with linked audio and haptic layers.",
+    "meta_info": {
+      "category": "control",
+      "complexity": "medium",
+      "tags": [
+        "interactive",
+        "multimodal",
+        "dual-sphere",
+        "audio",
+        "haptic"
+      ]
+    },
+    "name": "Dual Sphere Harmony Controls"
+  },
+  "description": "Dual smooth-min spheres glide across a grayscale field while a Rhodes mashup patch and pulse-synced haptics respond to every gesture.",
+  "haptic": {
+    "description": "Haptic feedback tied to circle properties and audio rhythm",
+    "device": {
+      "options": {
+        "maxFrequency": {
+          "unit": "Hz",
+          "value": 250.0
+        },
+        "maxIntensity": {
+          "unit": "linear",
+          "value": 1.0
+        }
+      },
+      "type": "generic"
+    },
+    "input_parameters": [
+      {
+        "default": 0.7,
+        "max": 1.0,
+        "min": 0.0,
+        "name": "Intensity",
+        "parameter": "haptic.intensity",
+        "path": "haptic.intensity",
+        "smoothingTime": 0.1,
+        "step": 0.01,
+        "type": "float",
+        "unit": "linear"
+      },
+      {
+        "default": 150.0,
+        "max": 250.0,
+        "min": 10.0,
+        "name": "Frequency",
+        "parameter": "haptic.frequency",
+        "path": "haptic.frequency",
+        "smoothingTime": 0.1,
+        "step": 1,
+        "type": "float",
+        "unit": "Hz"
+      }
+    ],
+    "meta_info": {
+      "category": "haptic",
+      "complexity": "medium",
+      "tags": [
+        "pulse",
+        "vibration",
+        "rhythmic"
+      ]
+    },
+    "name": "Circle Feedback"
+  },
+  "meta_info": {
+    "category": "multimodal",
+    "complexity": "high",
+    "tags": [
+      "dual-sphere",
+      "sdf",
+      "grayscale",
+      "smoothmin",
+      "rhodes",
+      "mashup"
+    ]
+  },
+  "modulations": [
+    {
+      "amplitude": 0.1,
+      "frequency": 0.05,
+      "id": "radius_left_pulse",
+      "max": 1.0,
+      "min": 0.0,
+      "offset": 0.3,
+      "phase": 0.0,
+      "scale": 0.001,
+      "scaleProfile": "linear",
+      "target": "shader.u_r1",
+      "type": "additive",
+      "waveform": "triangle"
+    },
+    {
+      "amplitude": 0.1,
+      "frequency": 0.05,
+      "id": "radius_right_pulse",
+      "max": 1.0,
+      "min": 0.0,
+      "offset": 0.3,
+      "phase": 0.0,
+      "scale": 0.001,
+      "scaleProfile": "linear",
+      "target": "shader.u_r2",
+      "type": "additive",
+      "waveform": "triangle"
+    },
+    {
+      "amplitude": 0.1,
+      "frequency": 0.05,
+      "id": "detune_pulse",
+      "max": 100.0,
+      "min": 0.0,
+      "offset": 0.5,
+      "phase": 0.0,
+      "scale": 0.001,
+      "scaleProfile": "linear",
+      "target": "tone.detune",
+      "type": "additive",
+      "waveform": "triangle"
+    },
+    {
+      "amplitude": 0.2,
+      "frequency": 1.0,
+      "id": "haptic_pulse",
+      "max": 1.0,
+      "min": 0.0,
+      "offset": 0.7,
+      "phase": 0.0,
+      "scale": 1.0,
+      "scaleProfile": "linear",
+      "target": "haptic.intensity",
+      "type": "additive",
+      "waveform": "sine"
+    }
+  ],
+  "name": "Dual Sphere Harmony",
+  "rule_bundle": {
+    "description": "Auto-converted from legacy sdfGrid bundle.",
+    "meta_info": {
+      "category": "rule_bundle",
+      "complexity": "high",
+      "tags": [
+        "grid",
+        "interaction",
+        "multimodal",
+        "mapping"
+      ]
+    },
+    "name": "SDF Grid",
+    "rules": [
+      {
+        "effects": [
+          {
+            "channel": "audioTrigger",
+            "op": "triggerAttackRelease",
+            "target": "audio.poly.trigger",
+            "value": {
+              "duration": "8n",
+              "note": "<grid.note>",
+              "velocity": {
+                "curve": "linear",
+                "scale": 1.0,
+                "source": "grid.pressure",
+                "threshold": 0.02
+              }
+            }
+          },
+          {
+            "channel": "hapticPulse",
+            "op": "set",
+            "target": "haptic.intensity",
+            "value": {
+              "scale": 1.0,
+              "source": "grid.pressure"
+            }
+          },
+          {
+            "channel": "visualNudge",
+            "op": "add",
+            "target": "shader.u_r",
+            "value": {
+              "scale": 0.1,
+              "source": "grid.pressure"
+            }
+          }
+        ],
+        "execution": "client",
+        "id": "grid_to_multimodal_mapping",
+        "trigger": {
+          "params": {
+            "cooldown": 100,
+            "gridSize": 8
+          },
+          "type": "grid_cell"
+        }
+      }
+    ]
+  },
+  "shader": {
+    "fragment_shader": "uniform vec2 u_resolution; uniform float u_time; uniform float u_px; uniform float u_py; uniform float u_r1; uniform float u_r2; uniform float u_offset; float sphereSDF(vec2 p, float r) { return length(p) - r; } float smoothMin(float d1, float d2, float k) { float h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0); return mix(d2, d1, h) - k * h * (1.0 - h); } void main() { vec2 st = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0; st.x *= u_resolution.x / u_resolution.y; vec2 center = st - vec2(u_px, u_py); float d1 = sphereSDF(center - vec2(-u_offset, 0.0), u_r1); float d2 = sphereSDF(center - vec2(u_offset, 0.0), u_r2); float d = smoothMin(d1, d2, 0.2); float c = 1.0 - smoothstep(-0.01, 0.01, d); vec3 color = vec3(c); gl_FragColor = vec4(color, 1.0); }",
+    "input_parameters": [
+      {
+        "name": "positionX",
+        "parameter": "u_px",
+        "path": "u_px",
+        "type": "float",
+        "min": -1.0,
+        "max": 1.0,
+        "step": 0.001,
+        "default": 0.0,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "positionY",
+        "parameter": "u_py",
+        "path": "u_py",
+        "type": "float",
+        "min": -1.0,
+        "max": 1.0,
+        "step": 0.001,
+        "default": 0.0,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "radius1",
+        "parameter": "u_r1",
+        "path": "u_r1",
+        "type": "float",
+        "min": 0.1,
+        "max": 1.0,
+        "step": 0.001,
+        "default": 0.3,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "radius2",
+        "parameter": "u_r2",
+        "path": "u_r2",
+        "type": "float",
+        "min": 0.1,
+        "max": 1.0,
+        "step": 0.001,
+        "default": 0.3,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "offset",
+        "parameter": "u_offset",
+        "path": "u_offset",
+        "type": "float",
+        "min": 0.1,
+        "max": 1.0,
+        "step": 0.001,
+        "default": 0.5,
+        "smoothingTime": 0.1
+      }
+    ],
+    "name": "DualSmoothMinSpheres",
+    "uniforms": [
+      {
+        "name": "u_time",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.0
+      },
+      {
+        "name": "u_resolution",
+        "type": "vec2",
+        "stage": "fragment",
+        "default": [
+          800.0,
+          600.0
+        ]
+      },
+      {
+        "name": "u_px",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.0
+      },
+      {
+        "name": "u_py",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.0
+      },
+      {
+        "name": "u_r1",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.3
+      },
+      {
+        "name": "u_r2",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.3
+      },
+      {
+        "name": "u_offset",
+        "type": "float",
+        "stage": "fragment",
+        "default": 0.5
+      }
+    ],
+    "vertex_shader": "void main() { gl_Position = vec4(position, 1.0); }"
+  },
+  "tone": {
+    "description": "A Rhodes-inspired electric piano mashup that layers shimmer, chorus, and tape-style delay for spacious harmonic motion.",
+    "effects": [
+      {
+        "type": "Tone.AutoPanner",
+        "order": 0,
+        "options": {
+          "frequency": 0.3,
+          "depth": 0.6,
+          "wet": 0.4,
+          "type": "sine"
+        }
+      },
+      {
+        "type": "Tone.Chorus",
+        "order": 1,
+        "options": {
+          "frequency": 0.8,
+          "delayTime": 4.0,
+          "depth": 0.7,
+          "spread": 160,
+          "wet": 0.45
+        }
+      },
+      {
+        "type": "Tone.PingPongDelay",
+        "order": 2,
+        "options": {
+          "delayTime": 0.35,
+          "feedback": 0.45,
+          "wet": 0.35
+        }
+      },
+      {
+        "type": "Tone.Reverb",
+        "order": 3,
+        "options": {
+          "decay": 3.2,
+          "preDelay": 0.08,
+          "wet": 0.5
+        }
+      }
+    ],
+    "input_parameters": [
+      {
+        "name": "Master Volume",
+        "parameter": "volume",
+        "path": "tone.synth.volume",
+        "type": "float",
+        "unit": "dB",
+        "default": -9.0,
+        "min": -60.0,
+        "max": 6.0,
+        "step": 0.5,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Portamento",
+        "parameter": "portamento",
+        "path": "tone.synth.portamento",
+        "type": "float",
+        "unit": "s",
+        "default": 0.02,
+        "min": 0.0,
+        "max": 0.2,
+        "step": 0.005,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Envelope Attack",
+        "parameter": "envelope.attack",
+        "path": "tone.synth.envelope.attack",
+        "type": "float",
+        "unit": "s",
+        "default": 0.02,
+        "min": 0.001,
+        "max": 0.5,
+        "step": 0.001,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Envelope Release",
+        "parameter": "envelope.release",
+        "path": "tone.synth.envelope.release",
+        "type": "float",
+        "unit": "s",
+        "default": 2.8,
+        "min": 0.1,
+        "max": 6.0,
+        "step": 0.1,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Envelope Sustain",
+        "parameter": "envelope.sustain",
+        "path": "tone.synth.envelope.sustain",
+        "type": "float",
+        "unit": "normalRange",
+        "default": 0.75,
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "AutoPan Frequency",
+        "parameter": "effects.0.frequency",
+        "path": "tone.effects.0.frequency",
+        "type": "float",
+        "unit": "Hz",
+        "default": 0.3,
+        "min": 0.05,
+        "max": 2.0,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "AutoPan Depth",
+        "parameter": "effects.0.depth",
+        "path": "tone.effects.0.depth",
+        "type": "float",
+        "unit": "normalRange",
+        "default": 0.6,
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Chorus Wet",
+        "parameter": "effects.1.wet",
+        "path": "tone.effects.1.wet",
+        "type": "float",
+        "unit": "normalRange",
+        "default": 0.45,
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Delay Feedback",
+        "parameter": "effects.2.feedback",
+        "path": "tone.effects.2.feedback",
+        "type": "float",
+        "unit": "normalRange",
+        "default": 0.45,
+        "min": 0.0,
+        "max": 0.9,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Delay Time",
+        "parameter": "effects.2.delayTime",
+        "path": "tone.effects.2.delayTime",
+        "type": "float",
+        "unit": "s",
+        "default": 0.35,
+        "min": 0.05,
+        "max": 1.5,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      },
+      {
+        "name": "Reverb Mix",
+        "parameter": "effects.3.wet",
+        "path": "tone.effects.3.wet",
+        "type": "float",
+        "unit": "normalRange",
+        "default": 0.5,
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+        "smoothingTime": 0.1
+      }
+    ],
+    "meta_info": {
+      "category": "tone",
+      "complexity": "high",
+      "tags": [
+        "rhodes",
+        "electric-piano",
+        "ambient",
+        "mashup",
+        "polyphonic",
+        "shimmer"
+      ]
+    },
+    "name": "Rhodes Mashup",
+    "parts": [
+      {
+        "id": "chord_layer",
+        "pattern": "rhodes_comping",
+        "start": "0:0:0",
+        "duration": "16m",
+        "loop": true
+      },
+      {
+        "id": "sparkle_layer",
+        "pattern": "sparkle_overlay",
+        "start": "4:0:0",
+        "duration": "16m",
+        "loop": true
+      }
+    ],
+    "patterns": [
+      {
+        "id": "rhodes_comping",
+        "type": "Tone.Pattern",
+        "options": {
+          "pattern": "upDown",
+          "values": [
+            "C3",
+            "E3",
+            "G3",
+            "Bb3",
+            "D4"
+          ],
+          "interval": "4n",
+          "duration": "2n"
+        }
+      },
+      {
+        "id": "sparkle_overlay",
+        "type": "Tone.Pattern",
+        "options": {
+          "pattern": "randomWalk",
+          "values": [
+            "G4",
+            "A4",
+            "B4",
+            "D5"
+          ],
+          "interval": "8n",
+          "duration": "8n",
+          "probability": 0.6
+        }
+      }
+    ],
+    "synth": {
+      "type": "Tone.Synth",
+      "detune": 0,
+      "portamento": 0.02,
+      "volume": -9,
+      "oscillator": {
+        "type": "fatsine4",
+        "harmonicity": 0.9,
+        "modulationType": "sine",
+        "partials": [],
+        "phase": 45
+      },
+      "envelope": {
+        "attack": 0.02,
+        "decay": 0.6,
+        "sustain": 0.75,
+        "release": 2.8,
+        "attackCurve": "linear",
+        "decayCurve": "exponential",
+        "releaseCurve": "exponential"
+      }
+    }
+  }
+}
