@@ -27,17 +27,24 @@ jobs:
           cachix_name: synesthetic # IMPORTANT: Replace with your Cachix cache name
           cachix_auth_token: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Install Poetry and Node without Nix
+      - name: Setup Python 3.11 (non-Nix)
+        if: env.RUN_FULL_NIX != '1'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry (non-Nix)
         if: env.RUN_FULL_NIX != '1'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y python3 python3-venv python3-pip pipx
-          python3 -m pip install --upgrade pip
-          pipx ensurepath
-          pipx install poetry
+          curl -sSL https://install.python-poetry.org | python3 -
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-          sudo apt-get install -y nodejs
+          export PATH="$HOME/.local/bin:$PATH"
+
+      - name: Setup Node.js 20 (non-Nix)
+        if: env.RUN_FULL_NIX != '1'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Cache Poetry virtual environment
         uses: actions/cache@v4
