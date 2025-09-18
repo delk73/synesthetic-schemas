@@ -1,0 +1,49 @@
+{
+  "task": "Add new example to synesthetic-schemas",
+  "objective": "Create a new SynestheticAsset JSON example file in examples/ that duplicates Example 1 but changes the shader to two horizontally opposed grayscale smoothmin spheres, and updates the tone section to use the Rhodes Mashup patch provided.",
+  "constraints": {
+    "location": "examples/",
+    "filename": "example_dual_spheres.json",
+    "format": "must validate against jsonschema/synesthetic-asset.schema.json",
+    "completeness": "include control, shader, tone, haptic, modulations, and rule_bundle",
+    "shader": {
+      "fragment_shader": "uniform vec2 u_resolution; uniform float u_time; uniform float u_r1; uniform float u_r2; uniform float u_offset; float sphereSDF(vec2 p, float r) { return length(p) - r; } float smoothMin(float d1, float d2, float k) { float h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0); return mix(d2, d1, h) - k * h * (1.0 - h); } void main() { vec2 st = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0; st.x *= u_resolution.x / u_resolution.y; float d1 = sphereSDF(st - vec2(-u_offset, 0.0), u_r1); float d2 = sphereSDF(st - vec2(u_offset, 0.0), u_r2); float d = smoothMin(d1, d2, 0.2); float c = 1.0 - smoothstep(-0.01, 0.01, d); vec3 color = vec3(c); gl_FragColor = vec4(color, 1.0); }",
+      "uniforms": [
+        { "name": "u_time", "type": "float", "stage": "fragment", "default": 0.0 },
+        { "name": "u_resolution", "type": "vec2", "stage": "fragment", "default": [800.0, 600.0] },
+        { "name": "u_r1", "type": "float", "stage": "fragment", "default": 0.3 },
+        { "name": "u_r2", "type": "float", "stage": "fragment", "default": 0.3 },
+        { "name": "u_offset", "type": "float", "stage": "fragment", "default": 0.5 }
+      ],
+      "input_parameters": [
+        { "name": "radius1", "parameter": "u_r1", "path": "u_r1", "type": "float", "min": 0.1, "max": 1.0, "step": 0.01, "default": 0.3 },
+        { "name": "radius2", "parameter": "u_r2", "path": "u_r2", "type": "float", "min": 0.1, "max": 1.0, "step": 0.01, "default": 0.3 },
+        { "name": "offset", "parameter": "u_offset", "path": "u_offset", "type": "float", "min": 0.1, "max": 1.0, "step": 0.01, "default": 0.5 }
+      ],
+      "name": "DualSmoothMinSpheres"
+    },
+    "tone": "Replace with full Rhodes Mashup spec provided (synth, effects, input_parameters, patterns, parts, meta_info).",
+    "control": "Clone from Example 1, but map controls to new shader parameters (u_r1, u_r2, u_offset) instead of single u_r.",
+    "haptic": "Clone from Example 1 unchanged (keeps vibration tied to motion).",
+    "modulations": "Adapt Example 1, target shader.u_r1 and shader.u_r2 separately with low-frequency triangle waves; keep detune + haptic pulse.",
+    "rule_bundle": "Clone from Example 1 unchanged (grid interaction remains intact).",
+    "meta_info": {
+      "category": "multimodal",
+      "complexity": "high",
+      "tags": ["dual-sphere", "sdf", "grayscale", "smoothmin", "rhodes", "mashup"]
+    },
+    "name": "Dual Sphere Harmony"
+  },
+  "steps": [
+    "1. Copy canonical example1 JSON into examples/example_dual_spheres.json.",
+    "2. Replace shader.fragment_shader with smoothmin dual-sphere GLSL (above).",
+    "3. Update shader.uniforms and shader.input_parameters to match u_r1, u_r2, u_offset.",
+    "4. Swap tone section with Rhodes Mashup JSON spec.",
+    "5. Update control.control_parameters: remap any references to shader.u_r to shader.u_r1, shader.u_r2, and add slider for u_offset.",
+    "6. Leave haptic identical to Example 1.",
+    "7. Modify modulations: create separate entries for shader.u_r1 and shader.u_r2 instead of one shared shader.u_r.",
+    "8. Retain rule_bundle from Example 1.",
+    "9. Ensure schemaRef and meta_info fields are present and valid.",
+    "10. Run validation script: `python scripts/validate_examples.py examples/example_dual_spheres.json`."
+  ]
+}
