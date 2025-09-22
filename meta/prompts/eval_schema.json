@@ -13,8 +13,9 @@
       "No speculation about missing fields or future design",
       "Always write the full evaluation report to meta/output/schema_eval_<DATE>.md",
       "Always write the snapshot to meta/output/schema_eval_<DATE>.json",
+      "Also update meta/output/schema_eval_latest.md and meta/output/schema_eval_latest.json as aliases",
       "DATE must be in YYYYMMDD format",
-      "Eval is incomplete unless both output files are created or overwritten with non-empty content"
+      "Eval is incomplete unless all four files are created or overwritten with non-empty content"
     ],
     "sections": [
       "Summary of repo schemas",
@@ -33,7 +34,9 @@
   "output": {
     "paths": [
       "meta/output/schema_eval_<DATE>.md",
-      "meta/output/schema_eval_<DATE>.json"
+      "meta/output/schema_eval_<DATE>.json",
+      "meta/output/schema_eval_latest.md",
+      "meta/output/schema_eval_latest.json"
     ],
     "format": "Markdown + JSON",
     "must_write": true,
@@ -42,6 +45,8 @@
   "exit_criteria": [
     "meta/output/schema_eval_<DATE>.md is written and non-empty",
     "meta/output/schema_eval_<DATE>.json is written and non-empty",
+    "meta/output/schema_eval_latest.md is written and non-empty",
+    "meta/output/schema_eval_latest.json is written and non-empty",
     "All schemas listed with their fields exactly as defined",
     "No prescriptive language present",
     "Snapshot can be reused as immutable baseline for later audits"
