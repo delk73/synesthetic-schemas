@@ -33,8 +33,8 @@
   },
   "output": {
     "paths": [
-      "meta/output/schema_eval_<DATE>.md",
-      "meta/output/schema_eval_<DATE>.json",
+      "meta/output/_old/schema_eval_<DATE>.md",
+      "meta/output/_old/schema_eval_<DATE>.json",
       "meta/output/schema_eval_latest.md",
       "meta/output/schema_eval_latest.json"
     ],
