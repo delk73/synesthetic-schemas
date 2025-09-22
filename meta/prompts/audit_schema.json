@@ -1,0 +1,55 @@
+{
+  "task": "Schema Audit",
+  "version": "draft-v0.1",
+  "owner": "Synesthetic Schemas WG",
+  "lastReviewed": "2025-09-22",
+  "objective": "Compare current baseline (Eval latest) against refined spec. Report Present, Missing, and Divergent fields. Output actionable audit docs for patch planning.",
+  "constraints": {
+    "style": "deterministic, terse, Markdown tables + bullets",
+    "rules": [
+      "Ground all comparisons in meta/output/schema_eval_latest.json (baseline) and docs/schema_refined.md (spec)",
+      "Mark fields in baseline but not in spec as Divergent",
+      "Mark fields in spec but not in baseline as Missing",
+      "List fields present in both as Present",
+      "No speculation outside spec vs baseline comparison",
+      "Always write full audit report to meta/output/schema_audit_<DATE>.md",
+      "Always write machine snapshot to meta/output/schema_audit_<DATE>.json",
+      "Also update meta/output/schema_audit_latest.md and meta/output/schema_audit_latest.json as aliases",
+      "DATE must be in YYYYMMDD format",
+      "Audit is incomplete unless all four files are created or overwritten with non-empty content"
+    ],
+    "sections": [
+      "Summary of audit state",
+      "Audit coverage table (Schema → Present → Missing → Divergent)",
+      "Component audits (Shader, Tone, Haptic, Modulation, RuleBundle, Control, Asset, Examples)",
+      "Detected divergences (bullets)",
+      "Recommendations for patch planning"
+    ]
+  },
+  "scope": {
+    "files": [
+      "meta/output/schema_eval_latest.json",
+      "docs/schema_refined.md"
+    ]
+  },
+  "output": {
+    "paths": [
+      "meta/output/_old/schema_audit_<DATE>.md",
+      "meta/output/_old/schema_audit_<DATE>.json",
+      "meta/output/schema_audit_latest.md",
+      "meta/output/schema_audit_latest.json"
+    ],
+    "format": "Markdown + JSON",
+    "must_write": true,
+    "stdout_optional": true
+  },
+  "exit_criteria": [
+    "meta/output/schema_audit_<DATE>.md is written and non-empty",
+    "meta/output/schema_audit_<DATE>.json is written and non-empty",
+    "meta/output/schema_audit_latest.md is written and non-empty",
+    "meta/output/schema_audit_latest.json is written and non-empty",
+    "Each schema compared with baseline and spec",
+    "Fields categorized as Present / Missing / Divergent",
+    "Recommendations are explicit and actionable for patch prompts"
+  ]
+}

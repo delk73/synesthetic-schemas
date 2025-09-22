@@ -43,8 +43,8 @@
     "stdout_optional": true
   },
   "exit_criteria": [
-    "meta/output/schema_eval_<DATE>.md is written and non-empty",
-    "meta/output/schema_eval_<DATE>.json is written and non-empty",
+    "meta/output/_old/schema_eval_<DATE>.md is written and non-empty",
+    "meta/output/_old/schema_eval_<DATE>.json is written and non-empty",
     "meta/output/schema_eval_latest.md is written and non-empty",
     "meta/output/schema_eval_latest.json is written and non-empty",
     "All schemas listed with their fields exactly as defined",
