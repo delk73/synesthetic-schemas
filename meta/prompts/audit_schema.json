@@ -44,9 +44,9 @@
     "stdout_optional": true
   },
   "exit_criteria": [
-    "meta/output/schema_audit_<DATE>.md is written and non-empty",
-    "meta/output/schema_audit_<DATE>.json is written and non-empty",
-    "meta/output/schema_audit_latest.md is written and non-empty",
+    "meta/output/_old/schema_audit_<DATE>.md is written and non-empty",
+    "meta/output/_old/schema_audit_<DATE>.json is written and non-empty",
+    "meta/output//schema_audit_latest.md is written and non-empty",
     "meta/output/schema_audit_latest.json is written and non-empty",
     "Each schema compared with baseline and spec",
     "Fields categorized as Present / Missing / Divergent",
