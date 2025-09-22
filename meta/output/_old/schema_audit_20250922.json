@@ -1,0 +1,197 @@
+{
+  "audit_date": "20250922",
+  "baseline": {
+    "source": "meta/output/schema_eval_latest.json",
+    "date": "20250922",
+    "schemas": [
+      "control",
+      "control-bundle",
+      "haptic",
+      "modulation",
+      "rule",
+      "rule-bundle",
+      "shader",
+      "synesthetic-asset",
+      "tone"
+    ]
+  },
+  "spec": {
+    "source": "docs/schema_refined.md",
+    "status": "missing"
+  },
+  "status": "blocked",
+  "blockers": [
+    {
+      "type": "missing_spec",
+      "path": "docs/schema_refined.md",
+      "detail": "Spec file required for comparison not found in repository"
+    }
+  ],
+  "coverage": {
+    "Shader": null,
+    "Tone": null,
+    "Haptic": null,
+    "Modulation": null,
+    "RuleBundle": null,
+    "Control": null,
+    "Asset": null,
+    "Examples": null
+  },
+  "components": {
+    "Shader": {
+      "baseline_fields": [
+        "description",
+        "fragment_shader",
+        "input_parameters",
+        "meta_info",
+        "name",
+        "uniforms",
+        "vertex_shader"
+      ],
+      "baseline_required": [
+        "fragment_shader",
+        "name",
+        "vertex_shader"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Tone": {
+      "baseline_fields": [
+        "description",
+        "effects",
+        "input_parameters",
+        "meta_info",
+        "name",
+        "parts",
+        "patterns",
+        "synth"
+      ],
+      "baseline_required": [
+        "name",
+        "synth"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Haptic": {
+      "baseline_fields": [
+        "description",
+        "device",
+        "input_parameters",
+        "meta_info",
+        "name"
+      ],
+      "baseline_required": [
+        "device",
+        "input_parameters",
+        "name"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Modulation": {
+      "baseline_fields": [
+        "description",
+        "meta_info",
+        "modulations",
+        "name"
+      ],
+      "baseline_required": [
+        "modulations",
+        "name"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "RuleBundle": {
+      "baseline_fields": [
+        "created_at",
+        "description",
+        "id",
+        "meta_info",
+        "name",
+        "rules",
+        "updated_at"
+      ],
+      "baseline_required": [
+        "name",
+        "rules"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Control": {
+      "baseline_fields": [
+        "default",
+        "label",
+        "mappings",
+        "max",
+        "min",
+        "options",
+        "parameter",
+        "smoothingTime",
+        "step",
+        "type",
+        "unit"
+      ],
+      "baseline_required": [
+        "parameter",
+        "label",
+        "type",
+        "unit",
+        "default",
+        "mappings"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Asset": {
+      "baseline_fields": [
+        "control",
+        "created_at",
+        "description",
+        "haptic",
+        "meta_info",
+        "modulation",
+        "modulations",
+        "name",
+        "rule_bundle",
+        "shader",
+        "tone",
+        "updated_at"
+      ],
+      "baseline_required": [
+        "name"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    },
+    "Examples": {
+      "baseline_assets": [
+        "Control-Bundle_Example.json",
+        "Haptic_Example.json",
+        "Rule-Bundle_Example.json",
+        "Shader_Example.json",
+        "SynestheticAsset_Example1.json",
+        "SynestheticAsset_Example2.json",
+        "SynestheticAsset_Example3.json",
+        "SynestheticAsset_Example4.json",
+        "SynestheticAsset_Example5.json",
+        "SynestheticAsset_Example6.json",
+        "SynestheticAsset_Example7.json",
+        "SynestheticAsset_Example8.json",
+        "SynestheticAsset_Example9.json",
+        "SynestheticAsset_ExampleDS.json",
+        "Tone_Example.json"
+      ],
+      "status": "blocked",
+      "blocker": "docs/schema_refined.md missing"
+    }
+  },
+  "divergences": [],
+  "recommendations": [
+    "Restore or provide docs/schema_refined.md before rerunning audit",
+    "Re-execute audit once spec is available to compute Present/Missing/Divergent sets"
+  ]
+}
