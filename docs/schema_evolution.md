@@ -1,8 +1,10 @@
-# Schema Evolution: Operator & Library Integration
+---
+version: v0.4.0
+lastReviewed: 2025-09-26
+owner: delk73
+---
 
-**Version:** Draft v0.1  
-**Owner:** delk73
-**Last Reviewed:** 2025-09-22  
+# Schema Evolution: Operator & Library Integration
 
 ---
 
@@ -16,6 +18,7 @@ This evolution strengthens implicit/smooth representation, enables operator-base
 ## Proposed Enhancements
 
 ### Shader Operator Composability
+
 - Add optional `operators` array alongside `fragment_src`.
 - Example:
   ```json
@@ -24,7 +27,8 @@ This evolution strengthens implicit/smooth representation, enables operator-base
     "params": { "center": [0.5, 0.5], "radius": 0.25 },
     "provenance": { "lib_id": "primitives.circle", "version": "0.1.0", "seed": 42 }
   }
-````
+  ```
+
 
 * Preserves GLSL fallback while enabling generator-injected parametric ops.
 

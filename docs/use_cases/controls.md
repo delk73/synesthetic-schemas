@@ -1,3 +1,10 @@
+---
+version: v0.0.0
+lastReviewed:
+owner: delk73
+---
+
+
 ## **Overview**
 
 This use case demonstrates how Synesthetic schemas can represent **bidirectional controls**: knobs, sliders, grids, or other inputs that both **send state into assets** and **reflect state back from assets** (via automation, external modulation, or schema-driven updates).
