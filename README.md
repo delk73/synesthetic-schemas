@@ -365,3 +365,12 @@ Draft issues live in `meta/issues/*.md`. To create them with GitHub CLI:
 ./scripts/create_issues.sh
 DRY_RUN=1 ./scripts/create_issues.sh
 ```
+
+
+
+
+
+
+## 📚 Documentation
+
+See [docs/README.md](docs/README.md) for conceptual background, crosswalks, and naming rationale.
