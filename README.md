@@ -10,6 +10,17 @@ Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
 
 This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible development environment via Nix that matches CI.
 
+## 🔮 Vision
+
+Synesthetic Schemas enables a **perception-layer OS** where visual, auditory, and haptic modalities blend into unified, cross-modal experiences. The schemas formalize how distinction-based perception translates across sensory domains—from pre-symbolic cuts (*this vs not-this*) through mathematical precision to communicable language.
+
+Key capabilities:
+* **Cross-modal field operators**: A single ripple or wave expressed simultaneously as shader, tone, and haptic vibration
+* **Cell-topology awareness**: Recursive operators for fusion, division, and emergence that maintain topological invariants
+* **Perception grounding**: Schemas anchor abstract representations in embodied, lived perceptual experience
+
+This repository provides the structural foundation. For conceptual background, use cases, and design philosophy, see **[docs/README.md](docs/README.md)**.
+
 ---
 
 ## Install Nix (First Time Only)
