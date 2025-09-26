@@ -26,8 +26,13 @@ It complements the root README (technical workflow) by providing background, use
 ### Schema & Evolution
 - [Schema Evolution](schema_evolution.md)  
 
+### Examples
+- [Examples](../examples/README.md)
+
+
 ### QA
 - *(Reserved for testing / validation docs)*
+
 
 ---
 

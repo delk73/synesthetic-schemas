@@ -1,6 +1,6 @@
 ---
 version: v0.7.3
-lastReviewed: 2025-09-03
+lastReviewed: 2025-09-26
 owner: delk73
 ---
 
@@ -11,6 +11,21 @@ Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
 This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible development environment via Nix that matches CI.
 
 ---
+
+
+## 🌐 Vision
+
+Synesthetic is more than a collection of schemas — it is the **core substrate** for a multimodal, schema-first *perception-layer OS*.  
+
+- **Schemas as foundation:** Every visual, audio, haptic, and control element is defined here as a canonical JSON Schema, making this repo the single source of truth (SSOT).  
+- **Cross-modal alignment:** These schemas enable deterministic interaction across modalities — shaders, tones, haptics — and unify them under one audit-able structure.  
+- **Topological grounding:** The design builds on field-like, topology-driven models (see [cell-sdf-topology](https://github.com/delk73/cell-sdf-topology)) that echo current embodied AI research and spatiotemporal cellular representations.  
+- **Embodied AI alignment:** Recent research emphasizes multimodal reasoning (MLLMs) + physics-consistent world models. Synesthetic schemas provide the operational substrate for those concepts: patch lifecycles, cross-modal mappings, and hardware-aware constraints.  
+
+📚 For conceptual docs, see [docs/README.md](docs/README.md).
+
+---
+
 
 ## Install Nix (First Time Only)
 
@@ -370,7 +385,3 @@ DRY_RUN=1 ./scripts/create_issues.sh
 
 
 
-
-## 📚 Documentation
-
-See [docs/README.md](docs/README.md) for conceptual background, crosswalks, and naming rationale.
