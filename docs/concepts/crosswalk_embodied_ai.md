@@ -1,100 +1,113 @@
 ---
-version: v0.4.0
+version: v0.6.1
 lastReviewed: 2025-09-26
 owner: delk73
 ---
 
 # Cross-Walk: Synesthetic and Contemporary Embodied AI Topology  
-*(arXiv:2509.20021 + AlphaXiv Topology Visualization + Cell-SDF-Topology Repo)*
+*(Feng et al. 2025 + AlphaXiv Visualization + Synesthetic Repositories + Lu et al. 2025)*
 
 ---
 
 ## Disclaimer  
-This document is a cross-walk alignment between the Synesthetic system and contemporary embodied AI research. It draws on:  
-- *Towards Embodied AI via Multimodal Large Language Models and World Models* (arXiv:2509.20021)  
-- AlphaXiv topology visualization (2025)  
-- Synesthetic’s **cell-sdf-topology** research repo  
+This document aligns the Synesthetic system with contemporary embodied AI research. It draws on:  
 
-It is intended as a positioning and synthesis exercise. It should not be read as a critique of external works or their authors, but as a way to map Synesthetic’s implementation to broader embodied AI discourse.  
+- Feng et al. (2025), *Towards Embodied AI via Multimodal Large Language Models and World Models*  
+- AlphaXiv embodied AI topology visualization (2025)  
+- Lu et al. (2025), *AToken: A Unified Tokenizer for Vision*  
+- Synesthetic’s repositories:  
+  - **cell-sdf-topology** (research substrate)  
+  - **synesthetic-schemas** (formal schema layer)  
+  - **sdfk runtime** (interactive loop and UI)  
+
+It is a positioning and synthesis exercise, not a critique.  
 
 ---
 
 ## Purpose  
-The goal is to situate Synesthetic within the current embodied AI landscape, highlighting how external conceptual frameworks (papers, visualizations) align with and are operationalized by Synesthetic’s schema-first, multimodal system.
+The goal is to show how Synesthetic’s stack (topology → schema → runtime) lines up with embodied AI research. Each section highlights external framing, the topological substrate, and how Synesthetic operationalizes it.
 
 ---
 
-## Conceptual Architecture: arXiv 2509.20021 → Synesthetic
+## 1. Perception → Cognition → Action Loop  
 
-### 1. Perception → Cognition → Action Loop  
-- **Paper:** Defines embodied AI as a closed loop of sensing, reasoning, and acting.  
-- **Synesthetic:**  
-  - Schemas (SSOT) encode formal mappings.  
-  - Declarative UI & controls for live interaction.  
-  - Patch lifecycle (preview/apply/rate) as deterministic action feedback.  
+- **Feng et al. (2025):** Embodied AI is defined as a closed loop of sensing, reasoning, and acting.  
+- **Cell-SDF-Topology:** Models perception as continuous fields and “world tubes” that embed local sensor values into temporal manifolds.  
+- **Synesthetic:** Schemas encode mappings, and the runtime executes them deterministically (preview → apply → rate).  
 
-### 2. Multimodal Shift  
-- **Paper:** Unimodal → multimodal as key evolution.  
-- **Synesthetic:** Already unifies visual (GLSL/SDF), audio (Tone.js), and haptic modalities under a single schema framework.  
-
-### 3. Embodiment Constraints  
-- **Paper:** Latency, energy, and on-device embodiment are critical.  
-- **Synesthetic:** Constraint fidelity in controls, schema-driven determinism, and edge deployment ambitions (FPGA/Jetson).  
-
-### 4. MLLM + World Models  
-- **Paper:** Proposes semantic reasoning (MLLMs) + physics-consistent dynamics (WMs).  
-- **Synesthetic:**  
-  - Generators (LLM) produce structured patches.  
-  - Geometry-driven shaders, automata rule bundles and curve operators provide dynamics.  
-  - Lab critic + RLHF score bridges semantic <-> physical.  
-
-### 5. Applications  
-- **Paper:** Robotics, UAVs, industrial automation.  
-- **AlphaXiv + Cell-SDF-Topology:** Implicitly relevant to biological and medical modeling — cellular manifolds, spatiotemporal embeddings, and topological representations lend themselves to disease modeling, tissue dynamics, and personalized medical interfaces.  
-- **Synesthetic:**  
-  - **Creative / Multimodal Interaction:** Audiovisual-haptic composition as a perception-layer OS.  
-  - **Medical / Bio-Topological Extensions:** SDF world tubes and curve entanglement provide a representational substrate for cellular data modeling, patient-specific perceptual interfaces, or medical training simulators.  
-  - **Future Robotics / Devices:** Schema compatibility enables integration with medical robotics, prosthetics, and assistive devices.  
+**Contrast:** Robots handle noisy open worlds; Synesthetic works in structured perceptual fields. The trade is adaptability vs. reproducibility.  
 
 ---
 
-## Representational Substrate: AlphaXiv + Cell-SDF-Topology → Synesthetic
+## 2. Multimodal Shift  
 
-### 1. Spatiotemporal Cells in a Manifold  
-- **AlphaXiv:** Depicts embodied AI as cells/fields embedded in topology.  
-- **Cell-SDF-Topology:** Implements this idea with SDF “world tubes” representing continuous perceptual fields.  
+- **Feng et al. (2025):** Highlights the transition from unimodal to multimodal agents.  
+- **Lu et al. (2025):** Demonstrates visual unification by encoding images, video, and 3D assets into a shared 4D latent.  
+- **Cell-SDF-Topology:** Begins with analytic fields (SDFs, tubes, curves) that already inhabit a spatiotemporal manifold — effectively a built-in substrate rather than a compressed latent.  
+- **Synesthetic:** Extends this unification across modalities. Visual shaders, audio curves, and haptic textures are schema-equal and co-exist in one asset.  
 
-### 2. Local Structure and Global Effects  
-- **AlphaXiv:** Shows units arranged relationally across space/time. The visualization implies interdependence but does not specify dynamics.  
-- **Cell-SDF-Topology:** Demonstrates interdependent parameter curves where local tweaks ripple into global shifts. This operationalizes the implied structural entanglement.  
-
-### 3. Representational Substrate Integration  
-- **AlphaXiv:** Suggests topology as grounding for embodied intelligence.  
-- **Cell-SDF-Topology:** Concretely encodes that substrate via SDF fields and curve entanglement.  
-- **Synesthetic:** Incorporates this substrate into schema-driven audiovisual-haptic mappings, extending topology into a live multimodal system.  
+**Contrast:** AToken shows unification *within vision*; Synesthetic pushes unification *across sensory domains.*  
 
 ---
 
-## Summary Table
+## 3. Embodiment Constraints  
 
-| Theme | arXiv 2509.20021 | AlphaXiv Visualization | Cell-SDF-Topology | Synesthetic |
-|-------|------------------|------------------------|-------------------|-------------|
-| Perception-Cognition-Action | Loop model | – | – | Schemas + Patch lifecycle |
-| Multimodal | Call for shift | – | – | Visual + Audio + Haptic schemas |
-| Embodiment constraints | Latency/energy | – | – | Constraint fidelity + SSOT |
-| MLLM + WM | Semantic + physics | – | – | Generators + Geometry substrate |
-| Applications | Robotics/industrial | – | Medical modeling implied | Creative OS + medical extensions |
-| Topology / Fields | – | Cells-in-manifold | SDF world tubes | Schema integration of fields |
-| Local/global | – | Relational structure | Curve entanglement | Emergent global effects |
+- **Feng et al. (2025):** Notes strict latency and energy limits in real-world deployment.  
+- **Cell-SDF-Topology:** Field encodings are compact; SDFs preserve global structure efficiently.  
+- **Synesthetic:** Uses deterministic shaders, procedural audio, and rule bundles; LLM reasoning is out-of-band. Runtime can target FPGA/Jetson-class devices.  
+
+**Contrast:** Robotics pipelines compress large models into runtime. Synesthetic achieves predictability by design, trading some flexibility for guaranteed performance.  
+
+---
+
+## 4. MLLMs + World Models  
+
+- **Feng et al. (2025):** Argues for LLMs as semantic planners coupled with world models for grounded dynamics.  
+- **Cell-SDF-Topology:** Encodes the “laws” of the substrate — continuity, connectivity, local-global coupling.  
+- **Synesthetic:** Generator (LLM) proposes schema-valid patches; runtime enforces invariants symbolically. Lab critic + RLHF close the loop.  
+
+**Contrast:** Learned simulators approximate physics; Synesthetic encodes rules symbolically. This guarantees fidelity within the schema but limits improvisation outside it.  
+
+---
+
+## 5. Applications  
+
+- **Feng et al. (2025):** Focuses on robotics, navigation, and automation.  
+- **Cell-SDF-Topology:** Extends embodiment toward biomedical domains by representing cells, tissues, and vessels as SDF fields with temporal embeddings.  
+- **Synesthetic:**  
+  - **Creative OS:** multimodal art and real-time sensory composition.  
+  - **Biomedical extensions:** interactive visualization (e.g. haptic tumor growth, audiovisual metabolic feedback).  
+  - **Future robotics:** schema endpoints can drive haptic wearables or prosthetics.  
+
+**Contrast:** Robotics stacks are siloed by domain; Synesthetic unifies modalities in one schema.  
+
+---
+
+## Summary Table  
+
+| Theme                     | Feng et al. (2025)       | Lu et al. (2025)    | Cell-SDF-Topology | Synesthetic |
+|----------------------------|--------------------------|---------------------|-------------------|-------------|
+| Perception-Cognition-Action| Closed loop              | –                   | World tubes, fields | Schemas + patch lifecycle |
+| Multimodal                 | Call for shift           | 4D latent for vision | Modalities as fields | Visual + audio + haptic schemas |
+| Embodiment constraints     | Latency/energy           | –                   | Compact field encodings | Deterministic runtime |
+| MLLM + WM                  | Semantic + physics       | –                   | Topological invariants | Generator + symbolic world model |
+| Applications               | Robotics/industrial      | –                   | Biomedical substrate | Creative OS + medical + devices |
 
 ---
 
 ## Positioning Statement  
-The arXiv paper provides the **conceptual map** (MLLM + WM for embodied AI). The AlphaXiv visualization and the cell-sdf-topology repo define the **representational substrate** (cellular/topological embedding realized as SDF fields). Synesthetic integrates both into a **working operational substrate**: schema-first, deterministic, multimodal, patch-auditable, and hardware-aware. This integration not only supports creative and industrial applications but also extends naturally into **medical and biological domains**, where topological modeling and perception-layer interfaces are increasingly relevant.  
+
+*Feng et al. (2025)* frame embodied AI through loops, multimodality, and world models. *Lu et al. (2025)* show how vision can be unified by compressing pixels into a 4D latent. *Cell-SDF-Topology* takes a parallel path: analytic fields and tubes that already encode space and time as the substrate itself. **Synesthetic** builds on this field substrate, using schema-first definitions and a deterministic runtime to extend unification across vision, audio, and haptics.  
+
+Together these perspectives outline a spectrum of embodiment. Embodied AI emphasizes autonomy in the physical world; Synesthetic emphasizes co-creation in perceptual fields. Both approach the same core question: what does it mean to inhabit and act within an environment?  
 
 ---
 
 ## References  
-- *Towards Embodied AI via Multimodal Large Language Models and World Models*, arXiv:2509.20021, 2025.  
-- AlphaXiv, *Spatiotemporal cellular embedding diagram*, 2025.  
-- Dan Elkins, *cell-sdf-topology*, GitHub, 2025.  
+
+- Feng, T. et al. (2025). *Towards Embodied AI via Multimodal Large Language Models and World Models*.  
+  arXiv:2509.20021. [Abstract](https://arxiv.org/abs/2509.20021) · [PDF](https://papers-pdfs.assets.alphaxiv.org/2509.14476v2.pdf)  
+- AlphaXiv (2025). *Embodied AI Topology Visualization*. [link](https://alphaxiv.org)  
+- Lu, J., Song, L., Xu, M., Ahn, B., Wang, Y., Chen, C., Dehghan, A., & Yang, Y. (2025).  
+  *AToken: A Unified Tokenizer for Vision*. Apple. [PDF](https://papers-pdfs.assets.alphaxiv.org/2509.14476v2.pdf)  
+- Elkins, D. (2025). *cell-sdf-topology*. GitHub. [link](https://github.com/delk73/cell-sdf-topology)  
