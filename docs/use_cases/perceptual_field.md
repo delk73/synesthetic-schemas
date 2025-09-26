@@ -1,3 +1,9 @@
+---
+version: v0.4.0
+lastReviewed: 2025-09-26
+owner: delk73
+---
+
 ## **Overview**
 
 This use case tests how a single **field operator** (e.g., ripple, circle, wave) can be expressed simultaneously across **visual, auditory, and haptic channels**.

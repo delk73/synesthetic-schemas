@@ -1,3 +1,10 @@
+---
+version: v0.4.0
+lastReviewed: 2025-09-26
+owner: delk73
+---
+
+
 ## **Overview**
 
 This use case draws from the *cell-sdf-topology* repo to demonstrate structured, recursive, topology-aware operators (e.g., fusion, division, ripple, bleb).
