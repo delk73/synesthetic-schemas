@@ -1,4 +1,4 @@
-name: CI
+name: CI (Fast)
 
 on:
   push:
@@ -6,6 +6,8 @@ on:
   pull_request:
 
 env:
+  # Performance optimization: Use lightweight Python/Node setup by default.
+  # Set to 1 only when testing Nix reproducibility is required.
   RUN_FULL_NIX: 0
 
 jobs:
@@ -24,7 +26,8 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-          cachix_name: synesthetic # IMPORTANT: Replace with your Cachix cache name
+          # Performance: Cachix binary cache avoids 20+ min Nix builds
+          cachix_name: synesthetic
           cachix_auth_token: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
       - name: Setup Python 3.11 (non-Nix)
@@ -50,7 +53,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-poetry-
 
@@ -58,7 +61,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json', '**/package.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
 
@@ -74,9 +77,14 @@ jobs:
       - name: Install project dependencies (non-Nix)
         if: env.RUN_FULL_NIX != '1'
         run: |
+          # Configure Poetry for faster, more deterministic CI runs
           poetry config virtualenvs.in-project true --local
-          poetry install
-          npm install
+          poetry config virtualenvs.prefer-active-python true --local
+          poetry config installer.parallel true --local
+          
+          # Install dependencies (dev dependencies needed for tools like ruff, pydantic)
+          poetry install --ansi
+          npm ci
 
       - name: Check for codegen-related file changes
         id: changes

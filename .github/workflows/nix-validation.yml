@@ -1,0 +1,86 @@
+name: Nix Environment Validation
+
+# This workflow validates the Nix environment reproducibility periodically
+# to ensure developers can still use `nix develop` successfully, without
+# slowing down every PR with 20+ minute Nix builds.
+
+on:
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    # Allow manual triggering when needed
+  push:
+    # Only run on Nix-related changes
+    paths:
+      - 'flake.nix'
+      - 'flake.lock'
+
+env:
+  RUN_FULL_NIX: 1
+
+jobs:
+  nix-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix and configure Cachix
+        uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+          # Performance: Cachix binary cache avoids 20+ min Nix builds
+          cachix_name: synesthetic
+          cachix_auth_token: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Cache Poetry virtual environment
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: nix-${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock', '**/pyproject.toml') }}
+          restore-keys: |
+            nix-${{ runner.os }}-poetry-
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: nix-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json', '**/package.json') }}
+          restore-keys: |
+            nix-${{ runner.os }}-npm-
+
+      - name: Validate Nix environment and install dependencies
+        run: |
+          echo "🏗️ Validating Nix development environment..."
+          start_time=$(date +%s)
+          
+          nix develop --command bash -c "
+            echo '--- Nix Environment Validation ---'
+            echo 'Python version:' \$(python --version)
+            echo 'Poetry version:' \$(poetry --version)
+            echo 'Node version:' \$(node --version)
+            echo 'NPM version:' \$(npm --version)
+            echo ''
+            echo '--- Installing project dependencies ---'
+            poetry install
+            npm install
+            echo '--- Dependencies installed successfully ---'
+          "
+          
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "⏱️ Nix environment setup completed in ${duration} seconds"
+
+      - name: Run full preflight validation with Nix
+        run: |
+          echo "🧪 Running preflight checks in Nix environment..."
+          nix develop --command ./preflight.sh
+
+      - name: Validate build script with Nix
+        run: |
+          echo "🔨 Testing build script in Nix environment..."
+          nix develop --command ./build.sh
