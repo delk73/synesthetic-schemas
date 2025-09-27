@@ -60,3 +60,5 @@ When describing **Synesthetic** publicly:
 > Synesthetic is a schema-first, multimodal platform that turns cross-modal perception into an operating system for interaction.
 > Inspired by lived synesthesia, it unifies vision, sound, and touch under one structured framework.
 > What was once labeled an affliction is reclaimed. A design principle for the future of creativity and embodiment.
+
+> Synesthetic: A multimodal substrate for human-machine interaction, grounded in schema-first design.
