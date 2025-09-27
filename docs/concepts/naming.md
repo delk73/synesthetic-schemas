@@ -46,10 +46,18 @@ By naming the system **Synesthetic**, we assert that cross-modal integration is 
 
 ## Position
 
-Synesthetic is the most authentic and ambitious name for the system:
+Synesthetic is **more than an interaction OS**. It is a:
 
-- **Authentic:** Because it emerges directly from lived perceptual crossover.  
-- **Ambitious:** Because it aims to operationalize cross-modal perception as a foundation for interaction — reclaiming what was once seen as anomaly as a design principle for the future.
+- **Perception substrate** — schema-first manifolds (visual/audio/haptic/control/modulation) that are explicit, deterministic, and auditable.
+- **Live instrument** — real-time cross-modal synthesis you can play, probe, and tune, not just configure.
+- **Protocol** — a common tokenized manifold for devices, agents, and runtimes to interoperate without black-box encoders.
+- **Runtime** — low-latency, modest-hardware execution (proven on decade-old laptops; scales to Jetson/FPGA).
+- **Research & production loop** — patches, ratings, and logs that turn exploration into repeatable systems.
+
+**One-liner:**  
+*Synesthetic is a schema-first perception substrate, instrument, and protocol for real-time cross-modal systems — grounded, deterministic, and light enough to run anywhere.*
+
+**Not:** a monolithic app, a cloud LLM, or a world-model/agent stack. It slots beneath them and can feed or be fed by them.
 
 ---
 
