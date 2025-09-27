@@ -10,6 +10,8 @@ Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
 
 This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible development environment via Nix that matches CI.
 
+**Performance-optimized CI**: ~40 second validation runs using fast Poetry+Node.js path, with weekly Nix validation for reproducibility.
+
 ---
 
 
@@ -156,6 +158,26 @@ flowchart TD
 ```
 
 Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "works on my machine" drift.
+
+---
+
+## ⚡ CI Performance Strategy
+
+This repo uses a **two-tier CI approach** to balance speed and reproducibility:
+
+### Fast CI (Every PR/Push)
+- **Duration**: ~40 seconds total
+- **Approach**: Direct Poetry + Node.js installation (no Nix)
+- **Caching**: Poetry venv and npm dependencies
+- **Purpose**: Fast feedback for schema validation and code generation
+
+### Nix Validation (Weekly/On-Demand)  
+- **Duration**: 2-5 minutes (with Cachix cache hits)
+- **Approach**: Full Nix environment with `nix develop`
+- **When**: Scheduled weekly, or on `flake.nix` changes
+- **Purpose**: Ensure Nix reproducibility without slowing every PR
+
+**Result**: Eliminates the 20+ minute "Install project dependencies" slowdown while maintaining the benefits of Nix for local development.
 
 ---
 
@@ -343,7 +365,10 @@ On success, preflight stamps `.cache/last_preflight.txt` with the UTC timestamp.
 SKIP_CODEGEN_CHECK=1 ./preflight.sh
 ```
 
-* CI notes: The GitHub Actions workflow installs via Poetry and uses a paths filter to only run `codegen-check` when schemas/codegen or tooling inputs change.
+* CI notes: The GitHub Actions workflow uses a **two-tier strategy for performance**:
+  - **Fast CI** (default): Uses Poetry + Node.js directly for speed (~40s total)
+  - **Nix Validation** (weekly/on-demand): Validates Nix reproducibility without slowing PRs
+  - Use paths filter to only run `codegen-check` when schemas/codegen or tooling inputs change.
 
 ---
 

@@ -12,6 +12,8 @@ Thanks for helping improve Synesthetic Schemas! This repo is the single source o
 
 This project uses [Nix](https://nixos.org/) to provide a reproducible development environment.
 
+**Note**: CI uses a fast Poetry+Node.js path for speed (~40s), but Nix is still recommended for local development to ensure reproducibility.
+
 1.  **Install Nix:** If you don't have Nix installed, you can install it by following the instructions at [https://nixos.org/download.html](https://nixos.org/download.html).
 
 2.  **Enable Nix Flakes:** You'll need to enable the experimental "flakes" feature. Add the following line to your Nix configuration file (`~/.config/nix/nix.conf` or `/etc/nix/nix.conf`):
