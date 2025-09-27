@@ -26,7 +26,7 @@ The project is named *Synesthetic* because it originates from both lived experie
 
 ## Considerations  
 
-- **Ambiguity:** In neuroscience, synesthesia describes an involuntary perceptual condition. Synesthetic (the system) differs—it builds *designed* mappings. This distinction should be acknowledged in external-facing descriptions.  
+- **Ambiguity:** In neuroscience, synesthesia describes an involuntary perceptual condition. Synesthetic (the system) differs. It builds *designed* mappings. This distinction should be acknowledged in external-facing descriptions.
 - **Searchability:** “Synesthetic” is a common word. To improve uniqueness, the system may also be referred to as **Synesthetic OS** or **Synesthetic Platform** in contexts requiring clarity.  
 
 ---
