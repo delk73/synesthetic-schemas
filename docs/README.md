@@ -14,7 +14,6 @@ It complements the root README (technical workflow) by providing background, use
 ## Index
 
 ### Concepts
-- [Crosswalk: Embodied AI Alignment](concepts/crosswalk_embodied_ai.md)  
 - [Distinction](concepts/distinction.md)  
 - [Naming Rationale](concepts/naming.md)  
 
