@@ -100,6 +100,16 @@ jobs:
               - 'package.json'
               - 'package-lock.json'
               - 'Makefile'
+            nix:
+              - 'flake.nix'
+              - 'flake.lock'
+
+      - name: Notify about Nix changes (for performance awareness)
+        if: steps.changes.outputs.nix == 'true'
+        run: |
+          echo "📦 Nix configuration files changed."
+          echo "💡 Consider running the 'Nix Environment Validation' workflow manually"
+          echo "   to ensure Nix reproducibility: Actions → Nix Environment Validation → Run workflow"
 
       - name: Run preflight (with codegen-check) [Nix]
         if: env.RUN_FULL_NIX == '1' && steps.changes.outputs.codegen == 'true'

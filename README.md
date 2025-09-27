@@ -179,6 +179,8 @@ This repo uses a **two-tier CI approach** to balance speed and reproducibility:
 
 **Result**: Eliminates the 20+ minute "Install project dependencies" slowdown while maintaining the benefits of Nix for local development.
 
+**To manually trigger Nix validation**: Go to Actions → Nix Environment Validation → Run workflow
+
 ---
 
 ## Example Architecture
