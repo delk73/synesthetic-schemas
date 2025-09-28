@@ -16,8 +16,9 @@ It complements the root README (technical workflow) by providing background, use
 ### Concepts
 
 
-- [Tokenized Manifold](docs/concepts/tokenized_manifold.md)
-- [Crosswalk: Embodied AI Alignment](concepts/crosswalk_embodied_ai.md)
+- [Tokenized Manifold](concepts/tokenized_manifold.md)
+- [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)
+- [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)
 - [Distinction](concepts/distinction.md)  
 - [Naming Rationale](concepts/naming.md)  
 
