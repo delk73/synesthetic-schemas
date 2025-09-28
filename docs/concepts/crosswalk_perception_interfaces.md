@@ -1,6 +1,6 @@
 ---
-version: v0.1.1
-lastReviewed: 2025-09-27
+version: v0.1.2
+lastReviewed: 2025-09-28
 owner: delk73
 ---
 
@@ -8,75 +8,61 @@ owner: delk73
 
 ---
 
-## Topology Overview (Draft)
+## Purpose
 
-```mermaid
-flowchart TD
-    A[Embodied AI Perception] --> B[Learned Feature Extractors]
-    A --> C[Interface Standards]
-    A --> D[Rendering Runtimes]
-    A --> E[Haptic/Audio Toolkits]
-
-    Syn[Synesthetic Substrate]
-
-    B --> Syn
-    C --> Syn
-    D --> Syn
-    E --> Syn    
-```
-
-
-
-
-## Purpose  
-This document establishes a **broad crosswalk** between the Synesthetic system and the current state of the art in embodied AI perception and interfaces.  
-It is not a final positioning statement, but a **map** that will be refined through Labs output and research.  
+This document establishes a **broad crosswalk** between the Synesthetic system and the current state of the art in embodied AI perception and interfaces.
+It is not a final positioning statement, but a **map** that will be refined through Labs output and research.
 
 ---
 
-## Scope  
-- **Unit of Analysis**: Synesthetic as a **schema-first deterministic substrate** for multimodal perception (shader, tone, haptic, control, modulation).  
-- **Comparative Targets**: Embodied AI perception pipelines, XR interface standards, low-latency rendering runtimes, and haptic/audio toolkits.  
-- **Exclusions**: End-to-end large language/world models; pure application-layer products.  
+## Scope
+
+* **Unit of Analysis**: Synesthetic as a **schema-first deterministic substrate** for multimodal perception (shader, tone, haptic, control, modulation).
+* **Comparative Targets**: Embodied AI perception pipelines, XR interface standards, low-latency rendering runtimes, and haptic/audio toolkits.
+* **Exclusions**: End-to-end large language/world models; pure application-layer products.
 
 ---
 
+## Broad Alignment
 
+* **Perception Substrate**
 
-## Broad Alignment  
+  * *SOTA*: Learned feature extractors, perceptual tokenization ([AToken](https://arxiv.org/abs/2405.06722), [V-JEPA](https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-self-supervised-learning/)).
+  * *Synesthetic*: Deterministic, schema-bound components (shader, tone, haptic) with rule-bundle orchestration.
+  * Related concept: [Tokenized Manifold](tokenized_manifold.md).
+  * *Diagnostic*: Keenan & Sokol (2023), *Mind the Gap!* argue that explanations must be treated as **communication systems** rather than bolt-ons to opaque models. Synesthetic collapses this gap by making schemas themselves the communicative substrate.
 
-- **Perception Substrate**  
-  - *SOTA*: Learned feature extractors, perceptual tokenization ([AToken](https://arxiv.org/abs/2405.06722), [V-JEPA](https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-self-supervised-learning/)).  
-  - *Synesthetic*: Deterministic, schema-bound components (shader, tone, haptic) with rule-bundle orchestration.  
-  - Related concept: [Tokenized Manifold](tokenized_manifold.md).  
+* **Interface Layer**
 
-- **Interface Layer**  
-  - *SOTA*: XR APIs ([OpenXR](https://www.khronos.org/openxr/), [WebGPU](https://www.w3.org/TR/webgpu/)), haptic SDKs, game engine UIs.  
-  - *Synesthetic*: Declarative UI + schema-driven controls with bidirectional sync.  
+  * *SOTA*: XR APIs ([OpenXR](https://www.khronos.org/openxr/), [WebGPU](https://www.w3.org/TR/webgpu/)), haptic SDKs, game engine UIs.
+  * *Synesthetic*: Declarative UI + schema-driven controls with bidirectional sync.
 
-- **Runtime Footprint**  
-  - *SOTA*: GPU/TPU-heavy learned models; cloud-first pipelines.  
-  - *Synesthetic*: Procedural low-latency substrate targeting FPGA/Jetson-class devices — and proven real-time on **12-year-old i5 Inspiron laptops with Intel integrated graphics**, without dropped frames.  
+* **Runtime Footprint**
 
-- **Cross-Modal Coupling**  
-  - *SOTA*: Mostly single-modality or loosely coupled.  
-  - *Synesthetic*: Schema-unified multimodal coupling (visual/audio/haptic).  
+  * *SOTA*: GPU/TPU-heavy learned models; cloud-first pipelines.
+  * *Synesthetic*: Procedural low-latency substrate targeting FPGA/Jetson-class devices — and proven real-time on **12-year-old i5 Inspiron laptops with Intel integrated graphics**, without dropped frames.
 
----
+* **Cross-Modal Coupling**
 
-## Differentiators (Draft)  
-- **Determinism**: Procedural rendering + schema guarantees.  
-- **Auditability**: SSOT schemas + versioned patches.  
-- **Footprint**: Real-time, low-latency, minimal compute (validated on modest laptops).  
-- **Flexibility**: Configurable through rule-bundles, not retrained weights.  
-- Related positioning: [Positioning Synesthetic in the Embodied AI Landscape](positioning_embodied.md).  
+  * *SOTA*: Mostly single-modality or loosely coupled.
+  * *Synesthetic*: Schema-unified multimodal coupling (visual/audio/haptic).
 
 ---
 
-## Next Steps  
-- **Labs Mining**: Surface emergent paradigms from Labs outputs (shader/tone/haptic archetypes).  
-- **Refinement**: Map mined paradigms against this crosswalk to adjust units and comparisons.  
-- **Corpus**: Build comparative table with 15–30 SOTA references.  
-- **Positioning**: Derive clear statements situating Synesthetic within embodied AI interfaces.  
+## Differentiators (Draft)
+
+* **Determinism**: Procedural rendering + schema guarantees.
+* **Auditability**: SSOT schemas + versioned patches.
+* **Footprint**: Real-time, low-latency, minimal compute (validated on modest laptops).
+* **Flexibility**: Configurable through rule-bundles, not retrained weights.
+* **Explanatory Surface**: Natively communicative substrate (schema + rule bundle) versus post-hoc explanation.
+* Related positioning: [Positioning Synesthetic in the Embodied AI Landscape](positioning_embodied.md).
 
 ---
+
+## Next Steps
+
+* **Labs Mining**: Surface emergent paradigms from Labs outputs (shader/tone/haptic archetypes).
+* **Refinement**: Map mined paradigms against this crosswalk to adjust units and comparisons.
+* **Corpus**: Build comparative table with 15–30 SOTA references.
+* **Positioning**: Derive clear statements situating Synesthetic within embodied AI interfaces.
