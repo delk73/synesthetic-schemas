@@ -1,0 +1,69 @@
+{
+  "task": "Audit synesthetic-schemas repo documentation state (v0.1.0 docs)",
+  "objective": "Compare conceptual docs, crosswalks, use cases, and schema evolution content against the top-level docs/README.md (v0.1.0). Report what is Present, Missing, or Divergent, and export an updated DOCS_STATE.md snapshot.",
+  "constraints": {
+    "style": "deterministic, terse, Markdown headings with bullets/tables",
+    "rules": [
+      "Present = document exists and matches README.md index, is non-empty, and aligns with schema versions",
+      "Missing = document listed in README.md or index is absent or empty",
+      "Divergent = document exists but naming, scope, or content deviates from index or schema versioning",
+      "Ground all findings in visible docs; no speculation or invented content",
+      "Recommendations must cite evidence (file path + line/section) and be actionable doc changes only",
+      "Always overwrite meta/output/docs_state.md with non-empty content",
+      "README.md index must match actual files and section headings (Concepts, Use Cases, Schema & Evolution, Examples)",
+      "Crosswalk docs must cite external sources (papers, repos) consistently with version metadata",
+      "Schema Evolution doc must track version.json and reflect latest schemaVersion",
+      "Examples directory must contain at least one valid JSON/asset example referenced in docs",
+      "Consistency: all docs must include version, lastReviewed, owner front-matter",
+      "Determinism: links must resolve locally; relative paths only; no broken references",
+      "Audit incomplete unless meta/output/docs_state.md written non-empty"
+    ],
+    "sections": [
+      "Summary of documentation state",
+      "Top gaps & fixes (3-5 bullets)",
+      "Alignment with docs/README.md index (table: Section → Status → Evidence)",
+      "Concepts coverage",
+      "Crosswalk docs (applied, embodied AI, perception interfaces)",
+      "Use Cases (controls, perceptual field, topology)",
+      "Schema & Evolution tracking",
+      "Examples directory (README + sample JSON)",
+      "Consistency of front-matter (version, lastReviewed, owner)",
+      "Link integrity & determinism",
+      "Alignment with version.json",
+      "Documentation accuracy",
+      "Detected divergences",
+      "Recommendations"
+    ]
+  },
+  "scope": {
+    "files": [
+      "docs/README.md",
+      "docs/concepts/*.md",
+      "docs/use_cases/*.md",
+      "docs/schema_evolution.md",
+      "docs/examples/README.md",
+      "examples/*",
+      "version.json",
+      "meta/"
+    ]
+  },
+  "output": {
+    "paths": [
+      "meta/output/docs_state.md"
+    ],
+    "format": "Markdown",
+    "must_write": true,
+    "stdout_optional": true
+  },
+  "exit_criteria": [
+    "meta/output/docs_state.md written and non-empty",
+    "All sections of docs/README.md index mapped to Present/Missing/Divergent with evidence",
+    "Crosswalk docs validated against index and front-matter",
+    "Use case docs validated against index",
+    "Schema Evolution doc verified to match version.json",
+    "Examples directory verified to contain referenced assets",
+    "All docs contain front-matter with version, lastReviewed, owner",
+    "No broken links or path mismatches",
+    "Recommendations grounded in evidence with actionable fixes"
+  ]
+}
