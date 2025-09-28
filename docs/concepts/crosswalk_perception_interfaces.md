@@ -30,7 +30,7 @@ flowchart TD
 
 ## Purpose  
 This document establishes a **broad crosswalk** between the Synesthetic system and the current state of the art in embodied AI perception and interfaces.  
-It is not a final positioning statement, but a **living map** that will be refined through Labs outputs and SOTA research.  
+It is not a final positioning statement, but a **map** that will be refined through Labs output and research.  
 
 ---
 
