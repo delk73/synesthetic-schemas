@@ -4,7 +4,7 @@ lastReviewed: 2025-09-27
 owner: delk73
 ---
 
-# Cross-Walk: Synesthetic and Embodied AI Interfaces
+# Cross-Walk: Synesthetic & Embodied AI Interfaces
 
 ---
 
@@ -46,12 +46,12 @@ It is not a final positioning statement, but a **map** that will be refined thro
 ## Broad Alignment  
 
 - **Perception Substrate**  
-  - *SOTA*: Learned feature extractors, perceptual tokenization (AToken, V-JEPA).  
+  - *SOTA*: Learned feature extractors, perceptual tokenization ([AToken](https://arxiv.org/abs/2405.06722), [V-JEPA](https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-self-supervised-learning/)).  
   - *Synesthetic*: Deterministic, schema-bound components (shader, tone, haptic) with rule-bundle orchestration.  
   - Related concept: [Tokenized Manifold](tokenized_manifold.md).  
 
 - **Interface Layer**  
-  - *SOTA*: XR APIs (OpenXR, WebGPU), haptic SDKs, game engine UIs.  
+  - *SOTA*: XR APIs ([OpenXR](https://www.khronos.org/openxr/), [WebGPU](https://www.w3.org/TR/webgpu/)), haptic SDKs, game engine UIs.  
   - *Synesthetic*: Declarative UI + schema-driven controls with bidirectional sync.  
 
 - **Runtime Footprint**  

@@ -1,10 +1,8 @@
 ---
-version: v0.0.0
-lastReviewed:
-owner: delk73
+version: 0.7.3
+lastReviewed: 2025-09-28
+owner: D. Elkins
 ---
-
-
 ## **Overview**
 
 This use case demonstrates how Synesthetic schemas can represent **bidirectional controls**: knobs, sliders, grids, or other inputs that both **send state into assets** and **reflect state back from assets** (via automation, external modulation, or schema-driven updates).
@@ -47,9 +45,15 @@ Current schemas describe control mappings but do not fully enforce:
 
 ---
 
-## **Next Steps**
+## **Live Example**
 
-1. Extend `control.schema.json` to clarify bidirectional expectations.
-2. Add haptic wave\_ops for torque feedback.
-3. Provide example JSON assets (`examples/controls/knob_circle.json`).
+The `examples/Control-Bundle_Example.json` asset demonstrates a simple bidirectional control mapping. It binds mouse X/Y position to `visual.px` and `visual.py` parameters, allowing a user to directly manipulate a visual shader while providing a clear schema for how the UI should reflect state changes.
+
+## **Schema Evolution Tie-in**
+
+This use case directly informs the evolution of the following schemas:
+
+*   **`control.schema.json`**: The need for deterministic, bidirectional mappings drove the inclusion of the `mappings` array and the `curve` and `sensitivity` properties. This ensures that a control's behavior is explicitly defined and reproducible.
+*   **`haptic.schema.json`**: The requirement for physical feedback (detents, torque) in response to state changes necessitates the development of haptic wave operations (`wave_ops`) that can be triggered by the `RuleBundle` schema.
+*   **`rule-bundle.schema.json`**: To connect control inputs to haptic outputs and other actions, the rule bundle schema needs to support conditional logic based on control value thresholds, enabling complex, stateful interactions.
 

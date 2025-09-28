@@ -1,5 +1,5 @@
 ---
-version: v0.4.0
+version: 0.7.3
 lastReviewed: 2025-09-26
 owner: delk73
 ---
@@ -45,8 +45,19 @@ Current schemas handle shaders, tones, and haptics independently, but lack:
 
 ---
 
-## **Next Steps**
+## **Live Example**
 
-1. Extend schemas with `wave_ops` arrays.
-2. Add `alt_mappings` requirement in operators.
-3. Create examples (`examples/perceptual/ripple_field.json`).
+The following examples illustrate components of a perceptual field:
+
+*   `examples/Shader_Example.json`: Defines a visual field operator.
+*   `examples/Tone_Example.json`: Defines an auditory component.
+*   `examples/Haptic_Example.json`: Defines a haptic component.
+*   `examples/SynestheticAsset_Example1.json`: Binds these components together into a single, multimodal asset.
+
+## **Schema Evolution Tie-in**
+
+This use case is a primary driver for the following schema features:
+
+*   **`synesthetic-asset.schema.json`**: The need to express cross-modal fields led directly to the `alt_mappings` field, which allows for the explicit linking of visual, auditory, and haptic operators. This is the core of the "perceptual field" concept.
+*   **`tone.schema.json` and `haptic.schema.json`**: The introduction of `wave_ops` (waveform operations) provides a parametric way to define auditory and haptic representations that are equivalent to visual shader operators. This moves beyond static sound/haptic clips to dynamic, procedural effects.
+*   **`shader.schema.json`**: The `operators` array was formalized to ensure that visual fields are composed of discrete, addressable components that can be targeted by `alt_mappings`.

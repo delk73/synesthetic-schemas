@@ -1,7 +1,8 @@
-version: v0.1.2
-lastReviewed: 2025-09-27
-owner: delk73
-
+---
+version: 0.7.3
+lastReviewed: 2025-09-28
+owner: D. Elkins
+---
 # Naming Rationale: Synesthetic
 
 ---

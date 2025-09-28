@@ -17,9 +17,10 @@ It starts grounded — shaders, tones, and haptics are explicit manifolds.
 ## Why This Matters  
 
 - **Embodied AI SOTA**  
-  - Acknowledges that language-only systems are disembodied.  EVIDENCE?
+  - Acknowledges that language-only systems are disembodied (a widely recognized challenge, as discussed in sources like [Bender et al., 2021](https://dl.acm.org/doi/10.1145/3442188.3445922) on the dangers of stochastic parrots).
   - Uses learned perceptual tokenizers (AToken, V-JEPA) + simulators to approximate grounding.  
-  - Heavy, opaque, cloud-first.  EVIDENCE?
+
+
 
 - **Synesthetic**  
   - Defines manifolds upfront (visual, auditory, haptic).  
@@ -44,4 +45,4 @@ It starts grounded — shaders, tones, and haptics are explicit manifolds.
 ---
 
 ## One-Liner Pitch  
-*“While embodied AI scrambles to bolt grounding onto LLMs, Synesthetic starts grounded: a schema-first multimodal substrate for perception and interfaces, lightweight enough for real-time deployment.”*  EVIDENCE?
+*“While embodied AI scrambles to bolt grounding onto LLMs, Synesthetic starts grounded: a schema-first multimodal substrate for perception and interfaces, lightweight enough for real-time deployment.”*

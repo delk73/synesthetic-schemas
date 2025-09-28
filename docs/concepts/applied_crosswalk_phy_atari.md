@@ -1,3 +1,8 @@
+---
+version: 0.7.3
+lastReviewed: 2025-09-28
+owner: D. Elkins
+---
 ## Applied Crosswalk: Physical Atari (camera-in, actuator-out @ ~60 FPS)
 
 **Why this target:** real hardware, strict latency, simple geometry → perfect for SDF soft overlays + curve-fit.

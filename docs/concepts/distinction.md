@@ -1,13 +1,9 @@
-Got it — here’s a **full draft of `docs/concepts/distinction.md`** with a Mermaid diagram included:
-
 ---
-
+version: 0.7.3
+lastReviewed: 2025-09-28
+owner: D. Elkins
+---
 # Distinction
-
-**Last reviewed:** 2025-09-25
-**Owner:** Dan
-
----
 
 ## Summary
 
