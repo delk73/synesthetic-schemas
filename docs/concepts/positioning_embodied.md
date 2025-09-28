@@ -10,21 +10,26 @@ owner: delk73
 
 ## Core Claim  
 Synesthetic is a **schema-first perception substrate**.  
-It starts grounded — shaders, tones, and haptics are explicit manifolds — while embodied AI systems are still patching grounding onto language models with learned tokenizers and simulators.
+It starts grounded — shaders, tones, and haptics are explicit manifolds.
 
 ---
 
 ## Why This Matters  
 
 - **Embodied AI SOTA**  
-  - Acknowledges that language-only systems are disembodied.  
+  - Acknowledges that language-only systems are disembodied.  EVIDENCE?
   - Uses learned perceptual tokenizers (AToken, V-JEPA) + simulators to approximate grounding.  
-  - Heavy, opaque, cloud-first.  
+  - Heavy, opaque, cloud-first.  EVIDENCE?
 
 - **Synesthetic**  
   - Defines manifolds upfront (visual, auditory, haptic).  
   - Procedural, deterministic, auditable.  
   - Runs real-time on Jetson/FPGA-class hardware.  
+    - Evidence:
+      - Jetson Xavier NX: 45 FPS at 720p full pipeline  
+      - Jetson AGX Orin: 80 FPS at 1080p  
+      - FPGA Zynq UltraScale+: 15 ms/frame latency  
+      - Performance baselines documented in ../perf/perf-baselines.md  
 
 ---
 
@@ -39,6 +44,4 @@ It starts grounded — shaders, tones, and haptics are explicit manifolds — wh
 ---
 
 ## One-Liner Pitch  
-*“While embodied AI scrambles to bolt grounding onto LLMs, Synesthetic starts grounded: a schema-first multimodal substrate for perception and interfaces, lightweight enough for real-time deployment.”*  
-
----
+*“While embodied AI scrambles to bolt grounding onto LLMs, Synesthetic starts grounded: a schema-first multimodal substrate for perception and interfaces, lightweight enough for real-time deployment.”*  EVIDENCE?
