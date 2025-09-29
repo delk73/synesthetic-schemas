@@ -1,6 +1,6 @@
 ---
 version: v0.1.0
-lastReviewed: 2025-09-28
+lastReviewed: 2025-09-29
 owner: delk73
 ---
 
@@ -18,6 +18,8 @@ It complements the root README (technical workflow) by providing background, use
 - [Synesthetic Hypotheses](hypotheses.md) — falsifiable claims and validation protocols  
 
 ### Concepts
+- [Communication System](concepts/communication_system.md)  
+- [Operators](concepts/operators.md)  
 - [Tokenized Manifold](concepts/tokenized_manifold.md)  
 - [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)  
 - [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)  
