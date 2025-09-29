@@ -11,6 +11,14 @@ Anchored at [version.json](../version.json).
 
 ---
 
+
+## Scope
+
+This document tracks **what changed** in the schema corpus (versioned provenance).  
+For falsifiable claims about **what must be validated or tested** on top of the schema,  
+see [Hypotheses](hypotheses.md).
+
+
 ## 0.7.3 (baseline)
 
 - Baseline established at schemaVersion **0.7.3**.  

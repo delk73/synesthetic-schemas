@@ -1,6 +1,6 @@
 ---
 version: v0.1.0
-lastReviewed: 2025-09-26
+lastReviewed: 2025-09-28
 owner: delk73
 ---
 
@@ -13,12 +13,14 @@ It complements the root README (technical workflow) by providing background, use
 
 ## Index
 
+### Schema & Validation
+- [Schema Evolution](schema_evolution.md) — provenance of schema changes  
+- [Synesthetic Hypotheses](hypotheses.md) — falsifiable claims and validation protocols  
+
 ### Concepts
-
-
-- [Tokenized Manifold](concepts/tokenized_manifold.md)
-- [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)
-- [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)
+- [Tokenized Manifold](concepts/tokenized_manifold.md)  
+- [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)  
+- [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)  
 - [Distinction](concepts/distinction.md)  
 - [Naming Rationale](concepts/naming.md)  
 
@@ -27,22 +29,18 @@ It complements the root README (technical workflow) by providing background, use
 - [Perceptual Field](use_cases/perceptual_field.md)  
 - [Topology](use_cases/topology.md)  
 
-### Schema & Evolution
-- [Schema Evolution](schema_evolution.md)  
-
 ### Examples
-- [Examples](../examples/README.md)
-
+- [Examples](../examples/README.md)  
 
 ### QA
 - *(Reserved for testing / validation docs)*
-
 
 ---
 
 ## Purpose
 
-The `docs/` tree is where we capture:  
+The `docs/` tree captures:  
 - Conceptual framing (how Synesthetic aligns with broader research).  
 - Use cases (controls, perceptual field, topology).  
-- Schema evolution and audit trails.
+- Schema evolution and audit trails.  
+- Hypotheses that guide falsifiable validation.
