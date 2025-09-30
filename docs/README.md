@@ -45,4 +45,11 @@ The `docs/` tree captures:
 - Conceptual framing (how Synesthetic aligns with broader research).  
 - Use cases (controls, perceptual field, topology).  
 - Schema evolution and audit trails.  
-- Hypotheses that guide falsifiable validation.
+- Hypotheses that guide falsifiable validation.  
+
+---
+
+**Positioning Blurb**  
+Explainability shouldn’t be limited to words — it must be experienced.  
+Synesthetic delivers explanations as **multisensory feedback loops** (visual, auditory, haptic),  
+making system behavior directly perceivable, inclusive, and testable in real time.
