@@ -1,0 +1,27 @@
+{
+  "audit_version": "v0.7.4-audit",
+  "baseline_version": "0.7.3",
+  "target_version": "0.7.4",
+  "timestamp": "20251003",
+  "summary": {
+    "schemas_audited": 9,
+    "fields_present": 60,
+    "fields_missing": 6,
+    "fields_divergent": 1
+  },
+  "schemas": {
+    "synesthetic-asset": {
+      "present": ["control", "created_at", "description", "haptic", "meta_info", "modulation", "modulations", "rule_bundle", "shader", "tone", "updated_at"],
+      "missing": ["asset_id", "prompt", "timestamp", "seed", "parameter_index", "provenance"],
+      "divergent": ["required:name"]
+    },
+    "control-bundle": { "present": ["name", "control_parameters", "description", "meta_info"], "missing": [], "divergent": [] },
+    "control": { "present": ["parameter", "label", "type", "unit", "default", "mappings", "min", "max", "step", "options", "smoothingTime"], "missing": [], "divergent": [] },
+    "haptic": { "present": ["name", "device", "input_parameters", "description", "meta_info"], "missing": [], "divergent": [] },
+    "modulation": { "present": ["name", "modulations", "description", "meta_info"], "missing": [], "divergent": [] },
+    "rule-bundle": { "present": ["name", "rules", "description", "meta_info", "id", "created_at", "updated_at"], "missing": [], "divergent": [] },
+    "rule": { "present": ["id", "expr", "trigger", "effects", "target", "execution"], "missing": [], "divergent": [] },
+    "shader": { "present": ["name", "fragment_shader", "vertex_shader", "description", "meta_info", "uniforms", "input_parameters"], "missing": [], "divergent": [] },
+    "tone": { "present": ["name", "synth", "description", "meta_info", "effects", "parts", "patterns", "input_parameters"], "missing": [], "divergent": [] }
+  }
+}
