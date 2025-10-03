@@ -1,0 +1,115 @@
+{
+  "blessed_index_path": "meta/output/BLESSED_EXAMPLES.json",
+  "draft_emitted": false,
+  "duplicates": {},
+  "files": {
+    "examples/SynestheticAsset_Example1.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example2.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example3.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example4.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example5.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example6.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example7.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example8.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_Example9.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ],
+    "examples/SynestheticAsset_ExampleDS.json": [
+      {
+        "message": "Additional properties are not allowed ('$schema' was unexpected)",
+        "pointer": ""
+      },
+      {
+        "message": "Unknown top-level metadata key: $schema",
+        "pointer": "/$schema"
+      }
+    ]
+  },
+  "schema_path": "jsonschema/synesthetic-asset.schema.json",
+  "spec_status": "PRESENT",
+  "totals": {
+    "duplicates": 0,
+    "files_total": 10,
+    "invalid": 10,
+    "valid": 0
+  }
+}
