@@ -35,6 +35,30 @@ see [Hypotheses](hypotheses.md).
 
 ---
 
+## 0.7.4 (schema enrichment for Labs alignment)
+
+### Changelog
+- **Added**:
+  - Top-level fields: `asset_id`, `prompt`, `timestamp`, `seed`, `parameter_index`, `provenance`.
+  - Component fields: `name`, `description`, `input_parameters` allowed on `shader`, `tone`, `haptic`.
+  - New `effects` array on `tone`.
+  - New `modulation.schema.json` wired into `SynestheticAsset`.
+  - New `provenance.schema.json` definition, referenced by asset.
+- **Removed**:
+  - Required `name` at asset root (replaced by `meta_info.title`).
+- **Renamed**:
+  - None.
+
+### Migration
+- v0.7.3 examples missing `asset_id` remain valid (field optional).
+- Validator now accepts richer Labs-style assets without rejection.
+
+### References
+- [version.json](../version.json) bumped to `0.7.4`.
+- Audit reports: `meta/output/schema_audit_*.md`.
+
+---
+
 ## v1.0 (planned)
 
 Operator-centric rewrite scoped to SDFK. Collapses modality silos into unified operator graphs.  
