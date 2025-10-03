@@ -19,10 +19,12 @@ Synesthetic is more than a collection of schemas — it is the **core substrate*
 
 - **Schemas as foundation:** Every visual, audio, haptic, and control element is defined here as a canonical JSON Schema, making this repo the single source of truth (SSOT).  
 - **Cross-modal alignment:** These schemas enable deterministic interaction across modalities — shaders, tones, haptics — and unify them under one audit-able structure.  
-- **Topological grounding:** The design builds on field-like, topology-driven models (see [cell-sdf-topology](https://github.com/delk73/cell-sdf-topology)) that echo current embodied AI research and spatiotemporal cellular representations.  
+- **Topological grounding (parallel path):** In parallel with [cell-sdf-topology](https://github.com/delk73/cell-sdf-topology), which models biological surfaces and lineage, this repo applies the same field-based principles to *perception assets*. Both projects converge on the same operator-based backend, showing the model’s generality across science and perception.
+ 
 - **Embodied AI alignment:** Recent research emphasizes multimodal reasoning (MLLMs) + physics-consistent world models. Synesthetic schemas provide the operational substrate for those concepts: patch lifecycles, cross-modal mappings, and hardware-aware constraints.  
 
 📚 For conceptual docs, see [docs/README.md](docs/README.md).
+
 
 ---
 
