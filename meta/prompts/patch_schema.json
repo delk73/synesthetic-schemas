@@ -1,0 +1,108 @@
+[
+  {
+    "op": "add",
+    "path": "/properties/asset_id",
+    "value": { "type": ["string", "null"], "title": "Asset ID" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/prompt",
+    "value": { "type": ["string", "null"], "title": "Prompt" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/timestamp",
+    "value": { "type": "string", "format": "date-time", "title": "Timestamp" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/seed",
+    "value": { "type": ["integer", "null"], "title": "Seed" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/parameter_index",
+    "value": { "type": ["integer", "null"], "title": "Parameter Index" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/provenance",
+    "value": { "$ref": "provenance.schema.json", "title": "Provenance" }
+  },
+  {
+    "op": "remove",
+    "path": "/required/0",
+    "condition": { "value": "name" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/shader/properties/name",
+    "value": { "type": ["string", "null"], "title": "Name" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/shader/properties/description",
+    "value": { "type": ["string", "null"], "title": "Description" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/shader/properties/input_parameters",
+    "value": {
+      "type": "array",
+      "title": "Input Parameters",
+      "items": { "type": "object" }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/properties/tone/properties/name",
+    "value": { "type": ["string", "null"], "title": "Name" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/tone/properties/description",
+    "value": { "type": ["string", "null"], "title": "Description" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/tone/properties/input_parameters",
+    "value": {
+      "type": "array",
+      "title": "Input Parameters",
+      "items": { "type": "object" }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/properties/tone/properties/effects",
+    "value": {
+      "type": "array",
+      "title": "Effects",
+      "items": { "type": "object" }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/properties/haptic/properties/name",
+    "value": { "type": ["string", "null"], "title": "Name" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/haptic/properties/description",
+    "value": { "type": ["string", "null"], "title": "Description" }
+  },
+  {
+    "op": "add",
+    "path": "/properties/haptic/properties/input_parameters",
+    "value": {
+      "type": "array",
+      "title": "Input Parameters",
+      "items": { "type": "object" }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/properties/modulation",
+    "value": { "$ref": "modulation.schema.json", "title": "Modulation" }
+  }
+]
