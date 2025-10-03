@@ -7,7 +7,7 @@ owner: delk73
 # Synesthetic EXAMPLES
 
 This directory contains reference assets that demonstrate how to use the canonical schemas.  
-Each JSON file includes a `$schemaRef` so it can be validated directly against the SSOT.
+Each JSON file includes a `$schema` so it can be validated directly against the SSOT.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "$schemaRef": "jsonschema/tone.schema.json",
+  "$schema": "jsonschema/tone.schema.json",
   "name": "Cosmic Pluck",
   "description": "A bright, plucky tone with a spacey, resonant decay, enriched with effects and polyphonic sequencing",
   "meta_info": {

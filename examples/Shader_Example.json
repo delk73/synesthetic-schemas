@@ -1,5 +1,5 @@
 {
-  "$schemaRef": "jsonschema/shader.schema.json",
+  "$schema": "jsonschema/shader.schema.json",
   "description": "A simple circle shader",
   "fragment_shader": "uniform vec2 u_resolution; uniform float u_time; uniform float u_gridSize; uniform vec3 u_gridColor; uniform float u_radius; void main() { vec2 st = gl_FragCoord.xy/u_resolution.xy; st = st * 2.0 - 1.0; st.x *= u_resolution.x/u_resolution.y; float d = length(st) - u_radius; gl_FragColor = vec4(vec3(1.0 - smoothstep(0.0, 0.01, d)), 1.0); }",
   "input_parameters": [

@@ -1,5 +1,5 @@
 {
-  "$schemaRef": "jsonschema/synesthetic-asset.schema.json",
+  "$schema": "jsonschema/synesthetic-asset.schema.json",
   "control": {
     "control_parameters": [
       {

@@ -1,5 +1,5 @@
 {
-  "$schemaRef": "jsonschema/haptic.schema.json",
+  "$schema": "jsonschema/haptic.schema.json",
   "name": "Pulse Wave Feedback",
   "description": "A pulsing haptic feedback pattern with adjustable intensity, frequency, and wave characteristics",
   "meta_info": {
