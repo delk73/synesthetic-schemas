@@ -1,0 +1,172 @@
+{
+  "control-bundle": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json",
+    "title": "control-bundle",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+      "control_parameters": {
+        "title": "Control Parameters",
+        "type": "array"
+      },
+      "description": {
+        "title": "Description",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "meta_info": {
+        "title": "Meta Info",
+        "anyOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "control_parameters"
+    ]
+  },
+  "control": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/control.schema.json",
+    "title": "control",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "default": { "title": "Default" },
+        "label": { "title": "Label", "type": "string" },
+        "mappings": { "title": "Mappings", "type": "array" },
+        "max": { "title": "Max" },
+        "min": { "title": "Min" },
+        "options": { "title": "Options" },
+        "parameter": { "title": "Parameter", "type": "string" },
+        "smoothingTime": { "title": "Smoothingtime", "type": "number" },
+        "step": { "title": "Step" },
+        "type": { "$ref": "#/$defs/DataType" },
+        "unit": { "title": "Unit", "type": "string" }
+    },
+    "required": [ "parameter", "label", "type", "unit", "default", "mappings" ]
+  },
+  "haptic": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/haptic.schema.json",
+    "title": "haptic",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "description": { "title": "Description" },
+        "device": { "$ref": "#/$defs/DeviceConfig" },
+        "input_parameters": { "title": "Input Parameters", "type": "array" },
+        "meta_info": { "title": "Meta Info" },
+        "name": { "title": "Name", "type": "string" }
+    },
+    "required": [ "device", "input_parameters", "name" ]
+  },
+  "modulation": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/modulation.schema.json",
+    "title": "modulation",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "description": { "title": "Description" },
+        "meta_info": { "title": "Meta Info" },
+        "modulations": { "title": "Modulations", "type": "array" },
+        "name": { "title": "Name", "type": "string" }
+    },
+    "required": [ "modulations", "name" ]
+  },
+  "rule-bundle": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/rule-bundle.schema.json",
+    "title": "rule-bundle",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "created_at": { "title": "Created At" },
+        "description": { "title": "Description" },
+        "id": { "title": "Id" },
+        "meta_info": { "title": "Meta Info", "type": "object" },
+        "name": { "title": "Name", "type": "string" },
+        "rules": { "title": "Rules", "type": "array" },
+        "updated_at": { "title": "Updated At" }
+    },
+    "required": [ "name", "rules" ]
+  },
+  "rule": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/rule.schema.json",
+    "title": "rule",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "effects": { "title": "Effects" },
+        "execution": { "title": "Execution" },
+        "expr": { "title": "Expr" },
+        "id": { "title": "Id", "type": "string" },
+        "target": { "title": "Target" },
+        "trigger": { "title": "Trigger" }
+    },
+    "required": [ "id" ]
+  },
+  "shader": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/shader.schema.json",
+    "title": "shader",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "description": { "title": "Description" },
+        "fragment_shader": { "title": "Fragment Shader", "type": "string" },
+        "input_parameters": { "title": "Input Parameters" },
+        "meta_info": { "title": "Meta Info" },
+        "name": { "title": "Name", "type": "string" },
+        "uniforms": { "title": "Uniforms" },
+        "vertex_shader": { "title": "Vertex Shader", "type": "string" }
+    },
+    "required": [ "fragment_shader", "name", "vertex_shader" ]
+  },
+  "synesthetic-asset": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/synesthetic-asset.schema.json",
+    "title": "synesthetic-asset",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "control": {},
+        "created_at": { "type": "string", "format": "date-time", "readOnly": true },
+        "description": { "title": "Description" },
+        "haptic": {},
+        "meta_info": { "title": "Meta Info" },
+        "modulation": {},
+        "modulations": { "title": "Modulations" },
+        "name": { "title": "Name", "type": "string", "minLength": 1 },
+        "rule_bundle": { "$ref": "https://schemas.synesthetic.dev/0.7.3/rule-bundle.schema.json" },
+        "shader": {},
+        "tone": {},
+        "updated_at": { "type": "string", "format": "date-time", "readOnly": true }
+    },
+    "required": [ "name" ]
+  },
+  "tone": {
+    "$id": "https://schemas.synesthetic.dev/0.7.3/tone.schema.json",
+    "title": "tone",
+    "type": "object",
+    "x-schema-version": "0.7.3",
+    "properties": {
+        "description": { "title": "Description" },
+        "effects": { "title": "Effects" },
+        "input_parameters": { "title": "Input Parameters", "type": "array" },
+        "meta_info": { "title": "Meta Info" },
+        "name": { "title": "Name", "type": "string" },
+        "parts": { "title": "Parts" },
+        "patterns": { "title": "Patterns" },
+        "synth": { "title": "Synth" }
+    },
+    "required": [ "name", "synth" ]
+  }
+}
