@@ -6,15 +6,15 @@
 Validate example JSON against canonical schemas and generated models.
 
 Supports:
-  - $schemaRef at file root to pick schema deterministically (preferred)
-  - Fallback to filename token heuristics if $schemaRef absent (unless --strict)
+  - $schema at file root to pick schema deterministically (preferred)
+  - Fallback to filename token heuristics if $schema absent (unless --strict)
   - Validate against JSON Schema (Draft 2020-12) with local ref store
   - Validate via Pydantic v2 models and round-trip compare (pruning defaults)
 
 CLI:
   --file <path>    Validate a single file
   --dir  <path>    Validate all *.json under a directory (recursively)
-  --strict         Require $schemaRef; disallow filename heuristics
+  --strict         Require $schema; disallow filename heuristics
 
 Exit codes: 0 OK, 1 validation errors, 2 setup issues.
 """
@@ -175,10 +175,10 @@ def _validator_for(schema_name: str) -> Draft202012Validator:
 
 def _pick_model_and_schema(example_path: pathlib.Path, data: Dict[str, Any], strict: bool = False):
     """Return (model_cls or None, schema_file or None, reason_if_none).
-    Prefers $schemaRef; falls back to filename tokens unless strict.
+    Prefers $schema; falls back to filename tokens unless strict.
     """
-    # 1) Prefer $schemaRef at root
-    ref = data.get("$schemaRef")
+    # 1) Prefer $schema at root
+    ref = data.get("$schema")
     if isinstance(ref, str):
         schema_file: Optional[str] = None
         if ref.startswith("http://") or ref.startswith("https://"):
@@ -195,11 +195,11 @@ def _pick_model_and_schema(example_path: pathlib.Path, data: Dict[str, Any], str
                 if hasattr(mod, cls_name):
                     return getattr(mod, cls_name), schema_file, ""
             return None, None, f"no candidate class in synesthetic_schemas.{module_name} (tried {candidates})"
-        return None, None, f"$schemaRef not recognized: {ref}"
+        return None, None, f"$schema not recognized: {ref}"
 
     # 2) Fallback to filename tokens (unless strict)
     if strict:
-        return None, None, "$schemaRef required in strict mode"
+        return None, None, "$schema required in strict mode"
     n = example_path.name.lower()
     for token, (module_name, candidates, schema_file) in TOKENS.items():
         if token in n:
@@ -228,12 +228,12 @@ def validate_file(p: pathlib.Path, strict: bool = False) -> list[str]:
     except Exception as e:
         return [f"{p.name}: invalid JSON: {e}"]
 
-    # Determine model/schema, prefer $schemaRef on raw data
+    # Determine model/schema, prefer $schema on raw data
     model_cls, schema_name, why = _pick_model_and_schema(p, data, strict=strict)
     if model_cls is None or schema_name is None:
         return [f"{p.name}: could not determine model/schema -> {why}"]
 
-    # Strip transport-only metadata at root (e.g., $schemaRef, $schema)
+    # Strip transport-only metadata at root (e.g., $schema, $schema)
     if isinstance(data, dict):
         data_clean: Any = {k: v for k, v in data.items() if not (isinstance(k, str) and k.startswith("$"))}
     else:
@@ -301,7 +301,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", dest="file", help="Validate a single file")
     ap.add_argument("--dir", dest="dir", help="Validate all json under a directory")
-    ap.add_argument("--strict", action="store_true", help="Require $schemaRef; no filename fallback")
+    ap.add_argument("--strict", action="store_true", help="Require $schema; no filename fallback")
     args = ap.parse_args()
 
     # precedence: --file over --dir; else default examples/
