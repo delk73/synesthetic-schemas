@@ -1,6 +1,6 @@
 ---
 title: Field Hierarchy and Operator Families
-version: 0.7.4-draft
+version: 1.0-draft
 lastReviewed: 2025-10-09
 owner: synesthetic-core
 status: conceptual
