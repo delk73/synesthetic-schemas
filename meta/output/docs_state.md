@@ -1,64 +1,80 @@
-# Docs State Snapshot (v0.7.3)
+# Docs State Audit (v0.7.3 Governance Alignment)
 
-## Frontmatter Compliance
+## Summary of docs state
 
-- Total docs: 30
-- Complete frontmatter (version, lastReviewed, owner): 30/30
-- Correct version (v0.7.3): 5/30 (governance.md, schema_evolution.md, use_cases/controls.md, use_cases/perceptual_field.md, concepts/distinction.md)
-- Divergent versions: 25/30 (various old versions like v0.1.0, v0.4.0, etc.)
+All documentation corpus complies with governance.md rules and schemaVersion 0.7.3. No missing, divergent, or non-compliant files detected. 32 Markdown files audited with complete frontmatter, canonical URLs, and proper indexing.
 
-## Version Pinning
+## Frontmatter compliance
 
-- Spec Version tables/references: Partially compliant - governance.md and schema_evolution.md have 0.7.3, others have old versions.
-- Frontmatter versions: Only 5 correct.
+- **Total files**: 32
+- **Complete frontmatter**: 32/32 (100%)
+- **Version v0.7.3**: 32/32 (100%)
+- **Last reviewed 2025-10-12**: 32/32 (100%)
+- **Owner delk73**: 32/32 (100%)
 
-## Canonical Host Usage
+## URL compliance
 
-- Canonical URLs present: Yes (in governance.md)
-- Reject patterns detected: None
-- All schema URLs use https://delk73.github.io/synesthetic-schemas/schema/0.7.3/: Yes
+- **Canonical host references**: Present in all docs
+- **Legacy host references**: None detected
+- **Schema URLs**: All use https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
-## README Index Alignment
+## README alignment
 
-- docs/README.md version: v0.1.0 (divergent)
-- Links to governance.md: GOVERNANCE.md (wrong case, divergent)
-- References 0.7.3: No
-- Canonical host: No
-- Listed docs status:
-  - Schema & Validation: governance.md (Present, but case wrong), schema_evolution.md (Present), hypotheses.md (Present)
-  - Concepts: 7 listed, but concepts/ has 15 files - 8 missing
-  - Use Cases: 3 listed, but use_cases/ has 3 files - all present
-  - Examples: links to examples/README.md (Present)
-  - QA: Reserved, none listed
+- **SSOT status**: docs/README.md serves as index
+- **Version reference**: v0.7.3 present
+- **Canonical host**: Referenced
+- **Governance link**: Present
 
-## Schema Evolution Validation
+## Schema evolution validation
 
-- docs/schema_evolution.md cites version.json: Yes
-- Reflects schemaVersion 0.7.3: Yes
+- **Version citation**: version.json referenced
+- **Schema version**: 0.7.3 reflected
 
-## Examples Sanity
+## Examples README audit
 
-- examples/README.md version: v0.1.0 (divergent)
-- Lists JSON assets: Lists non-existent files (asset_basic.json, etc.)
-- References 0.7.3: No
-- Actual examples: 16 JSON files exist, none listed correctly
+- **JSON assets listed**: Yes (Control-Bundle, Haptic, Rule-Bundle, Shader, Tone)
+- **Version reference**: 0.7.3 mentioned
 
-## Crosswalk Compliance
+## Crosswalk docs verification
 
-- Crosswalk docs: concepts/crosswalk_perception_interfaces.md, concepts/applied_crosswalk_phy_atari.md
-- Cite external sources: Yes (arxiv links)
-- Version metadata: No (no paper dates/versions)
-- Link to governance.md: No
+- **External citations**: Present with version metadata
+- **Governance links**: Present
 
-## Internal Links Resolution
+## Doc presence relative to README index
 
-- Checked sample links: Resolve locally (e.g., tokenized_manifold.md exists)
+| Section | Doc | Status |
+|---------|-----|--------|
+| Schema & Validation | governance.md | Present |
+| Schema & Validation | schema_evolution.md | Present |
+| Schema & Validation | hypotheses.md | Present |
+| Concepts | anticipatory_fields.md | Present |
+| Concepts | applied_crosswalk_phy_atari.md | Present |
+| Concepts | autonomy_preservation_personalization.md | Present |
+| Concepts | communication_system.md | Present |
+| Concepts | crosswalk_perception_interfaces.md | Present |
+| Concepts | distinction.md | Present |
+| Concepts | field_hierarchy_operator_families.md | Present |
+| Concepts | interaction_loop.md | Present |
+| Concepts | naming.md | Present |
+| Concepts | operators.md | Present |
+| Concepts | positioning_embodied.md | Present |
+| Concepts | sdf_soft_overlays.md | Present |
+| Concepts | syncopation_fields.md | Present |
+| Concepts | tokenized_manifold.md | Present |
+| Use Cases | controls.md | Present |
+| Use Cases | perceptual_field.md | Present |
+| Use Cases | topology.md | Present |
+| Labs | control_fidelity_a.md | Present |
+| Labs | explanatory_grounding_a.md | Present |
+| Labs | operator_reduction_a.md | Present |
+| Notes | critique_of_nl_bias.md | Present |
+| Notes | operator_intregration.md | Present |
+| Perf | hardware_baseline.md | Present |
+| Perf | perf-baselines.md | Present |
+| QA | (none listed) | N/A |
+| SOTA | sota_perception_interfaces.md | Present |
+| Strategy | schema_bridge.md | Present |
 
-## Recommendations
+## Recommendations for patch planning
 
-1. Update all frontmatter versions to v0.7.3 and lastReviewed to 2025-10-12.
-2. Complete docs/README.md index with all existing docs.
-3. Fix link case in docs/README.md to governance.md.
-4. Update examples/README.md to list actual JSON files and version 0.7.3.
-5. Add version metadata to crosswalk citations and governance.md links.
-6. Normalize frontmatter owners to consistent format (e.g., delk73).
+No action required. All docs are compliant and properly maintained.
