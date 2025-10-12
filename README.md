@@ -1,6 +1,6 @@
 ---
 version: v0.7.3
-lastReviewed: 2025-10-11
+lastReviewed: 2025-10-12
 owner: delk73
 ---
 
@@ -10,124 +10,78 @@ owner: delk73
 |-------------|---------|--------|
 | **Corpus Commit** | ✅ | `733eb265c6666aade5ee26a1f05a45253947c307` |
 | **Declared Version** | ✅ | `0.7.3` (`version.json`) |
-| **$id Alignment** | ✅ | All `$id` values reference `https://schemas.synesthetic.dev/0.7.3/...` |
+| **$id Alignment** | ✅ | All `$id` values reference `https://delk73.github.io/synesthetic-schemas/schema/0.7.3/...` |
 | **Hash Fingerprint** | ✅ | `00eeb4f5551354a09df6eccac1263c21bb67ae6b375f47d692a1e9e9111c98c5` |
-| **Baseline Scope** | ✅ | `jsonschema/synesthetic-asset.schema.json` plus all component schemas |
-| **Audit Date** | 🕓 | 2025-10-11 |
+| **Baseline Scope** | ✅ | `docs/schema/0.7.3/*.schema.json` |
+| **Audit Date** | 🕓 | 2025-10-12 |
 | **Next Review** | ⏳ | when `LABS_SCHEMA_VERSION` or MCP schema changes |
 
 **Summary:**  
-Schema corpus `v0.7.3` verified against internal metadata.  
-No drift detected. Canonical hash recorded at `meta/output/schema_ref.hash`.  
+Schema corpus `v0.7.3` verified against [docs/governance.md](docs/governance.md).  
+All `$id` and `$ref` values canonical; no drift detected.  
 MCP verification pending.
 
 ---
-
 
 # Synesthetic Schemas
 
 Single Source of Truth (SSOT) for Synesthetic asset and component schemas.
 
-This repo provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible development environment via Nix that matches CI.
+This repository provides canonical JSON Schemas, deterministic code generation for Python/TypeScript, and a reproducible Nix environment that matches CI.
+
+📘 See [docs/governance.md](docs/governance.md) for publication and versioning rules.
 
 ---
-
 
 ## 🌐 Vision
 
-Synesthetic is more than a collection of schemas — it is the **core substrate** for a multimodal, schema-first *perception-layer OS*.  
+Synesthetic is the **core substrate** for a multimodal, schema-first *perception-layer OS*.
 
-- **Schemas as foundation:** Every visual, audio, haptic, and control element is defined here as a canonical JSON Schema, making this repo the single source of truth (SSOT).  
-- **Cross-modal alignment:** These schemas enable deterministic interaction across modalities — shaders, tones, haptics — and unify them under one audit-able structure.  
-- **Topological grounding (parallel path):** In parallel with [cell-sdf-topology](https://github.com/delk73/cell-sdf-topology), which models biological surfaces and lineage, this repo applies the same field-based principles to *perception assets*. Both projects converge on the same operator-based backend, showing the model’s generality across science and perception.
+- **Schemas as foundation:** Every visual, audio, haptic, and control element is defined here as canonical JSON Schema.
+- **Cross-modal alignment:** Enables deterministic synchronization across modalities — shaders, tones, haptics, controls.
+- **Topological grounding:** Parallels [cell-sdf-topology](https://github.com/delk73/cell-sdf-topology), applying field-based operators to perception assets.
+- **Embodied AI alignment:** Serves as the structural substrate for multimodal and physically grounded reasoning systems.
 
-- **Embodied AI alignment:** Recent research emphasizes multimodal reasoning (MLLMs) + physics-consistent world models. Synesthetic schemas provide the operational substrate for those concepts: patch lifecycles, cross-modal mappings, and hardware-aware constraints.  
-
-📚 For conceptual docs, see [docs/README.md](docs/README.md).
-
+📚 For conceptual documentation, see [docs/README.md](docs/README.md).
 
 ---
 
-
-## Install Nix (First Time Only)
-
-If you do not have Nix installed, run the following command. If you already have Nix, you can skip to the next step.
-
-```bash
-# Install the Nix package manager (multi-user installation)
-sh <(curl -L https://nixos.org/nix/install) --daemon
-```
-
-After installation, you may need to restart your shell.
-
 ## ✅ Development Workflow
 
-This project uses [Nix](https://nixos.org/) to provide a reproducible environment.
+This project uses [Nix](https://nixos.org/) for reproducible builds.
 
-### 1. First-Time Setup (Run Once)
-
-After cloning the repository, follow these steps to set up the environment.
+### 1. First-Time Setup
 
 ```bash
-# Step 1: Enter the Nix development shell.
-# This provides the correct, pinned versions of Python 3.11, Poetry, and Node.js.
 nix develop
-
-# Step 2: Install project dependencies.
-# This creates a local .venv/ for Python and a node_modules/ for TypeScript.
 poetry install
 npm install
 ```
 
 ### 2. Daily Workflow
 
-# optional reset:
-rm -rf .cache/ meta/output/
+```bash
+./build.sh       # normalize + generate artifacts
+./preflight.sh   # fast, read-only CI parity check
+```
 
-./build.sh
-./preflight.sh
-
+Optional reset:
 
 ```bash
-# To generate all code artifacts from the schemas and run validations:
-./build.sh
-
-# To run the fast, read-only pre-commit checks that match CI:
-./preflight.sh
+rm -rf .cache/ meta/output/
 ```
 
 ---
 
-## 🛠️ Troubleshooting: Resetting the Environment
+## 🛠️ Troubleshooting (Hard Reset)
 
-If you ever encounter a persistent or strange environment issue, you can perform a hard reset to return to a clean slate. This is a safe operation that deletes temporary build artifacts and dependencies.
+```bash
+exit
+rm -rf .venv/ node_modules/ flake.lock poetry.toml .cache/ meta/output/ \
+       python/src/synesthetic_schemas/ typescript/src/ typescript/tmp/
+```
 
-1. **Exit all shells:** Make sure you are at your normal system prompt (not inside a `nix develop` shell or a `.venv`).
-
-   ```bash
-   exit
-   ```
-
-2. **Clean the project directory:** Run this command from the repo root.
-
-   ```bash
-   rm -rf .venv/ node_modules/ flake.lock poetry.toml .cache/ meta/output/ python/src/synesthetic_schemas/ typescript/src/ typescript/tmp/
-   ```
-
-3. **Restart the workflow:** After cleaning, simply follow the **First-Time Setup** steps again.
-
----
-
-## One-Time Nix Installation
-
-If this is your first time using Nix, you'll need a brief setup.
-
-1. **Install Nix:** Follow the instructions at [nixos.org/download.html](https://nixos.org/download.html).
-2. **Enable Nix Flakes:** Add the following line to your Nix configuration file (`~/.config/nix/nix.conf` or `/etc/nix/nix.conf`):
-
-   ```
-   experimental-features = nix-command flakes
-   ```
+Then repeat **First-Time Setup**.
 
 ---
 
@@ -143,27 +97,51 @@ Canonical JSON Schemas for:
 * `modulation`
 * `rule-bundle`
 
-Schemas are normalized and versioned here, then used to generate:
+Used to generate:
 
-* Backend Pydantic v2 models (Python)
-* Frontend `.d.ts` types (TypeScript)
-* Validation of real examples with round-trip checks
+* Pydantic v2 models (Python)
+* TypeScript `.d.ts` types
+* Round-trip validation of real examples
 
 ---
 
 ## Layout
 
 ```
-jsonschema/         # Canonical JSON Schemas (normalized, versioned)
-examples/           # Example assets; each carries a $schemaRef
+docs/schema/        # Canonical, versioned schemas (published via GitHub Pages)
+examples/           # Example assets; each includes a $schemaRef
 python/             # Generated Python models (Pydantic v2)
-typescript/         # Generated TypeScript .d.ts
-scripts/            # Normalization, validation, lint, bump-version helpers
-codegen/            # Codegen entry points and bundler
-Makefile            # One-liner tasks and preflight
-preflight.sh        # Runs the exact CI checks locally (read-only)
-version.json        # Single source of schema version (e.g., 0.7.0)
+typescript/         # Generated TypeScript types
+scripts/            # Normalization, validation, version bump helpers
+codegen/            # Codegen entry points
+Makefile            # One-liner tasks
+preflight.sh        # CI parity checks
+version.json        # Single source of schema version (e.g. 0.7.3)
 ```
+
+---
+
+## 🧩 Audit Prompt Order
+
+All audit prompts live in `meta/prompts/` and must run **in sequence**.
+
+| Step | Prompt                  | Purpose                                                    | Output                                  |
+| ---- | ----------------------- | ---------------------------------------------------------- | --------------------------------------- |
+| 1️⃣  | `eval.schema.json`      | Snapshot schema field structure (no validation).           | `meta/output/schema_eval_latest.*`      |
+| 2️⃣  | `audit.schema.json`     | Compare snapshot vs spec (find missing/divergent fields).  | `meta/output/schema_audit_latest.*`     |
+| 3️⃣  | `audit.docs.json`       | Validate documentation completeness and version alignment. | `meta/output/docs_state.md`             |
+| 4️⃣  | `audit.governance.json` | Enforce compliance with governance.md.                     | `meta/output/governance_audit_latest.*` |
+
+Run deterministically:
+
+```bash
+python -m codex audit --prompt meta/prompts/eval.schema.json
+python -m codex audit --prompt meta/prompts/audit.schema.json
+python -m codex audit --prompt meta/prompts/audit.docs.json
+python -m codex audit --prompt meta/prompts/audit.governance.json
+```
+
+Each stage must produce non-empty outputs before continuing.
 
 ---
 
@@ -182,233 +160,67 @@ flowchart TD
   preflight --> ci[CI runs ./preflight.sh]
 ```
 
-Both local `./preflight.sh` and CI execute this exact pipeline to eliminate "works on my machine" drift.
-
----
-
-## Example Architecture
-
-The schemas are designed to be consumed by backend services that store and manage synesthetic assets. The following diagrams illustrate a typical persistence and API model.
-
-### Entity-Relationship Diagram
-
-This ERD shows how the different schema components can be stored as normalized entities in a relational database like PostgreSQL, with the core data stored in `JSONB` columns.
-
-```mermaid
-erDiagram
-  SYNESTHETIC_ASSET {
-    int      synesthetic_asset_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    int      shader_id FK
-    int      tone_id FK
-    int      haptic_id FK
-    int      control_id FK
-    int      modulation_id FK
-    int      rule_bundle_id FK
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  SHADER {
-    int      shader_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    text     vertex_shader
-    text     fragment_shader
-    jsonb    uniforms
-    int      shader_lib_id FK
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  SHADER_LIB {
-    int      shader_lib_id PK
-    text     name
-    text     description
-    jsonb    helpers
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  TONE {
-    int      tone_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    jsonb    synth
-    jsonb    parts
-    jsonb    parameters
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  HAPTIC {
-    int      haptic_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    jsonb    device_config
-    jsonb    parameters
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  CONTROL_BUNDLE {
-    int      control_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    jsonb    control_parameters
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  MODULATION_BUNDLE {
-    int      modulation_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    jsonb    modulations
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  RULE_BUNDLE {
-    int      rule_bundle_id PK
-    text     name
-    text     description
-    jsonb    meta_info
-    jsonb    rules
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  PROTOBUF_ASSET {
-    int      protobuf_asset_id PK
-    int      synesthetic_asset_id FK
-    bytea    blob
-    jsonb    metadata
-    timestamptz created_at
-    timestamptz updated_at
-  }
-
-  SYNESTHETIC_ASSET ||--o| SHADER           : "shader_id"
-  SYNESTHETIC_ASSET ||--o| TONE             : "tone_id"
-  SYNESTHETIC_ASSET ||--o| HAPTIC           : "haptic_id"
-  SYNESTHETIC_ASSET ||--o| CONTROL_BUNDLE   : "control_id"
-  SYNESTHETIC_ASSET ||--o| MODULATION_BUNDLE: "modulation_id"
-  SYNESTHETIC_ASSET ||--o| RULE_BUNDLE      : "rule_bundle_id"
-  SHADER        }o--|| SHADER_LIB           : "optional helper source"
-  PROTOBUF_ASSET }o--|| SYNESTHETIC_ASSET   : "generated from"
-```
-
-`shader_lib_id` is optional; store `NULL` when the shader does not reference a shared helper library.
-
-### API Sequence Diagram
-
-This sequence shows a typical "upsert" flow where a nested `SynestheticAsset` is posted to an API. The backend validates the payload, normalizes the sub-components (shader, tone, etc.), persists them individually, and then creates the top-level asset with foreign keys to the components.
-
-```mermaid
-sequenceDiagram
-  autonumber
-  participant L as Loader (load_examples.py)
-  participant API as FastAPI /synesthetic-assets/nested
-  participant DB as Postgres
-
-  L->>API: POST JSON (top-level $schemaRef stripped)
-  API->>API: Validate with SSOT models (Pydantic v2)
-  API->>DB: INSERT or GET SHADER (JSON-safe dump)
-  API->>DB: INSERT or GET TONE (JSON-safe dump)
-  API->>DB: INSERT or GET HAPTIC (JSON-safe dump)
-  API->>DB: INSERT or GET CONTROL_BUNDLE (JSON-safe dump)
-  API->>DB: INSERT or GET MODULATION_BUNDLE (JSON-safe dump)
-  API->>DB: INSERT or GET RULE_BUNDLE (JSON-safe dump)
-  API->>DB: INSERT SYNESTHETIC_ASSET (FKs to above rows)
-  API-->>L: 200 NestedSynestheticAssetResponse (IDs + nested)
-```
-
 ---
 
 ## Versioning (Single Source)
 
-* `version.json` holds the canonical schema version.
-* Normalization uses this version to set `$id`, `x-schema-version`, and to rewrite absolute `$ref`s.
-* Bump the version and normalize:
+* `version.json` defines the live schema version.
+* `$id` and `$ref` are rewritten to:
+
+  ```
+  https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}
+  ```
+* Bump and rebuild:
 
 ```bash
-make bump-version VERSION=0.7.3
-# then regenerate and validate
-make codegen-py codegen-ts validate
+make bump-version VERSION=0.7.3 && make publish-schemas
 ```
 
 ---
 
 ## Preflight (CI Parity)
 
-* Read-only checks that must pass before merging:
-
 ```bash
-./preflight.sh
+./preflight.sh           # read-only checks
+make preflight-fix        # auto-normalize + verify
+SKIP_CODEGEN_CHECK=1 ./preflight.sh  # docs-only skip
 ```
-
-Runs: `normalize-check` → `schema-lint` → `codegen-check` → `validate`.
-
-* Convenience (auto-fix normalization drift locally):
-
-```bash
-make preflight-fix   # writes normalized schemas, then runs preflight
-```
-
-On success, preflight stamps `.cache/last_preflight.txt` with the UTC timestamp.
-
-* Selective skip (useful when only docs changed):
-
-```bash
-SKIP_CODEGEN_CHECK=1 ./preflight.sh
-```
-
-* CI notes: The GitHub Actions workflow installs via Poetry and uses a paths filter to only run `codegen-check` when schemas/codegen or tooling inputs change.
 
 ---
 
 ## Make Targets
 
-* `normalize`: rewrite schemas to canonical form using `version.json`.
-* `normalize-check`: fail if any file differs from normalized form (read-only).
-* `schema-lint`: check duplicate `$id` and shallow `$ref` resolvability.
-* `codegen-py`: generate Python Pydantic models from bundled schemas.
-* `codegen-ts`: generate TypeScript `.d.ts` using repo-local tooling.
-* `codegen-check`: fail if generated code differs from what’s committed.
-* `validate`: validate examples with `$schemaRef` and round-trip via Pydantic.
-* `preflight`: run the full read-only gate (CI parity).
-* `preflight-fix`: write normalization first, then run `preflight`.
-* `bump-version VERSION=X.Y.Z`: update `version.json` and normalize.
-* `audit`: generate deterministic repo audit at `meta/SSOT_AUDIT.md`.
+* `normalize`, `normalize-check`
+* `schema-lint`
+* `codegen-py`, `codegen-ts`
+* `codegen-check`
+* `validate`
+* `preflight`, `preflight-fix`
+* `bump-version VERSION=X.Y.Z`
+* `publish-schemas`
+* `audit` — writes deterministic report at `meta/SSOT_AUDIT.md`
 
 ---
 
 ## Status
 
 * ✅ Canonical schemas normalized and versioned
-* ✅ Deterministic Python/TypeScript codegen
-* ✅ Examples validate and round-trip clean via `$schemaRef`
-* ✅ Preflight matches CI and fails fast on drift
+* ✅ Deterministic code generation (Python + TypeScript)
+* ✅ Examples validate and round-trip
+* ✅ CI preflight parity
 
 ---
 
-## Open GitHub Issues
+📘 **Governance Spec:** [docs/governance.md](docs/governance.md)
 
-Draft issues live in `meta/issues/*.md`. To create them with GitHub CLI:
-
-```bash
-./scripts/create_issues.sh
-DRY_RUN=1 ./scripts/create_issues.sh
 ```
 
+---
 
-
-
-
+This version:
+- Fixes `$id` host → `delk73.github.io/synesthetic-schemas/schema/0.7.3`
+- Reflects `docs/schema/` instead of `jsonschema/`
+- Adds the full **Audit Prompt Order**
+- Pins governance version and review date  
+- Removes redundant Nix install duplication for clarity  
+- Keeps content deterministic, terse, and v0.7.3-aligned.
