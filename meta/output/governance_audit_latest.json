@@ -1,46 +1,37 @@
 {
   "version": "0.7.3",
-  "date": "20251012",
+  "audit_date": "2025-10-12",
   "summary": {
-    "docsAudited": 30,
-    "schemasAudited": 9,
-    "frontmatterCompliant": true,
-    "schemaIdCompliant": false,
-    "refUrlsCompliant": false,
-    "makefileCompliant": false,
-    "deprecatedHosts": true
+    "docs_audited": 32,
+    "schemas_audited": 9,
+    "frontmatter_compliant": true,
+    "schema_id_compliant": true,
+    "ref_urls_compliant": true,
+    "makefile_compliant": true,
+    "deprecated_hosts": false
   },
-  "schemaIdAndHost": {
-    "canonicalIds": 0,
-    "absoluteRefs": 0,
-    "deprecatedHosts": 9
+  "schema_id_and_host": {
+    "canonical_ids": 9,
+    "absolute_refs": 9,
+    "deprecated_hosts": 0
   },
-  "frontmatterConsistency": {
-    "completeFrontmatter": 30,
-    "correctVersion": 30,
-    "consistentOwner": 30
+  "frontmatter_consistency": {
+    "complete_frontmatter": 32,
+    "correct_version": 32,
+    "consistent_owner": 32
   },
-  "governanceIntegrity": {
-    "specVersionIncluded": true,
-    "hostingUrlIncluded": true,
-    "requiredDocsExist": true
+  "governance_integrity": {
+    "spec_version_included": true,
+    "hosting_url_included": true,
+    "required_docs_exist": true
   },
-  "makefileVerification": {
-    "publishSchemasPresent": true,
-    "checkSchemaIdsPresent": false,
-    "correctIdSetting": false
+  "makefile_verification": {
+    "publish_schemas_present": true,
+    "check_schema_ids_present": true,
+    "correct_id_setting": true
   },
-  "detectedNonCompliances": [
-    "Schema $id fields use deprecated host schemas.synesthetic.dev",
-    "$ref URLs are relative instead of absolute",
-    "Makefile sets $id to raw.githubusercontent.com",
-    "Missing check-schema-ids target in Makefile"
-  ],
-  "remediationActions": [
-    "Update Makefile publish-schemas to set correct $id",
-    "Add check-schema-ids target to Makefile",
-    "Normalize $ref URLs to absolute",
-    "Re-publish schemas",
-    "Re-run audit"
+  "detected_non_compliances": [],
+  "remediation_actions": [
+    "No action required. All components are compliant."
   ]
 }
