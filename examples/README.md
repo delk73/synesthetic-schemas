@@ -1,43 +1,36 @@
 ---
-version: v0.1.0
-lastReviewed: 2025-09-26
+version: v0.7.3
+lastReviewed: 2025-10-12
 owner: delk73
 ---
 
 # Synesthetic EXAMPLES
 
-This directory contains reference assets that demonstrate how to use the canonical schemas.  
-Each JSON file includes a `$schema` so it can be validated directly against the SSOT.
+This directory contains reference assets that demonstrate how to use the canonical schemas (version 0.7.3).  
+Each JSON file includes a `$schema` so it can be validated directly against the SSOT at https://delk73.github.io/synesthetic-schemas/schema/0.7.3/.
 
 ---
 
 ## Index
 
-### Core Asset Examples
-- **`asset_basic.json`** — Minimal SynestheticAsset with default shader, tone, and haptic.  
-- **`asset_nested.json`** — Demonstrates a full nested asset with all components inlined.  
+### Component Examples
+- **`Control-Bundle_Example.json`** — Example control bundle with parameters.
+- **`Haptic_Example.json`** — Haptic device configuration with input parameters.
+- **`Rule-Bundle_Example.json`** — Rule bundle with effects and triggers.
+- **`Shader_Example.json`** — Shader with fragment/vertex code and uniforms.
+- **`Tone_Example.json`** — Tone synthesis configuration with effects and patterns.
 
-### Shader
-- **`shader_simple.json`** — Basic fragment shader with uniforms.  
-- **`shader_with_lib.json`** — Shader referencing a shared `shader_lib`.  
-
-### Tone
-- **`tone_synth.json`** — Example using `Tone.Synth` as baseline.  
-- **`tone_fm.json`** — Example FM synth with modulation.  
-
-### Haptic
-- **`haptic_basic.json`** — Simple device config with parameterized intensity/duration.  
-
-### Control
-- **`control_slider.json`** — Slider mapped to shader uniform.  
-- **`control_grid.json`** — Grid controller mapping multiple tone parameters.  
-
-### Modulation
-- **`modulation_curve.json`** — Envelope-style modulation with curve fitting.  
-- **`modulation_wave.json`** — Periodic modulation for oscillatory control.  
-
-### Rule Bundle
-- **`rule_bundle_basic.json`** — Small ruleset binding control → shader/tone parameters.  
+### SynestheticAsset Examples
+- **`SynestheticAsset_Example1.json`** — Basic asset with control, haptic, modulation, rule_bundle, shader, tone.
+- **`SynestheticAsset_Example2.json`** — Asset example 2.
+- **`SynestheticAsset_Example3.json`** — Asset example 3.
+- **`SynestheticAsset_Example4.json`** — Asset example 4.
+- **`SynestheticAsset_Example5.json`** — Asset example 5.
+- **`SynestheticAsset_Example6.json`** — Asset example 6.
+- **`SynestheticAsset_Example7.json`** — Asset example 7.
+- **`SynestheticAsset_Example8.json`** — Asset example 8.
+- **`SynestheticAsset_Example9.json`** — Asset example 9.
+- **`SynestheticAsset_ExampleDS.json`** — Dual-sphere asset example.
 
 ---
 

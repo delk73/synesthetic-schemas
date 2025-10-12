@@ -157,3 +157,12 @@ python -m mcp validate \
   --schema https://delk73.github.io/synesthetic-schemas/schema/0.7.3/synesthetic-asset.schema.json \
   --example tests/examples/asset_valid_0.7.3.json
 ```
+
+---
+
+## Crosswalk Compliance Docs
+
+The following documents cite external sources with version metadata and link back to this governance specification:
+
+- [Cross-Walk: Synesthetic & Embodied AI Interfaces](../concepts/crosswalk_perception_interfaces.md)
+- [Applied Crosswalk: Physical Atari](../concepts/applied_crosswalk_phy_atari.md)

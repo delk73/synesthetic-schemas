@@ -1,8 +1,8 @@
 ---
 title: Syncopation Fields and Temporal Disalignment Operators
-version: 1.0-draft
-lastReviewed: 2025-10-09
-owner: synesthetic-core
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
 status: conceptual
 tags: [music, rhythm, temporal-field, prediction, anticipation]
 ---

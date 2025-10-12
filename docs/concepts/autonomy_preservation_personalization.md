@@ -1,8 +1,8 @@
 ---
 title: Autonomy-Preserving Personalization
-version: 0.1-draft
-lastReviewed: 2025-10-09
-owner: synesthetic-core
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
 status: conceptual
 tags: [personalization, autonomy, decentralization, ethics]
 see_also:

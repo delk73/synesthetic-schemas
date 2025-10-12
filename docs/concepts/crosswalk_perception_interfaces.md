@@ -1,6 +1,6 @@
 ---
-version: v0.1.2
-lastReviewed: 2025-09-28
+version: v0.7.3
+lastReviewed: 2025-10-12
 owner: delk73
 ---
 
@@ -27,14 +27,14 @@ It is not a final positioning statement, but a **map** that will be refined thro
 
 * **Perception Substrate**
 
-  * *SOTA*: Learned feature extractors, perceptual tokenization ([AToken](https://arxiv.org/abs/2405.06722), [V-JEPA](https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-self-supervised-learning/)).
+  * *SOTA*: Learned feature extractors, perceptual tokenization ([AToken (2024)](https://arxiv.org/abs/2405.06722), [V-JEPA (2023)](https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-self-supervised-learning/)).
   * *Synesthetic*: Deterministic, schema-bound components (shader, tone, haptic) with rule-bundle orchestration.
   * Related concept: [Tokenized Manifold](tokenized_manifold.md).
   * *Diagnostic*: Keenan & Sokol (2023), *Mind the Gap!* argue that explanations must be treated as **communication systems** rather than bolt-ons to opaque models. Synesthetic collapses this gap by making schemas themselves the communicative substrate.
 
 * **Interface Layer**
 
-  * *SOTA*: XR APIs ([OpenXR](https://www.khronos.org/openxr/), [WebGPU](https://www.w3.org/TR/webgpu/)), haptic SDKs, game engine UIs.
+  * *SOTA*: XR APIs ([OpenXR (2017)](https://www.khronos.org/openxr/), [WebGPU (2023)](https://www.w3.org/TR/webgpu/)), haptic SDKs, game engine UIs.
   * *Synesthetic*: Declarative UI + schema-driven controls with bidirectional sync.
 
 * **Runtime Footprint**
@@ -66,3 +66,5 @@ It is not a final positioning statement, but a **map** that will be refined thro
 * **Refinement**: Map mined paradigms against this crosswalk to adjust units and comparisons.
 * **Corpus**: Build comparative table with 15–30 SOTA references.
 * **Positioning**: Derive clear statements situating Synesthetic within embodied AI interfaces.
+
+See governance.md §Versioning

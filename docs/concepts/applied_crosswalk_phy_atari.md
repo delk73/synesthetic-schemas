@@ -1,7 +1,7 @@
 ---
-version: 0.7.3
-lastReviewed: 2025-09-28
-owner: D. Elkins
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
 ---
 ## Applied Crosswalk: Physical Atari (camera-in, actuator-out @ ~60 FPS)
 
@@ -64,3 +64,4 @@ owner: D. Elkins
 * **Positioning frame:** `docs/concepts/tokenized_manifold.md`, `docs/concepts/positioning_embodied.md`
 
 See the live corpus: [SOTA: Perception & Interface Landscape](../sota/sota_perception_interfaces.md)
+See governance.md §Versioning
