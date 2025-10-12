@@ -8,7 +8,7 @@ endif
 PY := poetry run python
 SH := poetry run bash
 
-.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat check-schema-ids
+.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat check-schema-ids validate-schemas
 
 normalize:
 	@$(PY) scripts/normalize_schemas.py
@@ -30,6 +30,10 @@ codegen-check:
 
 validate:
 	@PYTHONPATH=python/src $(PY) scripts/validate_examples.py --strict --dir examples
+
+validate-schemas:
+	@echo 'Running schema validation...'
+	$(PY) scripts/validate_schemas.py https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 preflight: normalize-check schema-lint codegen-check validate
 	@echo "preflight OK"
