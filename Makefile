@@ -6,6 +6,7 @@ $(error Poetry is required. Install Poetry or run 'nix develop')
 endif
 
 PY := poetry run python
+SH := poetry run bash
 
 .PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat
 
@@ -19,13 +20,13 @@ schema-lint:
 	@$(PY) scripts/schema_lint.py
 
 codegen-py:
-	@poetry run bash codegen/gen_py.sh
+	@$(SH) codegen/gen_py.sh
 
 codegen-ts:
-	@bash codegen/gen_ts.sh
+	@$(SH) codegen/gen_ts.sh
 
 codegen-check:
-	@bash scripts/ensure_codegen_clean.sh
+	@$(SH) scripts/ensure_codegen_clean.sh
 
 validate:
 	@PYTHONPATH=python/src $(PY) scripts/validate_examples.py --strict --dir examples
