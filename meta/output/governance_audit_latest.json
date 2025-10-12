@@ -1,0 +1,46 @@
+{
+  "version": "0.7.3",
+  "date": "20251012",
+  "summary": {
+    "docsAudited": 30,
+    "schemasAudited": 9,
+    "frontmatterCompliant": true,
+    "schemaIdCompliant": false,
+    "refUrlsCompliant": false,
+    "makefileCompliant": false,
+    "deprecatedHosts": true
+  },
+  "schemaIdAndHost": {
+    "canonicalIds": 0,
+    "absoluteRefs": 0,
+    "deprecatedHosts": 9
+  },
+  "frontmatterConsistency": {
+    "completeFrontmatter": 30,
+    "correctVersion": 30,
+    "consistentOwner": 30
+  },
+  "governanceIntegrity": {
+    "specVersionIncluded": true,
+    "hostingUrlIncluded": true,
+    "requiredDocsExist": true
+  },
+  "makefileVerification": {
+    "publishSchemasPresent": true,
+    "checkSchemaIdsPresent": false,
+    "correctIdSetting": false
+  },
+  "detectedNonCompliances": [
+    "Schema $id fields use deprecated host schemas.synesthetic.dev",
+    "$ref URLs are relative instead of absolute",
+    "Makefile sets $id to raw.githubusercontent.com",
+    "Missing check-schema-ids target in Makefile"
+  ],
+  "remediationActions": [
+    "Update Makefile publish-schemas to set correct $id",
+    "Add check-schema-ids target to Makefile",
+    "Normalize $ref URLs to absolute",
+    "Re-publish schemas",
+    "Re-run audit"
+  ]
+}
