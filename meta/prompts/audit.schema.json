@@ -1,0 +1,62 @@
+{
+  "version": "v0.7.3",
+  "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
+  "task": "Schema Audit (v0.7.3 Governance Alignment)",
+  "owner": "Synesthetic Schemas WG",
+  "lastReviewed": "2025-10-12",
+  "objective": "Verify that all published schemas under v0.7.3 conform to governance.md rules and match the evaluated baseline. Detect missing, divergent, or non-compliant fields and output actionable audit artifacts for patch planning.",
+  "scope": {
+    "files": [
+      "docs/schema/0.7.3/*.schema.json",
+      "meta/output/schema_eval_latest.json",
+      "docs/schema_evolution.md",
+      "version.json"
+    ]
+  },
+  "constraints": {
+    "style": "deterministic, terse, Markdown tables and bullets",
+    "rules": [
+      "Use version.json as the authoritative schemaVersion (must equal 0.7.3).",
+      "Compare meta/output/schema_eval_latest.json baseline structure against docs/schema/0.7.3/*.schema.json.",
+      "Mark fields existing in baseline but absent in schema as Divergent.",
+      "Mark fields present in schema but absent in baseline as Missing.",
+      "Mark matching fields as Present.",
+      "Validate each schema’s $id equals https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}.",
+      "No cross-version comparisons or speculative field projections.",
+      "Write full audit markdown and JSON snapshots.",
+      "Always overwrite meta/output/schema_audit_latest.md and .json with non-empty results."
+    ],
+    "sections": [
+      "Summary of audit state",
+      "Schema coverage table (Schema → Present → Missing → Divergent)",
+      "Per-component audits (Shader, Tone, Haptic, Modulation, RuleBundle, Control, Asset)",
+      "Detected divergences (explicit field-level deltas)",
+      "Governance compliance (ID, version, structure)",
+      "Recommendations for patch planning"
+    ]
+  },
+  "output": {
+    "paths": [
+      "meta/output/schema_audit_latest.md",
+      "meta/output/schema_audit_latest.json"
+    ],
+    "format": "Markdown + JSON",
+    "must_write": true,
+    "stdout_optional": true
+  },
+  "exit_criteria": [
+    "meta/output/schema_audit_latest.md written and non-empty",
+    "meta/output/schema_audit_latest.json written and non-empty",
+    "Each schema validated against governance.md and baseline",
+    "Fields categorized as Present / Missing / Divergent",
+    "All $id fields verified canonical",
+    "Explicit actionable recommendations produced"
+  ],
+  "cleanup_sequence": [
+    "1. Normalize all $id fields using make check-schema-ids.",
+    "2. Ensure version.json and docs/schema_evolution.md both show 0.7.3.",
+    "3. Regenerate meta/output/schema_eval_latest.json baseline from current published schemas.",
+    "4. Run this audit to produce schema_audit_latest.md and .json.",
+    "5. Apply recommendations and re-run until Divergent list is empty."
+  ]
+}

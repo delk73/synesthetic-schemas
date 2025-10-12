@@ -1,0 +1,54 @@
+{
+  "version": "v0.7.3",
+  "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
+  "task": "Schema Evaluation (Initialization)",
+  "owner": "Synesthetic Schemas WG",
+  "lastReviewed": "2025-10-12",
+  "objective": "Create an immutable baseline snapshot of all published schema definitions under docs/schema/0.7.3/. This snapshot is descriptive only—no prescriptions or diffs—and serves as the reference point for later Schema Audits.",
+  "constraints": {
+    "style": "deterministic, terse, Markdown headings with bullets and tables",
+    "rules": [
+      "List every field exactly as defined in the JSON schema files under docs/schema/0.7.3/.",
+      "Include full object hierarchies (nested properties, definitions, and $ref targets).",
+      "Do not propose or infer missing fields—record only what exists.",
+      "Include examples/ JSONs if present, listing top-level keys only.",
+      "Always write both Markdown and JSON snapshots.",
+      "Always update meta/output/schema_eval_latest.md and meta/output/schema_eval_latest.json.",
+      "Also archive versioned copies with the current date (YYYYMMDD) suffix.",
+      "Evaluation is incomplete unless both Markdown and JSON outputs are non-empty."
+    ],
+    "sections": [
+      "Summary of schema evaluation",
+      "Schema inventory table (Schema → Field Count)",
+      "Component inventories (Shader, Tone, Haptic, Modulation, RuleBundle, Control, Asset)",
+      "Top-level SynestheticAsset composition (property hierarchy)"
+    ]
+  },
+  "scope": {
+    "files": [
+      "docs/schema/0.7.3/*.schema.json",
+      "examples/*.json",
+      "version.json"
+    ]
+  },
+  "output": {
+    "paths": [
+      "meta/output/schema_eval_<DATE>.md",
+      "meta/output/schema_eval_<DATE>.json",
+      "meta/output/schema_eval_latest.md",
+      "meta/output/schema_eval_latest.json"
+    ],
+    "format": "Markdown + JSON",
+    "must_write": true,
+    "stdout_optional": true
+  },
+  "exit_criteria": [
+    "meta/output/schema_eval_<DATE>.md written and non-empty",
+    "meta/output/schema_eval_<DATE>.json written and non-empty",
+    "meta/output/schema_eval_latest.md written and non-empty",
+    "meta/output/schema_eval_latest.json written and non-empty",
+    "All schemas enumerated with complete field listings",
+    "No prescriptive or inferred content present",
+    "Snapshot usable as baseline input for later schema audits"
+  ]
+}
