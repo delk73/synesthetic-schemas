@@ -124,7 +124,7 @@
               "note": "<grid.note>",
               "velocity": {
                 "curve": "linear",
-                "scale": 1.0,
+                "scale": 1,
                 "source": "grid.pressure",
                 "threshold": 0.02
               }
@@ -223,5 +223,6 @@
   ],
   "title": "rule-bundle",
   "type": "object",
-  "x-schema-version": "0.7.3"
+  "x-schema-version": "0.7.3",
+  "d": "https://delk73.github.io/synesthetic-schemas/schema/null/rule-bundle.schema.json"
 }

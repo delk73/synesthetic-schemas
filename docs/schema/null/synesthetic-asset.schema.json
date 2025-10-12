@@ -158,5 +158,6 @@
   ],
   "title": "synesthetic-asset",
   "type": "object",
-  "x-schema-version": "0.7.3"
+  "x-schema-version": "0.7.3",
+  "d": "https://delk73.github.io/synesthetic-schemas/schema/null/synesthetic-asset.schema.json"
 }

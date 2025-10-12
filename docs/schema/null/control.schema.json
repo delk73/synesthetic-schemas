@@ -9,7 +9,7 @@
           "$ref": "#/$defs/CurveType"
         },
         "scale": {
-          "default": 1.0,
+          "default": 1,
           "title": "Scale",
           "type": "number"
         },
@@ -202,7 +202,7 @@
       "type": "string"
     },
     "smoothingTime": {
-      "default": 0.0,
+      "default": 0,
       "title": "Smoothingtime",
       "type": "number"
     },
@@ -237,5 +237,6 @@
   ],
   "title": "control",
   "type": "object",
-  "x-schema-version": "0.7.3"
+  "x-schema-version": "0.7.3",
+  "d": "https://delk73.github.io/synesthetic-schemas/schema/null/control.schema.json"
 }

@@ -71,6 +71,15 @@ publish-schemas:
 	dest="docs/schema/$$ver"; \
 	echo "📦 Publishing schemas for version $$ver → $$dest"; \
 	mkdir -p "$$dest"; \
-	cp jsonschema/*.schema.json "$$dest/"; \
-	echo "✅ Copied $$(ls $$dest | wc -l) schema(s)."
+	for f in jsonschema/*.schema.json; do \
+	  name=$$(basename $$f); \
+	  tmp=$$(mktemp); \
+	  jq --arg ver "$$ver" --arg name "$$name" \
+	     '.["$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
+	     "$$f" > "$$tmp"; \
+	  mv "$$tmp" "$$f"; \
+	  cp "$$f" "$$dest/"; \
+	  echo "✅ Published $$name with correct $id"; \
+	done
+
 
