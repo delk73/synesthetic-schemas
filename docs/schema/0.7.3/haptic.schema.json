@@ -155,7 +155,7 @@
       "type": "object"
     }
   },
-  "$id": "https://schemas.synesthetic.dev/0.7.3/haptic.schema.json",
+  "$id": "https://delk73.github.io/synesthetic-schemas/schema/0.7.3/haptic.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "properties": {
     "description": {

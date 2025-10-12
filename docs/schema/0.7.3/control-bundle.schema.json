@@ -1,11 +1,11 @@
 {
-  "$id": "https://schemas.synesthetic.dev/0.7.3/control-bundle.schema.json",
+  "$id": "https://delk73.github.io/synesthetic-schemas/schema/0.7.3/control-bundle.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {
     "control_parameters": {
       "items": {
-        "$ref": "https://schemas.synesthetic.dev/0.7.3/control.schema.json"
+        "$ref": "https://delk73.github.io/synesthetic-schemas/schema/0.7.3/control.schema.json"
       },
       "title": "Control Parameters",
       "type": "array"
