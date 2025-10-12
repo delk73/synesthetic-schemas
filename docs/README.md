@@ -1,8 +1,12 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Synesthetic Documentation
 
@@ -12,6 +16,7 @@ It complements the root README (technical workflow) by providing background, use
 Canonical schemas are hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Index
 
@@ -48,6 +53,7 @@ Canonical schemas are hosted at: https://delk73.github.io/synesthetic-schemas/sc
 - *(Reserved for testing / validation docs)*
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -58,6 +64,7 @@ The `docs/` tree captures:
 - Hypotheses that guide falsifiable validation.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 **Positioning Blurb**
 Explainability shouldn’t be limited to words — it must be experienced.

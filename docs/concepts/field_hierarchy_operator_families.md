@@ -1,4 +1,11 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
 title: Field Hierarchy and Operator Families
 version: v0.7.3
 lastReviewed: 2025-10-12
@@ -6,6 +13,7 @@ owner: delk73
 status: conceptual
 tags: [schema, field, operator, semantics, architecture]
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Field Hierarchy and Operator Families
 
@@ -14,6 +22,7 @@ This note defines the **conceptual stack of field types** and their **operator f
 It formalizes how value, change, and expectation interact across modalities and establishes a shared semantic foundation for the 1.0 schema design phase.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 1 · Overview
 Every element in the system—geometry, sound, haptic pattern, or predictive cue—is represented as a **field**.  
@@ -30,6 +39,7 @@ Together these layers describe **how information moves**:
 from potential → change → expectation → interpretation.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 2 · Operators as Grammar
 Operators are the *verbs* connecting fields.  
@@ -46,6 +56,7 @@ Operators are composable: a flux operator can feed an anticipatory one, etc.
 This composability is what allows multimodal coherence across vision, sound, and motion.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 3 · Shader vs. Schema Interpretation
 In shader space, all fields are scalar functions over position (`float f(vec3 p);`).  
@@ -63,6 +74,7 @@ They tell the system *how* to interpret a field:
 The GPU still evaluates scalars; the schema defines *what those scalars represent*.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 4 · Integration Path to v1.0
 1. **Declare field signatures** – specify each field’s semantic type and operator family.  
@@ -71,6 +83,7 @@ The GPU still evaluates scalars; the schema defines *what those scalars represen
 4. **Cross-modal alignment** – ensure that a visual SDF, an oscillator, and a haptic actuator can share the same field/ operator semantics.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 5 · Conceptual Note
 Synesthetic OS treats representation as a living system.  
@@ -81,5 +94,6 @@ This hierarchy closes the loop between computation and perception—
 **a process of emergence built within the process of emergence.**
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 *End of Document*

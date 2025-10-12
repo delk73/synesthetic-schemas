@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Schema Strategy: Bridge → Library
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -15,6 +24,7 @@ Clarify how the current modality-specific schemas (`shader`, `tone`, `haptic`, `
 This strategy ensures the schemas remain practical for day-to-day testing and Labs work while gradually converging on a cleaner, more efficient foundation.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Current State (Bridge Layer)
 
@@ -34,6 +44,7 @@ This strategy ensures the schemas remain practical for day-to-day testing and La
   - The structure does not reflect the deeper unification already visible in topology research.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Target State (Operator/Primitive Library)
 
@@ -53,6 +64,7 @@ This strategy ensures the schemas remain practical for day-to-day testing and La
   - Schemas act only as authoring and interchange layers, referencing library IDs.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Migration Path
 

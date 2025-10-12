@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Performance Baselines
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Hypothesis v0 (2025-09-28)
 
@@ -24,6 +33,7 @@ Synesthetic (schema-first, procedural) sustains real-time multimodal output (vis
 - **Mode B**: reference laptop/desktop  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Protocol
 
@@ -33,6 +43,7 @@ Synesthetic (schema-first, procedural) sustains real-time multimodal output (vis
 4. Summarize into fps, dt, drop%, power.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Results — 2025-09-27
 

@@ -1,4 +1,11 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
 title: Autonomy-Preserving Personalization
 version: v0.7.3
 lastReviewed: 2025-10-12
@@ -11,6 +18,7 @@ see_also:
   - docs/labs/control_fidelity_a.md
   - external: Philipp Koralus, "The Philosophic Turn for AI Agents" (2025)
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Autonomy-Preserving Personalization
 
@@ -20,6 +28,7 @@ Yet without epistemic grounding, it easily devolves into **centralized rhetoric*
 This note defines how Synesthetic OS treats personalization as an **autonomy-preserving dialogue** between system and operator: a co-adaptive process that refines judgment rather than replacing it.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 1 · The Choking-Hazard Paradox
 Over-personalized interventions risk collapsing diversity into harm.  
@@ -30,6 +39,7 @@ In digital systems this manifests as “helpful” nudges, filters, or defaults 
 Centralized personalization assumes the model knows what’s best; autonomy-preserving personalization assumes **the dialogue itself** is the point.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 2 · Design Requirements
 Autonomy-preserving personalization must satisfy the following constraints:
@@ -43,6 +53,7 @@ Autonomy-preserving personalization must satisfy the following constraints:
 | **Reversibility** | Users must be able to undo or override learned preferences; autonomy requires exit routes. |
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 3 · Implementation in SDFK
 In the Synesthetic Framework Kernel (SDFK), personalization operates through **field conditioning**, not top-down rules.  
@@ -59,6 +70,7 @@ Because these fields are time-conditioned, personalization becomes a **temporal 
 The operator remains in the loop as an active source of signal, preserving agency across adaptation cycles.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 4 · Philosophic Grounding
 Following Koralus (2025), autonomy-preserving design replaces “nudge” architectures with **decentralized truth-seeking**.  
@@ -69,6 +81,7 @@ This reframes personalization from *optimization* to *epistemic scaffolding*:
 helping users see more clearly, not steering them toward a predefined “good.”
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 5 · Implications for Schema Design
 | Aspect | Shift |
@@ -79,6 +92,7 @@ helping users see more clearly, not steering them toward a predefined “good.�
 | **Testing** | Simulations must confirm that personalization improves *judgment latency* and *confidence*, not mere conformity. |
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 6 · Example Scenario
 A haptic feedback layer adjusts intensity based on user focus.  
@@ -87,6 +101,7 @@ An autonomy-preserving system instead **reflects tension**, allowing the operato
 The loop builds awareness rather than suppressing discomfort—turning guidance into dialogue.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 7 · Core Principle
 > *Personalization should mirror consciousness: adaptive, reflective, and never closed under its own certainty.*

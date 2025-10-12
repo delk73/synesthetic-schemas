@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Communication System Framing
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Version Framing
 
@@ -19,6 +28,7 @@ owner: delk73
   and hypothesis-driven validation make explanations perceptually grounded and falsifiable.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Context
 
@@ -32,6 +42,7 @@ owner: delk73
   - **Skeptics**: post-hoc methods are unreliable, approximations mislead users.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Synesthetic as Bridge Layer
 
@@ -46,6 +57,7 @@ Instead, it supplies a **native explanatory substrate** — shaders, tones, hapt
 This turns explanation from a mathematical approximation into a **communicative act** within a social/technical system.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Differentiation
 
@@ -54,6 +66,7 @@ This turns explanation from a mathematical approximation into a **communicative 
 - **Falsifiability**: Hypotheses test whether communication actually reduces variance or enforces constraints.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Positioning
 
@@ -63,6 +76,7 @@ Synesthetic occupies the **knife point** in the XAI debate:
 - Toward a communicative substrate that makes system state **legible, testable, and shared**.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Cross-References
 

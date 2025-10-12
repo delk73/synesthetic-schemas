@@ -1,8 +1,16 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Schema Evolution
 
@@ -10,6 +18,7 @@ Canonical provenance of schema changes.
 Anchored at [version.json](../version.json).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 
 ## Scope
@@ -34,6 +43,7 @@ see [Hypotheses](hypotheses.md).
 - [version.json](../version.json)  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 0.7.4 (schema enrichment for Labs alignment)
 
@@ -58,6 +68,7 @@ see [Hypotheses](hypotheses.md).
 - Audit reports: `meta/output/schema_audit_*.md`.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## v1.0 (planned)
 

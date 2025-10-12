@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Lab Protocol: Control Fidelity (a)
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -15,6 +24,7 @@ Test whether Synesthetic enforces declared control constraints and reflects stat
 This protocol operationalizes **Hypothesis 3 — Control Fidelity**.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Method
 
@@ -33,6 +43,7 @@ This protocol operationalizes **Hypothesis 3 — Control Fidelity**.
    - Compare preview vs. applied states for divergence.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Criteria
 
@@ -41,6 +52,7 @@ This protocol operationalizes **Hypothesis 3 — Control Fidelity**.
 - No divergence between previewed and applied states  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Outputs
 
@@ -49,6 +61,7 @@ This protocol operationalizes **Hypothesis 3 — Control Fidelity**.
 - Example control assets (`examples/controls/*.json`)  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps
 

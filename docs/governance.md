@@ -1,8 +1,12 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Synesthetic Schema: Governance and Publication Specification
 
@@ -15,6 +19,7 @@ owner: delk73
 | **Applies To**   | `synesthetic-schemas` repository |
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 1 · Overview
 Defines the authoritative process for **versioning**, **identifying**, and **publishing** canonical schemas for the Synesthetic ecosystem.  
@@ -34,6 +39,7 @@ All canonical schemas are hosted under:
 ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 2 · Core Principles
 * **Single Source of Truth (SSOT):** `jsonschema/` on `main` is the canonical editable source; `version.json` defines the live schema version.  
@@ -42,6 +48,7 @@ All canonical schemas are hosted under:
 * **Automated Publication:** CI/CD builds and publishes automatically when a version tag is created.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 3 · Specification
 
@@ -119,6 +126,7 @@ Applies to:
 * `control-bundle.schema.json`
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 4 · Validation and Testing
 
@@ -140,6 +148,7 @@ echo "✓ IDs verified"
 ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 5 · Consumer Integration Examples
 
@@ -159,6 +168,7 @@ python -m mcp validate \
 ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Crosswalk Compliance Docs
 

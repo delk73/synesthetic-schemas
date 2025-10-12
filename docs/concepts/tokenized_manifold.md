@@ -1,17 +1,27 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Tokenized Manifold: Schema-First vs Learned Approaches
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose  
 Define how Synesthetic treats perception as an **explicitly tokenized manifold** — in contrast to learned tokenizers like AToken — and capture why this matters for grounding.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Context  
 
@@ -29,6 +39,7 @@ Define how Synesthetic treats perception as an **explicitly tokenized manifold**
   - Manifold definition is *explicit* and *deterministic*.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Cross-Walk  
 
@@ -41,6 +52,7 @@ Define how Synesthetic treats perception as an **explicitly tokenized manifold**
 | Flexibility      | Retraining required | Rule-bundle reconfiguration |
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Differentiators  
 
@@ -50,6 +62,7 @@ Define how Synesthetic treats perception as an **explicitly tokenized manifold**
 - **Hybrid potential**: learned tokenizers can compress raw streams into schema parameters if desired.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps  
 
@@ -58,3 +71,4 @@ Define how Synesthetic treats perception as an **explicitly tokenized manifold**
 - **Positioning**: frame Synesthetic as *“tokenized manifolds without black-box encoders.”*  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/

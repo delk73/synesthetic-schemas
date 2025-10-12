@@ -1,4 +1,11 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
 title: The Interaction Loop
 version: v0.7.3
 lastReviewed: 2025-10-12
@@ -6,6 +13,7 @@ owner: delk73
 status: conceptual
 tags: [emergence, adaptation, process, meta, fuzz]
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # The Interaction Loop
 
@@ -16,6 +24,7 @@ Survival lies in the loop that links the two.
 This note describes that loop as it appears within Synesthetic OS, within creative work, and within dialogue itself.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 1 · Core Pattern
 The loop can be reduced to a simple cycle:
@@ -35,6 +44,7 @@ Each pass preserves what worked and discards what froze.
 Iteration is not failure; it’s metabolism.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 2 · Manifestations
 | Domain | Form Phase | Fuzz Phase |
@@ -47,6 +57,7 @@ Iteration is not failure; it’s metabolism.
 The loop scales—from a conversation to a codebase to an organism.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 3 · Dynamics
 The balance point isn’t static.  
@@ -57,6 +68,7 @@ Systems thrive in the **corridor of controlled instability** where prediction an
 Mathematically: a damped oscillator; perceptually: a sine with fuzz.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 4 · Reflexive Implementation
 Synesthetic OS can formalize this loop by:
@@ -66,6 +78,7 @@ Synesthetic OS can formalize this loop by:
 - Treating disagreement or drift as signal, not failure.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 5 · Why It Matters
 The project itself is alive to this rhythm.  
@@ -75,5 +88,6 @@ The same applies to collaborators and tools: conversation, code, and cognition a
 > **To build a living system is to design for its own oscillation.**
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 *End of Document*

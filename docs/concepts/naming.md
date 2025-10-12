@@ -1,11 +1,20 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 # Naming Rationale: Synesthetic
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Why Synesthetic?
 
@@ -16,6 +25,7 @@ The project is named **Synesthetic** because it originates from both lived exper
 - **Technical Ambition:** The system is a schema-first, multimodal “perception-layer OS” that unifies audio, visual, and haptic domains. Just as synesthesia links senses involuntarily, Synesthetic links modalities intentionally, providing a structured foundation for interaction and creativity.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Alignment with Goals
 
@@ -24,6 +34,7 @@ The project is named **Synesthetic** because it originates from both lived exper
 - **Narrative resonance:** The term carries weight across science, art, and culture. It bridges technical credibility with creative imagination.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Reclaiming Synesthesia
 
@@ -37,6 +48,7 @@ This project takes the opposite stance:
 By naming the system **Synesthetic**, we assert that cross-modal integration is a strength - a capability to be extended into tools, interfaces, and platforms. The OS is a conscious reclamation: what was once considered marginal is reframed as central.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Considerations
 
@@ -44,6 +56,7 @@ By naming the system **Synesthetic**, we assert that cross-modal integration is 
 - **Searchability:** “Synesthetic” is a common word. To increase uniqueness, the platform may be referred to as *Synesthetic OS* or *Synesthetic Platform* in formal or external contexts.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Position
 
@@ -61,6 +74,7 @@ Synesthetic is **more than an interaction OS**. It is a:
 **Not:** a monolithic app, a cloud LLM, or a world-model/agent stack. It slots beneath them and can feed or be fed by them.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## External-Facing Note
 

@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Lab Protocol: Operator Reduction (a)
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -16,6 +25,7 @@ Test whether introducing operator-based schemas reduces duplication and instabil
 This protocol operationalizes **Hypothesis 4 — Operator Reduction**.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Method
 
@@ -33,6 +43,7 @@ This protocol operationalizes **Hypothesis 4 — Operator Reduction**.
    - Measure coverage of accessibility hooks (`alt_mappings`).  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Criteria
 
@@ -42,6 +53,7 @@ This protocol operationalizes **Hypothesis 4 — Operator Reduction**.
 - Cross-modal `alt_mappings` implemented in ≥80% of operators  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Outputs
 
@@ -50,6 +62,7 @@ This protocol operationalizes **Hypothesis 4 — Operator Reduction**.
 - Validation logs from MCP harness
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps
 

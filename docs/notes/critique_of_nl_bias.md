@@ -1,8 +1,16 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Notes: Beyond Natural Language in XAI
 
@@ -35,6 +43,7 @@ Explainability is best approached as **embodied communication**, where explanati
 Natural language is a *layer* in a redundant, multimodal system, not the *core medium*.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### Tagline
 **Explainability you experience.**

@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Lab Note: Operator & Library Integration
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -15,6 +24,7 @@ Document tactical enhancements for making the current modality schemas (`shader`
 These changes are not the final SSOT (that role belongs to the operator/primitive library). Instead, they make the bridge schemas expressive enough for Labs prototyping, RLHF critique, and MCP validation without prematurely collapsing into the full library design.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Why This Matters
 
@@ -23,6 +33,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
 - **Enables smooth migration:** Enhancements here mirror the fields and references that will exist in the eventual operator/primitive library. This avoids dead ends.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Proposed Enhancements
 
@@ -52,6 +63,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
 ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 2. Universal Library References
 
@@ -64,6 +76,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 3. Recursive Structures (`ops_chain`)
 
@@ -81,6 +94,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 4. Residual / Emergence Metadata
 
@@ -96,6 +110,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 5. RuleBundle Operator Model
 
@@ -108,6 +123,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 6. Implicit Waves (Tone + Haptic)
 
@@ -124,6 +140,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 7. Accessibility Hooks
 
@@ -143,6 +160,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 8. Provenance & Versioning
 
@@ -150,6 +168,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
 * Purpose: guarantee reproducibility and linkage back to library definitions.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 9. Cross-Modal Wiring
 
@@ -162,6 +181,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
   ```
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ### 10. Validation for Emergence
 
@@ -169,6 +189,7 @@ These changes are not the final SSOT (that role belongs to the operator/primitiv
 * Use MCP validation harness to test emergent setups and prevent invalid configs.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps
 

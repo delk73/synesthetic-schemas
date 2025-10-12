@@ -1,4 +1,11 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
 title: Syncopation Fields and Temporal Disalignment Operators
 version: v0.7.3
 lastReviewed: 2025-10-12
@@ -6,6 +13,7 @@ owner: delk73
 status: conceptual
 tags: [music, rhythm, temporal-field, prediction, anticipation]
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Syncopation Fields and Temporal Disalignment Operators
 
@@ -14,6 +22,7 @@ Syncopation is the deliberate modulation of temporal expectation—the controlle
 Within **Synesthetic OS**, this corresponds to a class of **temporal-field operators** that encode *phase-based predictive violations* as composable assets.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 1 · Conceptual Basis
 As Frank Zappa noted, *“The most interesting thing about music is what happens when it doesn’t go where you expect it to.”*  
@@ -21,6 +30,7 @@ Syncopation converts temporal surprise into structure, transforming error into e
 The listener’s forward model predicts beat locations; syncopation perturbs those expectations to generate rhythmic energy.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 2 · Schema-Level Representation
 
@@ -33,6 +43,7 @@ The listener’s forward model predicts beat locations; syncopation perturbs tho
 | `syncopation_field.resolution_window` | `float` | Duration after which syncopation resolves back to grid. |
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 3 · Compositional Role
 - **Rhythmic Tension:** Encodes uncertainty over expected event timing.  
@@ -42,6 +53,7 @@ The listener’s forward model predicts beat locations; syncopation perturbs tho
 In multimodal mappings, the same operator can modulate **visual cadence**, **haptic pulse**, or **motor entrainment**, synchronizing surprise across senses.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 4 · Integration Path
 - Define `syncopation_field.schema.json` under `schemas/0.7.4/components/`.  
@@ -50,5 +62,6 @@ In multimodal mappings, the same operator can modulate **visual cadence**, **hap
 - Enable cross-modal synchronization with anticipatory fields for predictive tension coupling.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 *End of Document*

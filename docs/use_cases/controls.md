@@ -1,13 +1,22 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 ## **Overview**
 
 This use case demonstrates how Synesthetic schemas can represent **bidirectional controls**: knobs, sliders, grids, or other inputs that both **send state into assets** and **reflect state back from assets** (via automation, external modulation, or schema-driven updates).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Problem**
 
@@ -18,6 +27,7 @@ Current schemas describe control mappings but do not fully enforce:
 * **Accessibility:** controls lack haptic/audio feedback hooks.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Schema Touchpoints**
 
@@ -27,6 +37,7 @@ Current schemas describe control mappings but do not fully enforce:
 * **RuleBundle** → triggers actions when thresholds crossed.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Flow**
 
@@ -36,6 +47,7 @@ Current schemas describe control mappings but do not fully enforce:
 4. External automation updates shader radius → knob moves physically (haptic detent / torque feedback).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Deterministic Guarantees**
 
@@ -44,6 +56,7 @@ Current schemas describe control mappings but do not fully enforce:
 * Provenance ensures mappings are reproducible across contexts.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Live Example**
 

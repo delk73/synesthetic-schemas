@@ -1,8 +1,16 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 ## Applied Crosswalk: Physical Atari (camera-in, actuator-out @ ~60 FPS)
 
 **Why this target:** real hardware, strict latency, simple geometry → perfect for SDF soft overlays + curve-fit.

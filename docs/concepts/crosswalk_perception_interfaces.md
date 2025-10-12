@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Cross-Walk: Synesthetic & Embodied AI Interfaces
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -14,6 +23,7 @@ This document establishes a **broad crosswalk** between the Synesthetic system a
 It is not a final positioning statement, but a **map** that will be refined through Labs output and research.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Scope
 
@@ -22,6 +32,7 @@ It is not a final positioning statement, but a **map** that will be refined thro
 * **Exclusions**: End-to-end large language/world models; pure application-layer products.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Broad Alignment
 
@@ -48,6 +59,7 @@ It is not a final positioning statement, but a **map** that will be refined thro
   * *Synesthetic*: Schema-unified multimodal coupling (visual/audio/haptic).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Differentiators (Draft)
 
@@ -59,6 +71,7 @@ It is not a final positioning statement, but a **map** that will be refined thro
 * Related positioning: [Positioning Synesthetic in the Embodied AI Landscape](positioning_embodied.md).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps
 

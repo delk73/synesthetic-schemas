@@ -1,14 +1,23 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Overview**
 
 This use case tests how a single **field operator** (e.g., ripple, circle, wave) can be expressed simultaneously across **visual, auditory, and haptic channels**.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Problem**
 
@@ -19,6 +28,7 @@ Current schemas handle shaders, tones, and haptics independently, but lack:
 * **Accessibility enforcement:** ensuring every visual op has auditory/haptic analogs.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Schema Touchpoints**
 
@@ -28,6 +38,7 @@ Current schemas handle shaders, tones, and haptics independently, but lack:
 * **SynestheticAsset** → `alt_mappings` field to bind them together.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Flow**
 
@@ -36,6 +47,7 @@ Current schemas handle shaders, tones, and haptics independently, but lack:
 3. When ripple oscillates visually, sound and touch sync deterministically.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Deterministic Guarantees**
 
@@ -44,6 +56,7 @@ Current schemas handle shaders, tones, and haptics independently, but lack:
 * Accessibility ensured: no visual op without tone/haptic fallback.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Live Example**
 

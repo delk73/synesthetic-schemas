@@ -8,7 +8,7 @@ endif
 PY := poetry run python
 SH := poetry run bash
 
-.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat check-schema-ids validate-schemas
+.PHONY: schema-lint normalize normalize-check codegen-py codegen-ts codegen-check validate preflight preflight-fix bump-version audit checkbloat check-schema-ids validate-schemas audit-docs audit-docs
 
 normalize:
 	@$(PY) scripts/normalize_schemas.py
@@ -93,6 +93,11 @@ publish-schemas:
 # Check schema $id fields for canonical host
 check-schema-ids:
 	@grep -R --include='*.schema.json' -n '\\"\\$id\\"' docs/schema/0.7.3 | grep -v 'https://delk73.github.io/synesthetic-schemas/schema/0.7.3/' && echo '❌ Non-canonical $id found' || echo '✅ All schema IDs canonical'
+
+# Audit documentation for governance compliance
+audit-docs:
+	@echo 'Auditing documentation for v0.7.3...'
+	$(PY) scripts/audit_docs.py --version 0.7.3 --strict
 
 
 

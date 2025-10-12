@@ -1,8 +1,16 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 
 ## **Overview**
@@ -10,6 +18,7 @@ owner: delk73
 This use case draws from the *cell-sdf-topology* repo to demonstrate structured, recursive, topology-aware operators (e.g., fusion, division, ripple, bleb).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Problem**
 
@@ -20,6 +29,7 @@ Schemas today:
 * Lack fields for residuals, invariants, or topological metadata.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Schema Touchpoints**
 
@@ -29,6 +39,7 @@ Schemas today:
 * **Provenance** → `{lib_id, version, seed}` for reproducibility.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Flow**
 
@@ -39,6 +50,7 @@ Schemas today:
 5. Ripple effect mapped cross-modally (tone/haptic).
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Deterministic Guarantees**
 
@@ -47,6 +59,7 @@ Schemas today:
 * MCP validation enforces ranges for instability params.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## **Next Steps**
 

@@ -1,18 +1,28 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Positioning Synesthetic in the Embodied AI Landscape
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Core Claim  
 Synesthetic is a **schema-first perception substrate**.  
 It starts grounded — shaders, tones, and haptics are explicit manifolds.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Why This Matters  
 
@@ -29,6 +39,7 @@ It starts grounded — shaders, tones, and haptics are explicit manifolds.
       - Performance baselines documented in ../perf/perf-baselines.md  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Positioning Bullets  
 
@@ -40,6 +51,7 @@ It starts grounded — shaders, tones, and haptics are explicit manifolds.
 - **Explanatory substrate** — communication is native, not afterthought.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## One-Liner Pitch  
 *“While embodied AI scrambles to bolt grounding onto LLMs, Synesthetic starts grounded: a schema-first multimodal substrate for perception and interfaces, lightweight enough for real-time deployment.”*

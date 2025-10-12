@@ -1,12 +1,21 @@
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
+
+version: v0.7.3
+lastReviewed: 2025-10-12
+owner: delk73
+---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Lab Protocol: Explanatory Grounding (a)
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -15,6 +24,7 @@ Test whether Synesthetic provides a shared perceptual substrate that reduces int
 This protocol operationalizes **Hypothesis 2 — Explanatory Grounding**.
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Method
 
@@ -32,6 +42,7 @@ This protocol operationalizes **Hypothesis 2 — Explanatory Grounding**.
    - Analyze whether Synesthetic condition reduces variance.  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Criteria
 
@@ -40,6 +51,7 @@ This protocol operationalizes **Hypothesis 2 — Explanatory Grounding**.
 - Consistent across at least 3 independent explainees  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Outputs
 
@@ -48,6 +60,7 @@ This protocol operationalizes **Hypothesis 2 — Explanatory Grounding**.
 - Statistical analysis scripts/logs  
 
 ---
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Next Steps
 
