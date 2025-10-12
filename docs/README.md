@@ -1,12 +1,12 @@
 ---
 version: v0.1.0
-lastReviewed: 2025-09-29
+lastReviewed: 2025-10-11
 owner: delk73
 ---
 
 # Synesthetic Documentation
 
-This directory contains conceptual and positioning documents for the Synesthetic system.  
+This directory contains conceptual and positioning documents for the Synesthetic system.
 It complements the root README (technical workflow) by providing background, use cases, and reflective notes.
 
 ---
@@ -14,25 +14,26 @@ It complements the root README (technical workflow) by providing background, use
 ## Index
 
 ### Schema & Validation
-- [Schema Evolution](schema_evolution.md) — provenance of schema changes  
-- [Synesthetic Hypotheses](hypotheses.md) — falsifiable claims and validation protocols  
+- [**Schema Governance & Publication**](GOVERNANCE.md) — rules for versioning, IDs, and publication
+- [Schema Evolution](schema_evolution.md) — provenance of schema changes
+- [Synesthetic Hypotheses](hypotheses.md) — falsifiable claims and validation protocols
 
 ### Concepts
-- [Communication System](concepts/communication_system.md)  
-- [Operators](concepts/operators.md)  
-- [Tokenized Manifold](concepts/tokenized_manifold.md)  
-- [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)  
-- [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)  
-- [Distinction](concepts/distinction.md)  
-- [Naming Rationale](concepts/naming.md)  
+- [Communication System](concepts/communication_system.md)
+- [Operators](concepts/operators.md)
+- [Tokenized Manifold](concepts/tokenized_manifold.md)
+- [Cross-Walk: Synesthetic & Embodied AI Interfaces](concepts/crosswalk_perception_interfaces.md)
+- [Applied Crosswalk: Physical Atari](concepts/applied_crosswalk_phy_atari.md)
+- [Distinction](concepts/distinction.md)
+- [Naming Rationale](concepts/naming.md)
 
 ### Use Cases
-- [Controls](use_cases/controls.md)  
-- [Perceptual Field](use_cases/perceptual_field.md)  
-- [Topology](use_cases/topology.md)  
+- [Controls](use_cases/controls.md)
+- [Perceptual Field](use_cases/perceptual_field.md)
+- [Topology](use_cases/topology.md)
 
 ### Examples
-- [Examples](../examples/README.md)  
+- [Examples](../examples/README.md)
 
 ### QA
 - *(Reserved for testing / validation docs)*
@@ -41,15 +42,15 @@ It complements the root README (technical workflow) by providing background, use
 
 ## Purpose
 
-The `docs/` tree captures:  
-- Conceptual framing (how Synesthetic aligns with broader research).  
-- Use cases (controls, perceptual field, topology).  
-- Schema evolution and audit trails.  
-- Hypotheses that guide falsifiable validation.  
+The `docs/` tree captures:
+- Conceptual framing (how Synesthetic aligns with broader research).
+- Use cases (controls, perceptual field, topology).
+- Schema evolution and audit trails.
+- Hypotheses that guide falsifiable validation.
 
 ---
 
-**Positioning Blurb**  
-Explainability shouldn’t be limited to words — it must be experienced.  
-Synesthetic delivers explanations as **multisensory feedback loops** (visual, auditory, haptic),  
+**Positioning Blurb**
+Explainability shouldn’t be limited to words — it must be experienced.
+Synesthetic delivers explanations as **multisensory feedback loops** (visual, auditory, haptic),
 making system behavior directly perceivable, inclusive, and testable in real time.
