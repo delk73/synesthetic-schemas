@@ -1,8 +1,28 @@
 ---
 version: v0.7.3
-lastReviewed: 2025-09-26
+lastReviewed: 2025-10-11
 owner: delk73
 ---
+
+# 🔍 Schema Audit Status
+
+| Checkpoint | Status | Detail |
+|-------------|---------|--------|
+| **Corpus Commit** | ✅ | `733eb265c6666aade5ee26a1f05a45253947c307` |
+| **Declared Version** | ✅ | `0.7.3` (`version.json`) |
+| **$id Alignment** | ✅ | All `$id` values reference `https://schemas.synesthetic.dev/0.7.3/...` |
+| **Hash Fingerprint** | ✅ | `00eeb4f5551354a09df6eccac1263c21bb67ae6b375f47d692a1e9e9111c98c5` |
+| **Baseline Scope** | ✅ | `jsonschema/synesthetic-asset.schema.json` plus all component schemas |
+| **Audit Date** | 🕓 | 2025-10-11 |
+| **Next Review** | ⏳ | when `LABS_SCHEMA_VERSION` or MCP schema changes |
+
+**Summary:**  
+Schema corpus `v0.7.3` verified against internal metadata.  
+No drift detected. Canonical hash recorded at `meta/output/schema_ref.hash`.  
+MCP verification pending.
+
+---
+
 
 # Synesthetic Schemas
 
