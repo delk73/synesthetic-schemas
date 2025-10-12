@@ -1,0 +1,108 @@
+{
+  "version": "v0.7.3",
+  "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
+  "task": "Audit synesthetic-schemas documentation corpus for governance and structural compliance",
+  "objective": "Verify all documentation matches governance.md, README index, and schemaVersion 0.7.3. Detect missing, divergent, or non-compliant files and produce meta/output/docs_state.md snapshot.",
+  "output": {
+    "paths": ["meta/output/docs_state.md"],
+    "format": "markdown",
+    "must_write": true
+  },
+  "scope": {
+    "files": [
+      "docs/**/*.md",
+      "examples/*",
+      "version.json",
+      "meta/"
+    ]
+  },
+  "constraints": {
+    "style": "deterministic, terse, Markdown headings with bullets and tables",
+    "rules": [
+      "Each Markdown file must begin with YAML frontmatter containing version, lastReviewed, and owner.",
+      "Frontmatter version must equal v0.7.3.",
+      "Spec Version tables and inline references must show 0.7.3.",
+      "All schema URLs must use https://delk73.github.io/synesthetic-schemas/schema/0.7.3/",
+      "Reject any legacy host references: schemas.synesthetic.dev, githubusercontent.com, raw.githubusercontent.com.",
+      "docs/README.md is SSOT for index verification (Concepts, Use Cases, Schema & Evolution, Examples).",
+      "Mark each doc as Present, Missing, or Divergent relative to README index.",
+      "Schema Evolution doc must reflect version.json and schemaVersion=0.7.3.",
+      "Examples README must list actual JSON assets and reference at least one valid example file.",
+      "Crosswalk docs must cite external sources with version metadata and link back to governance.md.",
+      "All internal links must resolve locally (no broken refs).",
+      "meta/output/docs_state.md must be written and non-empty."
+    ]
+  },
+  "rules": [
+    {
+      "id": "frontmatter-complete",
+      "section": "Metadata",
+      "requirement": "Every Markdown doc includes complete frontmatter (version, lastReviewed, owner).",
+      "verify": [
+        { "path": "docs/**/*.md", "match": ["^---\\nversion:", "lastReviewed:", "owner:"] }
+      ]
+    },
+    {
+      "id": "pinned-version",
+      "section": "Metadata",
+      "requirement": "Frontmatter and internal Spec Version must both equal v0.7.3.",
+      "verify": [
+        { "path": "docs/**/*.md", "match": ["version:\\s*v0\\.7\\.3", "\\*\\*Spec Version\\*\\*.*0\\.7\\.3"] }
+      ]
+    },
+    {
+      "id": "canonical-host",
+      "section": "Schema Identifiers",
+      "requirement": "All schema URLs must point to the GitHub Pages canonical host for v0.7.3.",
+      "verify": [
+        { "path": "docs/**/*.md", "match": ["https://delk73.github.io/synesthetic-schemas/schema/0.7.3"] }
+      ],
+      "reject": [
+        "schemas.synesthetic.dev",
+        "githubusercontent.com",
+        "raw.githubusercontent.com"
+      ]
+    },
+    {
+      "id": "readme-alignment",
+      "section": "Index Consistency",
+      "requirement": "README.md must reference schema version 0.7.3, canonical host, and link to docs/governance.md.",
+      "verify": [
+        { "path": "docs/README.md", "match": ["0\\.7\\.3", "https://delk73.github.io/synesthetic-schemas/schema/", "governance\\.md"] }
+      ]
+    },
+    {
+      "id": "schema-evolution",
+      "section": "Schema & Evolution",
+      "requirement": "docs/schema_evolution.md must cite version.json and reflect schemaVersion 0.7.3.",
+      "verify": [
+        { "path": "docs/schema_evolution.md", "match": ["0\\.7\\.3", "version\\.json"] }
+      ]
+    },
+    {
+      "id": "examples-sanity",
+      "section": "Examples",
+      "requirement": "docs/examples/README.md must list at least one JSON asset under examples/ and mention schema version 0.7.3.",
+      "verify": [
+        { "path": "docs/examples/README.md", "match": ["examples/.*\\.json", "0\\.7\\.3"] }
+      ]
+    }
+  ],
+  "exit_criteria": [
+    "meta/output/docs_state.md written and non-empty",
+    "No reject patterns detected",
+    "All docs carry frontmatter and correct version",
+    "Canonical host URLs verified",
+    "README index alignment confirmed",
+    "Schema evolution validated against version.json",
+    "Examples linked and consistent"
+  ],
+  "cleanup_sequence": [
+    "1. Normalize all frontmatter to version v0.7.3 with correct date and owner.",
+    "2. Replace any non-canonical schema host references with https://delk73.github.io/synesthetic-schemas/schema/0.7.3/",
+    "3. Update docs/README.md to match actual files and include governance.md link.",
+    "4. Fix or add docs/schema_evolution.md to track version.json.",
+    "5. Ensure examples/README.md lists existing JSON assets.",
+    "6. Run make check-schema-ids and commit verified docs_state.md snapshot."
+  ]
+}
