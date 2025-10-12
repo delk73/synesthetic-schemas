@@ -67,19 +67,25 @@ checkbloat:
 # Publish schemas to docs/schema/<version> for GitHub Pages
 publish-schemas:
 	@set -euo pipefail; \
-	ver=$$(jq -r .version version.json); \
+	ver=$$(jq -r '.schemaVersion // empty' version.json); \
+	if [[ -z "$$ver" ]]; then \
+	  echo "❌ version.json missing 'schemaVersion' key or invalid format" >&2; exit 1; \
+	fi; \
 	dest="docs/schema/$$ver"; \
 	echo "📦 Publishing schemas for version $$ver → $$dest"; \
 	mkdir -p "$$dest"; \
 	for f in jsonschema/*.schema.json; do \
-	  name=$$(basename $$f); \
+	  name=$$(basename "$$f"); \
 	  tmp=$$(mktemp); \
 	  jq --arg ver "$$ver" --arg name "$$name" \
-	     '.["$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
+	     '.["$id"]="https://raw.githubusercontent.com/delk73/synesthetic-schemas/main/docs/schema/"+$$ver+"/"+$$name' \
 	     "$$f" > "$$tmp"; \
 	  mv "$$tmp" "$$f"; \
 	  cp "$$f" "$$dest/"; \
-	  echo "✅ Published $$name with correct $id"; \
+	  id_val=$$(jq -r '.["$id"]' "$$f"); \
+	  echo "✅ Published $$name with $$id_val"; \
 	done
+
+
 
 
