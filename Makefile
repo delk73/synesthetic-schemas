@@ -40,11 +40,16 @@ preflight-fix:
 	@$(MAKE) preflight
 
 # Bump schema version and normalize schemas
-# Usage: make bump-version VERSION=0.7.1
+# Usage: make bump-version VERSION=0.7.4
 bump-version:
 	@if [[ -z "$(VERSION)" ]]; then echo "Usage: make bump-version VERSION=X.Y.Z" >&2; exit 2; fi
 	@$(PY) scripts/bump_version.py --set "$(VERSION)"
 	@$(PY) scripts/update_docs_frontmatter.py --version "$(VERSION)"
+	@$(MAKE) normalize
+	@$(MAKE) publish-schemas
+	@git add docs/schema
+	@git commit -m "publish schemas for $(VERSION)" || true
+	@git push
 
 audit:
 	@$(PY) scripts/ssot_audit.py --spec meta/prompts/ssot.audit.json
@@ -58,3 +63,14 @@ checkbloat:
 	else \
 		echo "✅ No tracked junk files found."; \
 	fi
+
+# Publish schemas to docs/schema/<version> for GitHub Pages
+publish-schemas:
+	@set -euo pipefail; \
+	ver=$$(jq -r .version version.json); \
+	dest="docs/schema/$$ver"; \
+	echo "📦 Publishing schemas for version $$ver → $$dest"; \
+	mkdir -p "$$dest"; \
+	cp jsonschema/*.schema.json "$$dest/"; \
+	echo "✅ Copied $$(ls $$dest | wc -l) schema(s)."
+
