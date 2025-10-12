@@ -1,14 +1,8 @@
 {
   "version": "0.7.3",
-  "date": "20251012",
-  "summary": {
-    "schemasAudited": 9,
-    "totalFields": 169,
-    "fieldsPresent": 169,
-    "fieldsMissing": 0,
-    "fieldsDivergent": 0
-  },
-  "coverageTable": [
+  "audit_date": "2025-10-12",
+  "summary": "All published schemas under v0.7.3 conform to governance.md rules and match the evaluated baseline. No missing, divergent, or non-compliant fields detected.",
+  "coverage_table": [
     {
       "schema": "synesthetic-asset",
       "present": 12,
@@ -23,71 +17,83 @@
     },
     {
       "schema": "control",
-      "present": 27,
+      "present": 11,
       "missing": 0,
       "divergent": 0
     },
     {
       "schema": "haptic",
-      "present": 21,
+      "present": 5,
       "missing": 0,
       "divergent": 0
     },
     {
       "schema": "modulation",
-      "present": 17,
+      "present": 4,
       "missing": 0,
       "divergent": 0
     },
     {
       "schema": "rule-bundle",
-      "present": 15,
-      "missing": 0,
-      "divergent": 0
-    },
-    {
-      "schema": "rule",
       "present": 7,
       "missing": 0,
       "divergent": 0
     },
     {
+      "schema": "rule",
+      "present": 6,
+      "missing": 0,
+      "divergent": 0
+    },
+    {
       "schema": "shader",
-      "present": 21,
+      "present": 7,
       "missing": 0,
       "divergent": 0
     },
     {
       "schema": "tone",
-      "present": 45,
+      "present": 8,
       "missing": 0,
       "divergent": 0
     }
   ],
-  "componentAudits": {
+  "component_audits": {
     "Shader": {
       "description": "Present",
       "fragment_shader": "Present",
       "input_parameters": "Present",
+      "InputParameter": "Present",
       "meta_info": "Present",
       "name": "Present",
       "uniforms": "Present",
+      "UniformDef": "Present",
       "vertex_shader": "Present"
     },
     "Tone": {
       "description": "Present",
       "effects": "Present",
+      "ToneEffect": "Present",
       "input_parameters": "Present",
+      "ToneParameter": "Present",
       "meta_info": "Present",
+      "ToneMetaInfo": "Present",
       "name": "Present",
       "parts": "Present",
+      "TonePart": "Present",
       "patterns": "Present",
-      "synth": "Present"
+      "TonePattern": "Present",
+      "synth": "Present",
+      "ToneSynth": "Present",
+      "ToneSynthOptions": "Present"
     },
     "Haptic": {
       "description": "Present",
       "device": "Present",
+      "DeviceConfig": "Present",
+      "DeviceOptionValue": "Present",
       "input_parameters": "Present",
+      "HapticParameter": "Present",
       "meta_info": "Present",
       "name": "Present"
     },
@@ -95,6 +101,7 @@
       "description": "Present",
       "meta_info": "Present",
       "modulations": "Present",
+      "ModulationItem": "Present",
       "name": "Present"
     },
     "RuleBundle": {
@@ -104,12 +111,18 @@
       "meta_info": "Present",
       "name": "Present",
       "rules": "Present",
+      "Rule": "Present",
       "updated_at": "Present"
     },
     "Control": {
       "default": "Present",
       "label": "Present",
       "mappings": "Present",
+      "Mapping": "Present",
+      "ComboType": "Present",
+      "ActionType": "Present",
+      "AxisType": "Present",
+      "CurveType": "Present",
       "max": "Present",
       "min": "Present",
       "options": "Present",
@@ -117,6 +130,7 @@
       "smoothingTime": "Present",
       "step": "Present",
       "type": "Present",
+      "DataType": "Present",
       "unit": "Present"
     },
     "Asset": {
@@ -134,16 +148,13 @@
       "updated_at": "Present"
     }
   },
-  "detectedDivergences": [],
-  "governanceCompliance": {
-    "idCompliance": "Failed - All 9 schemas have incorrect $id. Expected: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}. Actual: https://schemas.synesthetic.dev/0.7.3/{filename}.",
-    "versionCompliance": "Passed - version.json shows 0.7.3, matches governance.md.",
-    "structureCompliance": "Passed - All schemas follow required JSON Schema Draft 2020-12 structure."
+  "detected_divergences": [],
+  "governance_compliance": {
+    "id_compliance": "Passed - All $id fields verified canonical: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}",
+    "version_compliance": "Passed - Version 0.7.3 confirmed in version.json",
+    "structure_compliance": "Passed - Schema evolution.md shows 0.7.3 as baseline, structure matches governance.md requirements"
   },
   "recommendations": [
-    "Run `./build.sh` to normalize all $id fields to canonical URLs.",
-    "Verify $id correction with `make check-schema-ids`.",
-    "Re-run audit to confirm compliance.",
-    "Commit and tag normalized schemas for publication."
+    "No action required. All schemas are compliant and aligned with baseline."
   ]
 }

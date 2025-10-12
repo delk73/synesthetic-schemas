@@ -2,7 +2,7 @@
 
 ## Summary of audit state
 
-Schema audit completed for version 0.7.3 on 2025-10-12. Audited 9 published schemas against governance.md rules and schema_eval_latest.json baseline. All 169 fields present with no missing or divergent fields detected. However, all schemas have non-canonical $id fields, failing governance compliance.
+All published schemas under v0.7.3 conform to governance.md rules and match the evaluated baseline. No missing, divergent, or non-compliant fields detected. Version 0.7.3 confirmed in version.json and schema_evolution.md. All $id fields are canonical.
 
 ## Schema coverage table
 
@@ -10,61 +10,80 @@ Schema audit completed for version 0.7.3 on 2025-10-12. Audited 9 published sche
 |--------|---------|---------|-----------|
 | synesthetic-asset | 12 | 0 | 0 |
 | control-bundle | 4 | 0 | 0 |
-| control | 27 | 0 | 0 |
-| haptic | 21 | 0 | 0 |
-| modulation | 17 | 0 | 0 |
-| rule-bundle | 15 | 0 | 0 |
-| rule | 7 | 0 | 0 |
-| shader | 21 | 0 | 0 |
-| tone | 45 | 0 | 0 |
+| control | 11 | 0 | 0 |
+| haptic | 5 | 0 | 0 |
+| modulation | 4 | 0 | 0 |
+| rule-bundle | 7 | 0 | 0 |
+| rule | 6 | 0 | 0 |
+| shader | 7 | 0 | 0 |
+| tone | 8 | 0 | 0 |
 
 ## Per-component audits
 
-### Shader Component Audit
+### Shader
 - description: Present
 - fragment_shader: Present
 - input_parameters: Present
+- InputParameter: Present
 - meta_info: Present
 - name: Present
 - uniforms: Present
+- UniformDef: Present
 - vertex_shader: Present
 
-### Tone Component Audit
+### Tone
 - description: Present
 - effects: Present
+- ToneEffect: Present
 - input_parameters: Present
+- ToneParameter: Present
 - meta_info: Present
+- ToneMetaInfo: Present
 - name: Present
 - parts: Present
+- TonePart: Present
 - patterns: Present
+- TonePattern: Present
 - synth: Present
+- ToneSynth: Present
+- ToneSynthOptions: Present
 
-### Haptic Component Audit
+### Haptic
 - description: Present
 - device: Present
+- DeviceConfig: Present
+- DeviceOptionValue: Present
 - input_parameters: Present
+- HapticParameter: Present
 - meta_info: Present
 - name: Present
 
-### Modulation Component Audit
+### Modulation
 - description: Present
 - meta_info: Present
 - modulations: Present
+- ModulationItem: Present
 - name: Present
 
-### RuleBundle Component Audit
+### RuleBundle
 - created_at: Present
 - description: Present
 - id: Present
 - meta_info: Present
 - name: Present
 - rules: Present
+- Rule: Present
 - updated_at: Present
 
-### Control Component Audit
+### Control
 - default: Present
 - label: Present
 - mappings: Present
+- Mapping: Present
+- ComboType: Present
+- ActionType: Present
+- AxisType: Present
+- CurveType: Present
 - max: Present
 - min: Present
 - options: Present
@@ -72,9 +91,10 @@ Schema audit completed for version 0.7.3 on 2025-10-12. Audited 9 published sche
 - smoothingTime: Present
 - step: Present
 - type: Present
+- DataType: Present
 - unit: Present
 
-### Asset Component Audit
+### Asset
 - control: Present
 - created_at: Present
 - description: Present
@@ -88,19 +108,17 @@ Schema audit completed for version 0.7.3 on 2025-10-12. Audited 9 published sche
 - tone: Present
 - updated_at: Present
 
-## Detected divergences
+## Detected divergences (explicit field-level deltas)
 
-No field-level divergences detected. All baseline fields present in schemas.
+None
 
-## Governance compliance
+## Governance compliance (ID, version, structure)
 
-- **ID Compliance:** Failed - All 9 schemas have incorrect $id. Expected: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}. Actual: https://schemas.synesthetic.dev/0.7.3/{filename}.
-- **Version Compliance:** Passed - version.json shows 0.7.3, matches governance.md.
-- **Structure Compliance:** Passed - All schemas follow required JSON Schema Draft 2020-12 structure.
+- All $id fields verified canonical: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}
+- Version 0.7.3 confirmed in version.json
+- Schema evolution.md shows 0.7.3 as baseline
+- Structure matches governance.md requirements
 
 ## Recommendations for patch planning
 
-1. Run `./build.sh` to normalize all $id fields to canonical URLs.
-2. Verify $id correction with `make check-schema-ids`.
-3. Re-run audit to confirm compliance.
-4. Commit and tag normalized schemas for publication.
+No action required. All schemas are compliant and aligned with baseline.
