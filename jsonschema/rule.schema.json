@@ -2,6 +2,7 @@
   "$id": "https://schemas.synesthetic.dev/0.7.3/rule.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
+  "d": "https://raw.githubusercontent.com/delk73/synesthetic-schemas/main/docs/schema/0.7.3/rule.schema.json",
   "properties": {
     "effects": {
       "anyOf": [
@@ -92,6 +93,5 @@
   ],
   "title": "rule",
   "type": "object",
-  "x-schema-version": "0.7.3",
-  "d": "https://raw.githubusercontent.com/delk73/synesthetic-schemas/main/docs/schema/0.7.3/rule.schema.json"
+  "x-schema-version": "0.7.3"
 }

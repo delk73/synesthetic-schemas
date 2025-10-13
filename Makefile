@@ -82,7 +82,7 @@ publish-schemas:
 	  name=$$(basename "$$f"); \
 	  tmp=$$(mktemp); \
 	  jq --arg ver "$$ver" --arg name "$$name" \
-	     '.["$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
+	     '.["$$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
 	     "$$f" > "$$tmp"; \
 	  mv "$$tmp" "$$f"; \
 	  cp "$$f" "$$dest/"; \
