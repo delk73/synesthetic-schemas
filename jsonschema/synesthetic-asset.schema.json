@@ -73,7 +73,7 @@
     "modulation": {
       "anyOf": [
         {
-          "$ref": "modulation.schema.json"
+          "$ref": "https://schemas.synesthetic.dev/0.7.3/modulation.schema.json"
         },
         {
           "type": "null"
@@ -85,7 +85,7 @@
       "anyOf": [
         {
           "items": {
-            "$ref": "modulation.schema.json#/$defs/ModulationItem"
+            "$ref": "https://schemas.synesthetic.dev/0.7.3/modulation.schema.json#/$defs/ModulationItem"
           },
           "type": "array"
         },
