@@ -26,8 +26,9 @@ owner: delk73
 1. Edit schemas in `jsonschema/`.
 2. `make normalize` (rewrites `$id` / `$ref`, syncs to `docs/schema/<version>/`).
 3. `./build.sh` when you need fresh codegen + validation (requires Nix + Poetry).
-4. `./preflight.sh` for the read-only CI parity check (normalizes in `--check` mode, lints, validates examples).
-5. Fix drift until `git status` is clean apart from intentional schema edits.
+4. `make codegen-check` to confirm generated SDK directories match deterministic outputs.
+5. `./preflight.sh` for the read-only CI parity check (normalizes in `--check` mode, runs `make codegen-check`, validates examples).
+6. Fix drift until `git status` is clean apart from intentional schema edits.
 
 ### Expected Clean State After Preflight
 - No diff between `jsonschema/` and `docs/schema/0.7.3/` other than generated `$id` alignment.
@@ -41,18 +42,25 @@ owner: delk73
    make bump-version VERSION=X.Y.Z
    ```
    This updates `version.json`, front matter in docs, normalizes schemas, and copies them to `docs/schema/<version>/`.
-3. Tag release (`git tag vX.Y.Z && git push --tags`); GitHub Actions builds and publishes `docs/` to Pages.
-4. Once a version is published, treat `docs/schema/<version>/` as immutable. Hotfix = new version.
+3. Publish schemas explicitly when preparing a release candidate:
+   ```bash
+   make publish-schemas
+   ```
+   Ensures `$id` fields and `docs/schema/<version>/` contents match the canonical host.
+4. Tag release (`git tag vX.Y.Z && git push --tags`); GitHub Actions builds and publishes `docs/` (served via GitHub Pages, *not* raw.githubusercontent.com) at `https://delk73.github.io/synesthetic-schemas/schema/<version>/`.
+5. Once a version is published, treat `docs/schema/<version>/` as immutable. Hotfix = new version.
 
 ## 5. Audit & Governance Checks
 - **Schema audit prompts:** Run sequentially from `meta/prompts/` using `python -m codex audit --prompt ...` (see README audit order). Each step must emit non-empty artifacts in `meta/output/`.
 - **Governance compliance:** `docs/governance.md` is the source of record; keep metadata blocks (version, lastReviewed, owner) aligned with `version.json`.
 - **$id enforcement:** `make check-schema-ids` ensures all published schemas use the canonical host (`https://delk73.github.io/synesthetic-schemas/schema/<version>/`).
+- **Cross-version validation:** `poetry run python scripts/validate_schemas.py https://delk73.github.io/synesthetic-schemas/schema/<version>/` runs the canonical consistency check against public URLs.
 
 ## 6. Repository Hygiene Expectations
 - **Tracked outputs:** Generated directories (`python/src/...`, `typescript/src/...`, `docs/schema/<version>/`) remain in Git but should only change via official build steps.
 - **Ephemeral caches:** `.cache/`, `meta/output/`, and `typescript/tmp/` may change locally; only commit when governance or audit artefacts are required.
 - **No stray virtualenv/node binaries:** `checkbloat` target verifies nothing like `.venv/` or `node_modules/` is accidentally tracked.
+- **Lockfiles:** Keep `poetry.lock` and `package-lock.json` in sync with their respective dependency manifests after every upgrade (`poetry add`, `npm install`).
 
 ## 7. Troubleshooting & Resets
 - **Schema drift:** Re-run `make normalize` or `make preflight-fix` to rewrite canonical outputs.
