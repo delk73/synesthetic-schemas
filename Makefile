@@ -82,11 +82,12 @@ publish-schemas:
 	  name=$$(basename "$$f"); \
 	  tmp=$$(mktemp); \
 	  jq --arg ver "$$ver" --arg name "$$name" \
-	     '.["$$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
+	     --arg host "https://delk73.github.io/synesthetic-schemas/schema" \
+	     'walk(if type == "object" and has("$$ref") then .["$$ref"] |= sub("https://schemas.synesthetic.dev"; $$host) else . end) | .["$$id"] = ($$host + "/" + $$ver + "/" + $$name)' \
 	     "$$f" > "$$tmp"; \
-	  mv "$$tmp" "$$f"; \
-	  cp "$$f" "$$dest/"; \
-	  id_val=$$(jq -r '.["$id"]' "$$f"); \
+	  cp "$$tmp" "$$dest/$$name"; \
+	  rm "$$tmp"; \
+	  id_val=$$(jq -r '."$$id"' "$$dest/$$name"); \
 	  echo "✅ Published $$name with $$id_val"; \
 	done
 
