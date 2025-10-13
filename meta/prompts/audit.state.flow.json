@@ -22,7 +22,9 @@
   "constraints": {
     "style": "deterministic, terse, Markdown headings + tables",
     "rules": [
-      "jsonschema/ must be the only editable schema source; docs/schema/<version>/ must contain generated immutable outputs.",
+      "jsonschema/ must be the only editable schema source and must retain placeholder host https://schemas.synesthetic.dev/<version>/ with no injected keys.",
+      "docs/schema/<version>/ must contain generated immutable outputs rewritten to canonical host https://delk73.github.io/synesthetic-schemas/schema/<version>/.",
+      "Normalization scripts must never alter jsonschema/*.schema.json or add transient keys (e.g., 'd').",
       "version.json must include schemaVersion = '0.7.3'.",
       "Every $id in docs/schema/0.7.3/*.schema.json must match https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}.",
       "make normalize and make preflight-fix must exist and operate deterministically (no untracked changes).",
@@ -30,9 +32,9 @@
       "preflight.sh must run normalize in --check mode, codegen-check, and example validation.",
       "check-schema-ids, codegen-check, and publish-schemas targets must exist in the Makefile.",
       "examples/ must validate successfully via scripts/validate_schemas.py.",
-      "docs/schema/0.7.3/ must contain no editable files and no drift from jsonschema/ beyond $id normalization.",
+      "docs/schema/0.7.3/ must contain no editable files and no drift from jsonschema/ beyond $id/$ref host substitution.",
       "All paths in .cache/ and meta/output/ should be ephemeral unless committed for governance reasons.",
-      "No references to raw.githubusercontent.com or schemas.synesthetic.dev are permitted in published schemas."
+      "No references to raw.githubusercontent.com are permitted in published schemas."
     ],
     "sections": [
       "Summary of repository operational compliance",
@@ -55,8 +57,9 @@
   },
   "exit_criteria": [
     "meta/output/flow_audit_latest.md written and non-empty",
-    "All $id and $ref URLs verified canonical",
-    "No diff between jsonschema/ and docs/schema/0.7.3/",
+    "All $id and $ref URLs verified canonical in published artifacts",
+    "All jsonschema sources retain placeholder host and no injected keys",
+    "No diff between jsonschema/ and docs/schema/0.7.3/ beyond host substitution",
     "Makefile targets (normalize, publish-schemas, check-schema-ids, codegen-check) confirmed present",
     "preflight.sh and build.sh validated for determinism",
     "All examples validate successfully",
