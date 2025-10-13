@@ -1,26 +1,24 @@
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
+canonicalHost: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
----
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Synesthetic Documentation
+
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 This directory contains conceptual and positioning documents for the Synesthetic system.
 It complements the root README (technical workflow) by providing background, use cases, and reflective notes.
 
-Canonical schemas are hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Index
 
 ### Schema & Validation
+- [State & Flow Overview](state-flow.md) — expected repo state and workflow guardrails
 - [**Schema Governance & Publication**](governance.md) — rules for versioning, IDs, and publication
 - [Schema Evolution](schema_evolution.md) — provenance of schema changes
 - [Synesthetic Hypotheses](hypotheses.md) — falsifiable claims and validation protocols
@@ -53,7 +51,6 @@ Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema
 - *(Reserved for testing / validation docs)*
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Purpose
 
@@ -64,7 +61,6 @@ The `docs/` tree captures:
 - Hypotheses that guide falsifiable validation.
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 **Positioning Blurb**
 Explainability shouldn’t be limited to words — it must be experienced.

@@ -1,24 +1,18 @@
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
+canonicalHost: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
-
-version: v0.7.3
-lastReviewed: 2025-10-12
-owner: delk73
----
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 # Schema Evolution
+
+Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 Canonical provenance of schema changes.  
 Anchored at [version.json](../version.json).
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 
 ## Scope
@@ -43,7 +37,6 @@ see [Hypotheses](hypotheses.md).
 - [version.json](../version.json)  
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## 0.7.4 (schema enrichment for Labs alignment)
 
@@ -68,7 +61,6 @@ Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema
 - Audit reports: `meta/output/schema_audit_*.md`.
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## v1.0 (planned)
 
@@ -89,4 +81,4 @@ Operator-centric rewrite scoped to SDFK. Collapses modality silos into unified o
 
 ### Evolution Path
 - **v1.0 (SDFK)**: Operator-centric rewrite scoped to shaders, tones, haptics, and cadence.  
-- **vNext (extr 1.0)**: Potential general-purpose lift of operator substrate beyond Synesthetic (e.g., robotics, simulation, scheduling).  
+- **vNext (extr 1.0)**: Potential general-purpose lift of operator substrate beyond Synesthetic (e.g., robotics, simulation, scheduling).

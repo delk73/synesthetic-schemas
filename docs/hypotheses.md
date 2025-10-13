@@ -1,15 +1,12 @@
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 version: v0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
+canonicalHost: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
-version: v0.7.3
-lastReviewed: 2025-10-12
-owner: delk73
----
+# Synesthetic Hypotheses
+
 Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Relationship to Schema Evolution
@@ -24,16 +21,12 @@ Where *Schema Evolution* captures **what changed** in the schema corpus (version
 Keeping them separate ensures clarity: provenance and validation remain distinct but cross-referenced.
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
-
-# Synesthetic Hypotheses
 
 Canonical list of falsifiable hypotheses guiding Synesthetic development.  
 Each entry links to the full protocol or measurement doc.  
 Statuses track whether the hypothesis is Active, Draft, Falsified, or Superseded.
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Hypothesis 1 — Performance Baseline
 - **Claim**: Synesthetic runs real-time multimodal output on constrained hardware.  
@@ -45,7 +38,6 @@ Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema
 - **Status**: Active
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Hypothesis 2 — Explanatory Grounding
 - **Claim**: Synesthetic provides a shared perceptual substrate that reduces interpretive variance across explainees.  
@@ -56,7 +48,6 @@ Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema
 - **Status**: Draft
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Hypothesis 3 — Control Fidelity
 - **Claim**: Synesthetic enforces declared control constraints and reflects state bidirectionally across modalities.  
@@ -68,7 +59,6 @@ Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema
 - **Status**: Draft
 
 ---
-Canonical schemas hosted at: https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
 ## Hypothesis 4 — Operator Reduction
 - **Claim**: Operator-based schemas reduce duplication and instability across modalities compared to modality-specific fields.  
