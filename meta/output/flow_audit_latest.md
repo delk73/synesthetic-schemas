@@ -1,46 +1,45 @@
-## Summary of repository operational compliance
-| Check | Status | Notes |
-| Schema source isolation | PASS | `jsonschema/*.schema.json` retain placeholder host `https://schemas.synesthetic.dev/0.7.3/` (e.g. jsonschema/rule.schema.json:2) and no alternate hosts were detected. |
-| Published canonical references | FAIL | docs/schema/0.7.3/synesthetic-asset.schema.json:76 and docs/schema/0.7.3/synesthetic-asset.schema.json:88 still reference `modulation.schema.json` without the canonical host, breaching the published-artifact rule. |
-| Automation entrypoints available | WARN | build.sh:7-37 and preflight.sh:9-30 cover the required phases, but runtime verification was deferred because `poetry` is absent in the sandbox (`poetry run python --version` → command not found). |
+## Repository State Summary
+| Check | Status | Evidence |
+| Schema sources isolated | PASS | `jsonschema/*.schema.json` keep placeholder host `https://schemas.synesthetic.dev/0.7.3/` (e.g. jsonschema/rule.schema.json:2) with no canonical leaks. |
+| Published artifacts canonical | FAIL | `docs/schema/0.7.3/synesthetic-asset.schema.json:76` and `:88` retain relative `$ref` entries (`modulation.schema.json*`). |
+| Governance automation present | WARN | `Makefile` provides normalize, preflight, preflight-fix, publish-schemas, codegen-check, and check-schema-ids (Makefile:13-96); runtime determinism depends on external Poetry/Nix availability. |
 
-## Editable vs generated schema boundary check
-| Item | Status | Notes |
-| jsonschema host placeholders | PASS | Placeholder host `https://schemas.synesthetic.dev/0.7.3/` is present across sources (e.g. jsonschema/control.schema.json:127) and no canonical hosts appear in jsonschema/. |
-| Published $id host | PASS | `$id` fields in docs/schema/0.7.3/*.schema.json point to `https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{file}` (e.g. docs/schema/0.7.3/control.schema.json:127). |
-| Published $ref canonicalization | FAIL | Relative references remain in docs/schema/0.7.3/synesthetic-asset.schema.json:76 and :88; they should be rewritten to the canonical host during publication. |
-| Docs vs sources drift | WARN | Content matches after host normalization except for an extra trailing newline in docs/schema/0.7.3/tone.schema.json versus jsonschema/tone.schema.json. |
+## Schema Source vs Published Artifact Boundary
+| Item | Status | Evidence |
+| Placeholder host retained in sources | PASS | Source schemas consistently use `https://schemas.synesthetic.dev/0.7.3/` (e.g. jsonschema/control.schema.json:127). |
+| Published host canonicalized | FAIL | Relative `$ref` values persist in `docs/schema/0.7.3/synesthetic-asset.schema.json:76` and `:88`, violating the canonical host requirement. |
+| Drift limited to host substitution | WARN | `docs/schema/0.7.3/tone.schema.json` includes an extra trailing newline absent from the source counterpart, otherwise content matches after host normalization. |
 
-## Version.json alignment and $id verification
-| Item | Status | Notes |
-| version.json schemaVersion | PASS | version.json:2 pins `schemaVersion` to "0.7.3" as required. |
-| Canonical ID/ref validation | FAIL | `python3 scripts/validate_schemas.py` flags the relative `$ref` entries yet still exits 0 because refs_valid is not propagated to all_valid (scripts/validate_schemas.py:69-96), leaving the check ineffective. |
+## Version and Canonical Host Verification
+| Item | Status | Evidence |
+| version.json schemaVersion | PASS | `version.json:2` sets `"schemaVersion": "0.7.3"`. |
+| Published `$id` accuracy | PASS | `$id` fields align with canonical URLs, e.g. `docs/schema/0.7.3/control.schema.json:127`. |
+| Published `$ref` canonicality | FAIL | Relative references in `synesthetic-asset.schema.json` break the canonical URL rule. |
 
-## Makefile and build target presence check
-| Item | Status | Notes |
-| Required targets | PASS | normalize (Makefile:13-17), preflight-fix (Makefile:41-44), codegen-check (Makefile:28-29), check-schema-ids (Makefile:95-96), and publish-schemas (Makefile:71-92) are defined. |
-| publish-schemas canonicalization | FAIL | The jq transformation in Makefile:84-87 only rewrites absolute placeholder hosts, so relative `$ref` values survive and leak into docs/schema/0.7.3. |
+## Makefile Entrypoint Integrity
+| Item | Status | Evidence |
+| Required targets present | PASS | `normalize`, `preflight`, `preflight-fix`, `publish-schemas`, `codegen-check`, `check-schema-ids` declared in Makefile:13-96. |
+| publish-schemas host rewrite scope | FAIL | Transformation in Makefile:84-87 only rewrites absolute placeholder hosts, allowing relative `$ref`s to leak through. |
 
-## Preflight reproducibility and CI parity validation
-| Item | Status | Notes |
-| Coverage of required phases | PASS | preflight.sh:9-23 runs normalize-check, schema-lint, codegen-check (unless skipped), and example validation via `poetry run make`. |
-| Ephemeral artifacts | PASS | preflight.sh:27-30 writes `.cache/last_preflight.txt`, respecting the directive that .cache/ remain ephemeral. |
-| Local execution | WARN | Could not execute preflight because `poetry` is unavailable in the sandbox; CI parity assumes nix/poetry availability. |
+## Preflight & Build Determinism
+| Item | Status | Evidence |
+| preflight coverage | PASS | `preflight.sh:9-23` orchestrates normalize-check, schema-lint, codegen-check (gated), and validation without mutating sources. |
+| build script alignment | PASS | `build.sh:7-37` enforces Nix+Poetry context, regenerates SDKs, and confines artifacts to generated directories. |
+| Ephemeral path hygiene | PASS | `.cache/` usage limited to timestamp marker (`preflight.sh:27-30`); `meta/output/` designated for audit artifacts; no tracked content in `typescript/tmp/`. |
 
-## Example validation results
-| Command | Status | Notes |
-| `python3 scripts/validate_examples.py --strict --dir examples` | PASS | 15 example files validated and round-tripped without diffs. |
+## Example Corpus Consistency
+| Observation | Status | Evidence |
+| Examples aligned with schemas | PASS | Example set under `examples/` corresponds to available schemas; validation tooling (`scripts/validate_examples.py`) targets these paths without requiring manual edits. |
 
-## Detected drifts or missing targets
+## Detected Divergences
 | Issue | Severity | Evidence |
-| Published schema retains relative `$ref` | HIGH | docs/schema/0.7.3/synesthetic-asset.schema.json:76 and :88 reference `modulation.schema.json` without canonical host. |
-| `publish-schemas` misses relative `$ref` | HIGH | Makefile:84-87 rewrites only absolute placeholder hosts, enabling the above drift. |
-| Canonical validation script silent on failures | MEDIUM | scripts/validate_schemas.py:69-96 logs violations but returns success because refs_valid never affects all_valid. |
-| Trailing newline mismatch | LOW | docs/schema/0.7.3/tone.schema.json retains an extra newline compared to jsonschema/tone.schema.json. |
+| Published schema retains relative `$ref` entries | HIGH | `docs/schema/0.7.3/synesthetic-asset.schema.json:76` (`modulation.schema.json`) and `:88` (`modulation.schema.json#/$defs/ModulationItem`). |
+| publish-schemas target misses relative refs | HIGH | Makefile:84-87 rewrites only absolute placeholder host values, leaving relative `$ref`s untouched. |
+| Trailing newline mismatch in tone schema | LOW | `docs/schema/0.7.3/tone.schema.json` diverges from `jsonschema/tone.schema.json` by a terminal newline. |
 
-## Remediation actions
-| Severity | Action | Owner | Notes |
-| HIGH | Update publish-schemas (and any normalization step) to rewrite relative `$ref` values to the canonical host so docs/schema/0.7.3 stays compliant. | Schema WG | Confirm via `python3 scripts/validate_schemas.py` once fixed. |
-| HIGH | Re-run publication after fixing canonicalization to regenerate docs/schema/0.7.3/synesthetic-asset.schema.json with absolute `$ref`s. | Schema WG | Ensure no additional drift remains (watch for trailing newline). |
-| MEDIUM | Modify scripts/validate_schemas.py to propagate refs_valid into all_valid so non-canonical `$ref` values fail CI. | Tooling | Add a regression test covering relative references. |
-| LOW | Align formatting between jsonschema/tone.schema.json and docs/schema/0.7.3/tone.schema.json to avoid spurious diffs. | Schema WG | Optional once higher-severity issues are resolved. |
+## Remediation Actions
+| Priority | Action | Owner | Notes |
+| HIGH | Extend publish-schemas (and related normalization) to rewrite relative `$ref`s to the canonical host before copying into docs artifacts. | Schema WG | Re-run publication after adjustment. |
+| HIGH | Regenerate `docs/schema/0.7.3/synesthetic-asset.schema.json` to ensure all `$ref`s use `https://delk73.github.io/...`. | Schema WG | Verify via static inspection post-publish. |
+| MEDIUM | Harden validation tooling so non-canonical `$ref`s fail audits instead of logging only. | Tooling | Update `scripts/validate_schemas.py` to propagate `$ref` failures. |
+| LOW | Normalize newline formatting between source and published `tone.schema.json`. | Schema WG | Optional once higher-risk items addressed. |
