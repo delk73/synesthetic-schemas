@@ -32,7 +32,7 @@
       "build.sh and preflight.sh must align with the flow spec and not mutate source state.",
       "docs/schema/<version>/ must differ from jsonschema/ only by host substitution in $id and $ref.",
       "No references to raw.githubusercontent.com are permitted.",
-      "Ephemeral directories (.cache/, meta/output/, typescript/tmp/) must remain untracked."
+      "Ephemeral directories (.cache/, typescript/tmp/) must remain untracked."
     ],
     "sections": [
       "Repository State Summary",
