@@ -55,7 +55,12 @@ def load_json(p: pathlib.Path) -> dict[str, Any]:
 
 
 def save_json(p: pathlib.Path, data: dict[str, Any]) -> None:
-    p.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    text = json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False)
+    # Ensure exactly one newline at EOF, not two
+    if not text.endswith("\n"):
+        text += "\n"
+    p.write_text(text)
+
 
 
 def _ref_target(root: dict[str, Any], ref: str) -> tuple[str | None, dict[str, Any] | None]:
