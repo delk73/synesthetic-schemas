@@ -465,6 +465,5 @@
   ],
   "title": "tone",
   "type": "object",
-  "x-schema-version": "0.7.3",
-  "d": "https://raw.githubusercontent.com/delk73/synesthetic-schemas/main/docs/schema/0.7.3/tone.schema.json"
+  "x-schema-version": "0.7.3"
 }

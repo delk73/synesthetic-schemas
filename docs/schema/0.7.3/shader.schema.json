@@ -196,6 +196,5 @@
   ],
   "title": "shader",
   "type": "object",
-  "x-schema-version": "0.7.3",
-  "d": "https://raw.githubusercontent.com/delk73/synesthetic-schemas/main/docs/schema/0.7.3/shader.schema.json"
+  "x-schema-version": "0.7.3"
 }

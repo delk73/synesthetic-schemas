@@ -1,4 +1,7 @@
 SHELL := /bin/bash
+PLACEHOLDER_HOST := https://schemas.synesthetic.dev/0.7.3
+CANONICAL_HOST   := https://delk73.github.io/synesthetic-schemas/schema/0.7.3
+
 
 # Require Poetry-managed Python for reproducibility
 ifeq (,$(shell command -v poetry 2>/dev/null))
@@ -69,25 +72,33 @@ checkbloat:
 	fi
 
 # Publish schemas to docs/schema/<version> for GitHub Pages
+# Publish schemas to docs/schema/<version> for GitHub Pages
 publish-schemas:
 	@set -euo pipefail; \
+	\
+	echo "--> Validating source schemas for illegal relative refs..."; \
+	if grep -rP '"$$ref":\s*"(?!#|https://)' jsonschema/; then \
+		echo "❌ ERROR: Found illegal relative $$ref in jsonschema/ sources." >&2; \
+		echo "   All external refs must use the placeholder host '$(PLACEHOLDER_HOST)'." >&2; \
+		exit 1; \
+	fi; \
+	echo "    ✓ Sources are clean."; \
+	\
 	ver=$$(jq -r '.schemaVersion // empty' version.json); \
 	if [[ -z "$$ver" ]]; then \
-	  echo "❌ version.json missing 'schemaVersion' key or invalid format" >&2; exit 1; \
+	  echo "❌ version.json missing 'schemaVersion' key" >&2; exit 1; \
 	fi; \
 	dest="docs/schema/$$ver"; \
 	echo "📦 Publishing schemas for version $$ver → $$dest"; \
 	mkdir -p "$$dest"; \
 	for f in jsonschema/*.schema.json; do \
 	  name=$$(basename "$$f"); \
-	  tmp=$$(mktemp); \
-	  jq --arg ver "$$ver" --arg name "$$name" \
-	     '.["$id"]="https://delk73.github.io/synesthetic-schemas/schema/"+$$ver+"/"+$$name' \
-	     "$$f" > "$$tmp"; \
-	  mv "$$tmp" "$$f"; \
-	  cp "$$f" "$$dest/"; \
-	  id_val=$$(jq -r '.["$id"]' "$$f"); \
-	  echo "✅ Published $$name with $$id_val"; \
+	  jq \
+	     --arg placeholder "$(PLACEHOLDER_HOST)" \
+	     --arg canonical "$(CANONICAL_HOST)" \
+	     'walk(if type == "object" and has("$$ref") then .["$$ref"] |= sub($$placeholder; $$canonical) else . end) | .["$$id"] |= sub($$placeholder; $$canonical)' \
+	     "$$f" > "$$dest/$$name"; \
+	  echo "    ✓ Published $$name"; \
 	done
 
 # Check schema $id fields for canonical host

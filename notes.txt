@@ -14,3 +14,34 @@ grep -R ": Optional\\[.*\\] = '.*'" -n python/src || echo "OK: no optional-enum 
 npm init -y
 npm pkg set type=module
 npm i -D @apidevtools/json-schema-ref-parser json-schema-to-typescript
+
+
+
+
+Target flow (authoring → publish → validate):
+
+1. **Authoring layer (`jsonschema/`)**
+
+   * Only editable source.
+   * Uses absolute placeholder host: `https://schemas.synesthetic.dev/<version>/…`.
+   * No transient keys (`"d"`, `"source"`, etc.).
+   * Never modified by automation.
+
+2. **Publish layer (`docs/schema/<version>/`)**
+
+   * Generated only by `make publish-schemas`.
+   * `$id`/`$ref` rewritten to canonical host: `https://delk73.github.io/synesthetic-schemas/schema/<version>/…`.
+   * May include governance metadata, nothing else.
+   * Immutable post-publish.
+
+3. **Normalization / Build**
+
+   * `make normalize` compares and syncs outputs without altering sources.
+   * `build.sh` regenerates SDKs; `preflight.sh` verifies determinism and validates examples.
+
+4. **Validation rules**
+
+   * Only difference allowed between `jsonschema/` and `docs/schema/` is host substitution.
+   * No `raw.githubusercontent.com` links anywhere.
+
+That’s the complete target state every audit run must confirm.
