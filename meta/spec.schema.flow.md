@@ -102,13 +102,14 @@ All Makefile targets are executed under `poetry run` or `nix develop` context.
 
 ## 8. Audit & Governance Integration
 
-* Schema audits are executed from `meta/prompts/` and must write to `meta/output/`.
-* Audits verify:
-- Host substitution integrity.
-- Drift limits between source and docs.
-- Presence and correctness of Makefile targets.
-- Determinism of `build.sh` and `preflight.sh`.
-* Audit tools treat `docs/schema/` as immutable and `jsonschema/` as the single editable domain.
+*   Schema audits are executed from `meta/prompts/` and must write to `meta/output/`.
+*   **The `meta/output/` directory is considered a persistent, non-ephemeral record of repository compliance and MUST be tracked in version control.**
+*   Audits verify:
+    -   Host substitution integrity.
+    -   Drift limits between source and docs.
+    -   Presence and correctness of Makefile targets.
+    -   Determinism of `build.sh` and `preflight.sh`.
+*   **The `jsonschema/` directory is the authoritative source for manual edits; `docs/schema/` contains immutable, published artifacts generated from this source.**
 
 ---
 
