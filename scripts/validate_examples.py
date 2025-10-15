@@ -30,7 +30,7 @@ from typing import Any, Dict, Tuple, List, Optional
 # --- repo dirs
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCHEMAS_DIR = ROOT / "jsonschema"
-EXAMPLES_DIR = ROOT / "examples"
+EXAMPLES_DIR = ROOT / "docs" / "examples" / "0.7.3"
 PY_SRC = ROOT / "python" / "src"
 
 # Make generated package importable without install
@@ -280,7 +280,7 @@ def _gather_files(path: Optional[str]) -> list[pathlib.Path]:
     if path is None:
         base = EXAMPLES_DIR
         if not base.exists():
-            print(f"examples dir missing: {base}")
+            print(f"docs/examples/0.7.3 dir missing: {base}")
             return []
         return sorted(p for p in base.rglob("*.json") if p.is_file() and not _should_skip(p))
     p = pathlib.Path(path)
@@ -304,7 +304,7 @@ def main() -> int:
     ap.add_argument("--strict", action="store_true", help="Require $schema; no filename fallback")
     args = ap.parse_args()
 
-    # precedence: --file over --dir; else default examples/
+    # precedence: --file over --dir; else default docs/examples/0.7.3/
     chosen = args.file or args.dir
     files = _gather_files(chosen)
     if not files:

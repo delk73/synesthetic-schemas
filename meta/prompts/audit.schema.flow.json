@@ -14,7 +14,7 @@
       "build.sh",
       "preflight.sh",
       "scripts/*.py",
-      "examples/*.json",
+      "docs/examples/0.7.3/*.json",
       "python/src/synesthetic_schemas/",
       "typescript/src/"
     ]

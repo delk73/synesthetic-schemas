@@ -1,13 +1,13 @@
 {
   "version": "v0.7.3",
-  "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
+  "spec_ref": "docs/schema/0.7.3/governance.md#synesthetic-schema-governance-and-publication-specification",
   "task": "Governance Compliance Audit",
   "owner": "Synesthetic Schemas WG",
   "lastReviewed": "2025-10-12",
   "objective": "Validate that all schema and documentation files comply with governance.md rules for v0.7.3 — including $id format, version pinning, hosting path, frontmatter, and CI/CD structure.",
   "scope": {
     "files": [
-      "docs/governance.md",
+      "docs/schema/0.7.3/governance.md",
       "docs/**/*.md",
       "docs/schema/0.7.3/*.schema.json",
       "version.json",
@@ -22,7 +22,7 @@
       "Every $id in docs/schema/0.7.3/*.schema.json must equal https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}.",
       "All $ref URLs must be absolute and point to the same host/version.",
       "No reference to schemas.synesthetic.dev or raw.githubusercontent.com.",
-      "docs/governance.md must include the current spec version 0.7.3 and hosting base URL.",
+      "docs/schema/0.7.3/governance.md must include the current spec version 0.7.3 and hosting base URL.",
       "Makefile must include publish-schemas and check-schema-ids targets.",
       "All required docs (governance.md, README.md, schema_evolution.md) must exist and be non-empty."
     ],

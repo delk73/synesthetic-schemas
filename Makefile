@@ -28,13 +28,8 @@ codegen-py:
 codegen-ts:
 	@$(SH) codegen/gen_ts.sh
 
-codegen-check:
-	@$(SH) scripts/ensure_codegen_clean.sh
-
 validate:
-	@PYTHONPATH=python/src $(PY) scripts/validate_examples.py --strict --dir examples
-
-validate-schemas:
+	@PYTHONPATH=python/src $(PY) scripts/validate_examples.py --strict --dir docs/examples/0.7.3
 	@echo 'Running schema validation...'
 	$(PY) scripts/validate_schemas.py https://delk73.github.io/synesthetic-schemas/schema/0.7.3/
 
