@@ -1,0 +1,63 @@
+{
+  "version": "v0.7.3",
+  "spec_ref": "docs/schema/0.7.3/governance.md",
+  "task": "Audit synesthetic-schemas repository for contextual and technical debt",
+  "objective": "Identify technical and contextual debt in the schemas repo that could compromise determinism, clarity, or long-term maintainability. Focus on schema integrity, governance drift, redundant scripts, and doc-spec misalignment.",
+  "constraints": {
+    "style": "deterministic, Markdown structured by subsystem",
+    "definitions": {
+      "Technical Debt": "Structural or automation-level fragility, redundancy, or lack of determinism increasing maintenance cost.",
+      "Contextual Debt": "Loss of clarity or rationale due to outdated documentation, implicit assumptions, or missing linkage between spec and implementation.",
+      "Lifecycle Class": "Preventable (minor hygiene), Recoverable (requires refactor), Structural (deep design debt or dependency)."
+    },
+    "rules": [
+      "Each finding must specify type (Technical/Contextual), lifecycle class, path, line range, and severity (High/Medium/Low).",
+      "Group findings by subsystem: Build, Schemas, Validation, Docs, Governance, CI.",
+      "Skip conceptual or reflective docs under docs/concepts/ and docs/notes/.",
+      "Audit for duplicate version strings, hardcoded canonical URLs, and missing frontmatter consistency.",
+      "Flag orphaned scripts or overlapping validation targets.",
+      "Check Makefile and CI logic for redundant normalization/publish stages."
+    ],
+    "sections": [
+      "Summary Metrics",
+      "Top 5 High-Impact Risks",
+      "Technical Debt Map (by subsystem)",
+      "Contextual Debt Map (by subsystem)",
+      "Cross-Repo Drift (MCP, Labs)",
+      "Recommendations and Remediation Effort"
+    ]
+  },
+  "scope": {
+    "files": [
+      "Makefile",
+      "scripts/*.py",
+      "docs/governance.md",
+      "docs/schema/0.7.3/governance.md",
+      "docs/examples/0.7.3/README.md",
+      "jsonschema/*.schema.json",
+      "meta/prompts/*.json",
+      "meta/output/*.md",
+      "version.json"
+    ],
+    "ignore": [
+      "docs/concepts/",
+      "docs/notes/",
+      "docs/labs/"
+    ]
+  },
+  "output": {
+    "paths": [
+      "meta/output/schema_debt_audit.md"
+    ],
+    "format": "Markdown",
+    "must_write": true,
+    "stdout_optional": true
+  },
+  "exit_criteria": [
+    "meta/output/schema_debt_audit.md written and non-empty",
+    "All findings categorized as Contextual, Technical, or Mixed",
+    "At least three Preventable or Recoverable items identified with clear remediation path",
+    "Cross-repo drift check complete (MCP alignment confirmed)",
+    "No conceptual doc false positives"
+  ]
+}
