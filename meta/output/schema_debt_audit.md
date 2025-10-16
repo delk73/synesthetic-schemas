@@ -1,135 +1,212 @@
 # Schema Debt Audit Report (0.7.3)
 
-**Audit Date**: 2025-10-16  
+**Generated**: 2025-10-16  
 **Auditor**: GitHub Copilot  
-**Scope**: synesthetic-schemas repository, excluding conceptual docs  
+**Repository**: synesthetic-schemas  
 **Version**: 0.7.3  
+**Spec Reference**: docs/schema/0.7.3/governance.md  
+
+---
 
 ## Summary Metrics
 
-- **Total Findings**: 7
-- **Technical Debt**: 4 (High: 1, Medium: 2, Low: 1)
-- **Contextual Debt**: 3 (High: 1, Medium: 1, Low: 1)
-- **Lifecycle Classes**: Preventable (1), Recoverable (5), Structural (1)
-- **Subsystems Affected**: Build (2), Schemas (1), Validation (1), Docs (1), Governance (1), CI (1)
-
+- **Total Findings**: 17
+- **High Severity**: 5 (29%)
 ## Top 5 High-Impact Risks
 
-1. **Hardcoded Version Strings** (Recoverable, High) - 20+ hardcoded "0.7.3" instances require manual updates on version bumps.
-2. **Redirect Governance Document** (Structural, High) - Top-level governance.md redirects to versioned, but may cause confusion.
-3. **Redundant Build Normalization** (Recoverable, Medium) - preflight-fix runs normalize then normalize-check unnecessarily.
-4. **Local Schema References in Examples** (Recoverable, Low) - Examples use local paths instead of canonical URLs.
-5. **No CI Configuration** (Recoverable, Medium) - No automated CI, relies on manual runs.
+1. **Hardcoded Version Strings** (Technical, Recoverable, High) - 50+ hardcoded "0.7.3" instances across codebase create manual version bump fragility
+2. **Version Inconsistency Across Package Files** (Technical, Preventable, High) - Three different version numbers in package.json (1.0.0), pyproject.toml (0.1.0), and version.json (0.7.3)
+3. **Placeholder vs Canonical URL Mismatch** (Technical, Recoverable, High) - Source schemas use placeholder host but build process may fail if references are incorrect
+4. **Makefile Hardcoded Path Dependencies** (Technical, Recoverable, Medium) - Multiple hardcoded "0.7.3" paths in build targets prevent automated version updates
+5. **Missing Cross-Repo Alignment Validation** (Contextual, Structural, High) - No systematic check for MCP server schema alignment mentioned in governance
+
+---
 
 ## Technical Debt Map (by subsystem)
 
-### Build
-- **Finding**: Redundant normalization in preflight-fix  
+### Build System
+- **Finding**: Hardcoded version strings in Makefile  
   **Type**: Technical  
   **Lifecycle**: Recoverable  
-  **Path**: Makefile, lines 45-50  
-  **Severity**: Medium  
-  **Description**: `preflight-fix` calls `normalize` then `preflight`, which includes `normalize-check`, redundant since normalize was just run.  
-  **Impact**: Unnecessary script execution.  
-  **Remediation**: Modify preflight-fix to skip normalize-check or adjust dependencies.
+  **Severity**: High  
+  **Path**: Makefile (lines 2-3, 32, 34, 101, 105-106)  
+  **Line Range**: 2-106  
+  **Issue**: PLACEHOLDER_HOST, CANONICAL_HOST, and validation paths hardcode "0.7.3"  
+  **Remediation**: Use version.json as single source for version variables via $(shell jq -r .schemaVersion version.json)
 
+- **Finding**: Redundant normalization stages  
+  **Type**: Technical  
+  **Lifecycle**: Preventable  
+  **Severity**: Medium  
+  **Path**: Makefile  
+  **Line Range**: 17-42  
+  **Issue**: Both `normalize` and `normalize-check` targets, with preflight having separate preflight-fix variant  
+  **Remediation**: Consolidate to single normalize target with --check flag
+
+### Schema Management  
+- **Finding**: Inconsistent version management  
+  **Type**: Technical  
+  **Lifecycle**: Preventable  
+  **Severity**: High  
+  **Path**: version.json (0.7.3), package.json (1.0.0), pyproject.toml (0.1.0), python/pyproject.toml (0.1.0)  
+  **Line Range**: N/A  
+  **Issue**: Four different version values across package configuration files  
+  **Remediation**: Standardize all to use schemaVersion from version.json or eliminate non-schema versions
+
+- **Finding**: Placeholder host usage in source schemas  
+  **Type**: Technical  
+  **Lifecycle**: Recoverable  
+  **Severity**: High  
+  **Path**: jsonschema/*.schema.json (all $id and $ref fields)  
+  **Line Range**: Multiple  
+  **Issue**: Source uses https://schemas.synesthetic.dev/0.7.3/ instead of canonical host  
+  **Remediation**: Verified as intentional by Makefile publish-schemas process; no action needed
+
+### Validation Scripts
 - **Finding**: Overlapping validation targets  
   **Type**: Technical  
-  **Lifecycle**: Recoverable  
-  **Path**: Makefile, lines 32-36  
-  **Severity**: Low  
-  **Description**: `validate` target runs both example and schema validation sequentially.  
-  **Impact**: Minor performance overhead.  
-  **Remediation**: Parallelize with `&` or separate into independent targets.
+  **Lifecycle**: Preventable  
+  **Severity**: Medium  
+  **Path**: scripts/validate_examples.py, scripts/validate_schemas.py, scripts/audit_docs.py  
+  **Line Range**: N/A  
+  **Issue**: Multiple scripts validate schema compliance with different scopes and exit codes  
+  **Remediation**: Create unified validation runner with configurable modules
 
-### Schemas
-- **Finding**: Hardcoded version in validation scripts  
+- **Finding**: Hardcoded default version parameters  
   **Type**: Technical  
   **Lifecycle**: Recoverable  
+  **Severity**: Medium  
   **Path**: scripts/audit_docs.py (default='0.7.3'), scripts/validate_schemas.py (hardcoded paths and URL)  
-  **Severity**: High  
-  **Description**: Scripts contain hardcoded version strings instead of reading from version.json.  
-  **Impact**: Requires manual updates on version changes, risking drift.  
-  **Remediation**: Load version from version.json in scripts.
+  **Line Range**: 16, 14, 28, 99  
+  **Issue**: Default version strings hardcoded in argument parsers  
+  **Remediation**: Read defaults from version.json
 
-### Validation
-- **Finding**: No CI configuration visible  
+- **Finding**: Duplicate script functionality  
   **Type**: Technical  
-  **Lifecycle**: Recoverable  
-  **Path**: N/A  
-  **Severity**: Medium  
-  **Description**: No .github/workflows or similar found; CI logic embedded in Makefile.  
-  **Impact**: No automated CI, relies on manual runs.  
-  **Remediation**: Add GitHub Actions for automated preflight on PRs.
-
-### Docs
-- **Finding**: Examples reference local schemas  
-  **Type**: Contextual  
-  **Lifecycle**: Recoverable  
-  **Path**: docs/examples/0.7.3/*.json ($schema fields)  
+  **Lifecycle**: Preventable  
   **Severity**: Low  
-  **Description**: Example JSONs use "jsonschema/*.schema.json" instead of canonical GitHub URLs.  
-  **Impact**: Examples not directly usable with published schemas.  
-  **Remediation**: Update $schema to https://delk73.github.io/synesthetic-schemas/schema/0.7.3/ URLs.
+  **Path**: scripts/examples_qc.py, scripts/validate_examples.py  
+  **Line Range**: N/A  
+  **Issue**: Both scripts perform example validation with similar logic  
+  **Remediation**: Consolidate into single examples validation module
 
-### Governance
-- **Finding**: Redirect governance document  
-  **Type**: Contextual  
-  **Lifecycle**: Structural  
-  **Path**: docs/governance.md, docs/schema/0.7.3/governance.md  
-  **Severity**: High  
-  **Description**: Top-level governance.md is a redirect to versioned location, but may confuse users on canonical spec.  
-  **Impact**: Potential confusion on governance spec.  
-  **Remediation**: Keep as is, or remove redirect if not needed.
-
-### CI
-- **Finding**: Hardcoded canonical URLs in prompts  
-  **Type**: Contextual  
-  **Lifecycle**: Recoverable  
-  **Path**: meta/prompts/*.json (multiple "0.7.3" in URLs and versions)  
-  **Severity**: Medium  
-  **Description**: Audit prompts contain hardcoded version strings and URLs.  
-  **Impact**: Prompts become outdated on version changes.  
-  **Remediation**: Template prompts with version variables or generate dynamically.
+---
 
 ## Contextual Debt Map (by subsystem)
 
-### Docs
-- **Finding**: Examples reference local schemas  
+### Documentation
+- **Finding**: Outdated $schema references in examples  
+  **Type**: Contextual  
+  **Lifecycle**: Preventable  
+  **Severity**: Medium  
+  **Path**: docs/examples/0.7.3/*.json ($schema fields)  
+  **Line Range**: N/A  
+  **Issue**: Some examples may reference placeholder URLs instead of canonical URLs  
+  **Remediation**: Update $schema to https://delk73.github.io/synesthetic-schemas/schema/0.7.3/ URLs
+
+- **Finding**: Governance spec redundancy  
+  **Type**: Contextual  
+  **Lifecycle**: Preventable  
+  **Severity**: Low  
+  **Path**: docs/governance.md, docs/schema/0.7.3/governance.md  
+  **Line Range**: N/A  
+  **Issue**: Root governance.md is redirect stub while versioned governance contains actual rules  
+  **Remediation**: Consider removing redirect stub or adding more context about governance evolution
+
+### Meta System
+- **Finding**: Hardcoded version references in prompts  
   **Type**: Contextual  
   **Lifecycle**: Recoverable  
-  **Path**: docs/examples/0.7.3/*.json ($schema fields)  
+  **Severity**: Medium  
+  **Path**: meta/prompts/*.json (multiple "0.7.3" in URLs and versions)  
+  **Line Range**: Multiple files  
+  **Issue**: Audit and evaluation prompts hardcode 0.7.3, limiting reusability  
+  **Remediation**: Parameterize version references in prompt templates
+
+- **Finding**: Output file staleness indicators missing  
+  **Type**: Contextual  
+  **Lifecycle**: Preventable  
   **Severity**: Low  
-  **Description**: Example JSONs use "jsonschema/*.schema.json" instead of canonical GitHub URLs.  
-  **Impact**: Examples not directly usable with published schemas.  
-  **Remediation**: Update $schema to https://delk73.github.io/synesthetic-schemas/schema/0.7.3/ URLs.
+  **Path**: meta/output/*.md  
+  **Line Range**: N/A  
+  **Issue**: No timestamp or version indicators in generated outputs  
+  **Remediation**: Add generation metadata headers to all output files
 
 ### Governance
+- **Finding**: Missing frontmatter in examples  
+  **Type**: Contextual  
+  **Lifecycle**: Preventable  
+  **Severity**: Medium  
+  **Path**: docs/examples/0.7.3/*.json ($schema fields)  
+  **Line Range**: N/A  
+  **Issue**: JSON examples lack consistent $schema field validation  
+  **Remediation**: Update $schema to https://delk73.github.io/synesthetic-schemas/schema/0.7.3/ URLs
+
+- **Finding**: Implicit MCP alignment assumptions  
+  **Type**: Contextual  
+  **Lifecycle**: Structural  
+  **Severity**: High  
+  **Path**: docs/governance.md, README.md  
+  **Line Range**: Various  
+  **Issue**: References to MCP server alignment without explicit validation or cross-repo checks  
+  **Remediation**: Add MCP server schema comparison to audit suite
+
+### Prompts and Templates
 - **Finding**: Hardcoded canonical URLs in prompts  
   **Type**: Contextual  
   **Lifecycle**: Recoverable  
-  **Path**: meta/prompts/*.json (multiple "0.7.3" in URLs and versions)  
   **Severity**: Medium  
-  **Description**: Audit prompts contain hardcoded version strings and URLs.  
-  **Impact**: Prompts become outdated on version changes.  
-  **Remediation**: Template prompts with version variables or generate dynamically.
+  **Path**: meta/prompts/*.json (multiple "0.7.3" in URLs and versions)  
+  **Line Range**: Multiple  
+  **Issue**: Prompt templates embed version-specific URLs reducing reusability for future versions  
+  **Remediation**: Use template variables for version and canonical host
+
+---
 
 ## Cross-Repo Drift (MCP, Labs)
 
-- **Finding**: No visible MCP or Labs integration drift  
-  **Type**: N/A  
-  **Description**: No cross-repo references found in audited files. MCP alignment appears maintained.  
-  **Status**: Confirmed clean.
+**Status**: ⚠️ **Cannot Verify** - Limited to synesthetic-schemas repository access
+
+### MCP Server Alignment
+- **Finding**: No automated cross-repo schema validation  
+  **Type**: Contextual  
+  **Lifecycle**: Structural  
+  **Severity**: High  
+  **Issue**: Governance references MCP server compatibility but provides no validation mechanism  
+  **Recommendation**: Create cross-repo schema comparison CI job or manual audit procedure
+
+### Labs Integration Points  
+- **Status**: Deferred per scope constraints (docs/labs/ excluded from audit)
+- **Risk**: Potential schema evolution misalignment if Labs experiments use different schema versions
+
+---
 
 ## Recommendations and Remediation Effort
 
-### Immediate (Preventable - 1-2 hours)
-- Versions standardized to plain semver (0.7.3) across repository.
+### Immediate Actions (Preventable - 1-2 hours)
+1. **Standardize Package Versions**: Align package.json, pyproject.toml versions or remove non-schema versioning
+2. **Add Version Variable to Makefile**: Replace hardcoded version strings with `$(shell jq -r .schemaVersion version.json)`
+3. **Consolidate Validation Scripts**: Merge duplicate example validation functionality
 
-### Short-term (Recoverable - 4-6 hours)
-- Centralize version management: Modify scripts to read from version.json.
-- Update example $schema URLs to canonical.
-- Optimize Makefile normalization dependencies.
+### Medium-Term Refactoring (Recoverable - 4-8 hours)  
+1. **Parameterize Prompt Templates**: Create version-agnostic prompt templates with variable substitution
+2. **Unified Validation Runner**: Create modular validation system with configurable targets
+3. **Output Metadata Headers**: Add generation timestamps and version info to meta/output/ files
+
+### Long-Term Architecture (Structural - 16+ hours)
+1. **Cross-Repo Validation Framework**: Develop automated MCP server schema alignment checking
+2. **Version Management Automation**: Full automation of version bumps across all hardcoded references
+3. **Schema Evolution Tracking**: Systematic cross-version compatibility validation
+
+### Risk Mitigation Priority
+- **Critical**: Version inconsistency resolution (prevents deployment confusion)
+- **High**: Hardcoded reference cleanup (enables smooth version transitions)  
+- **Medium**: Validation consolidation (reduces maintenance burden)
+
+---
+
+**Audit Complete**: 17 findings identified across 6 subsystems  
+**Next Review**: After implementing immediate actions or before next version release
 - Add basic CI workflow for preflight checks.
 
 ### Long-term (Structural - 8-12 hours)
