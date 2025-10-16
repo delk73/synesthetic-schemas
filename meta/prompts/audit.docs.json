@@ -1,5 +1,5 @@
 {
-  "version": "v0.7.3",
+  "version": "0.7.3",
   "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
   "task": "Audit synesthetic-schemas documentation corpus for governance and structural compliance",
   "objective": "Verify all documentation matches governance.md, README index, and schemaVersion 0.7.3. Detect missing, divergent, or non-compliant files and produce meta/output/docs_state.md snapshot.",
@@ -20,7 +20,7 @@
     "style": "deterministic, terse, Markdown headings with bullets and tables",
     "rules": [
       "Each Markdown file must begin with YAML frontmatter containing version, lastReviewed, and owner.",
-      "Frontmatter version must equal v0.7.3.",
+      "Frontmatter version must equal 0.7.3.",
       "Spec Version tables and inline references must show 0.7.3.",
       "All schema URLs must use https://delk73.github.io/synesthetic-schemas/schema/0.7.3/",
       "Reject any legacy host references: schemas.synesthetic.dev, githubusercontent.com, raw.githubusercontent.com.",
@@ -45,7 +45,7 @@
     {
       "id": "pinned-version",
       "section": "Metadata",
-      "requirement": "Frontmatter and internal Spec Version must both equal v0.7.3.",
+      "requirement": "Frontmatter and internal Spec Version must both equal 0.7.3.",
       "verify": [
         { "path": "docs/**/*.md", "match": ["version:\\s*v0\\.7\\.3", "\\*\\*Spec Version\\*\\*.*0\\.7\\.3"] }
       ]
@@ -53,7 +53,7 @@
     {
       "id": "canonical-host",
       "section": "Schema Identifiers",
-      "requirement": "All schema URLs must point to the GitHub Pages canonical host for v0.7.3.",
+      "requirement": "All schema URLs must point to the GitHub Pages canonical host for 0.7.3.",
       "verify": [
         { "path": "docs/**/*.md", "match": ["https://delk73.github.io/synesthetic-schemas/schema/0.7.3"] }
       ],
@@ -98,7 +98,7 @@
     "Examples linked and consistent"
   ],
   "cleanup_sequence": [
-    "1. Normalize all frontmatter to version v0.7.3 with correct date and owner.",
+    "1. Normalize all frontmatter to version 0.7.3 with correct date and owner.",
     "2. Replace any non-canonical schema host references with https://delk73.github.io/synesthetic-schemas/schema/0.7.3/",
     "3. Update docs/README.md to match actual files and include governance.md link.",
     "4. Fix or add docs/schema_evolution.md to track version.json.",

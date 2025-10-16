@@ -1,10 +1,10 @@
 {
-  "version": "v0.7.3",
+  "version": "0.7.3",
   "spec_ref": "docs/governance.md#synesthetic-schema-governance-and-publication-specification",
-  "task": "Schema Audit (v0.7.3 Governance Alignment)",
+  "task": "Schema Audit (0.7.3 Governance Alignment)",
   "owner": "Synesthetic Schemas WG",
   "lastReviewed": "2025-10-12",
-  "objective": "Verify that all published schemas under v0.7.3 conform to governance.md rules and match the evaluated baseline. Detect missing, divergent, or non-compliant fields and output actionable audit artifacts for patch planning.",
+  "objective": "Verify that all published schemas under 0.7.3 conform to governance.md rules and match the evaluated baseline. Detect missing, divergent, or non-compliant fields and output actionable audit artifacts for patch planning.",
   "scope": {
     "files": [
       "docs/schema/0.7.3/*.schema.json",

@@ -1,5 +1,5 @@
 ---
-version: v0.7.3
+version: 0.7.3
 lastReviewed: 2025-10-12
 owner: delk73
 ---
@@ -17,7 +17,7 @@ owner: delk73
 | **Next Review** | ⏳ | when `LABS_SCHEMA_VERSION` or MCP schema changes |
 
 **Summary:**  
-Schema corpus `v0.7.3` verified against [docs/governance.md](docs/governance.md).  
+Schema corpus `0.7.3` verified against [docs/governance.md](docs/governance.md).  
 All `$id` and `$ref` values canonical; no drift detected.  
 MCP verification pending.
 
@@ -223,4 +223,4 @@ This version:
 - Adds the full **Audit Prompt Order**
 - Pins governance version and review date  
 - Removes redundant Nix install duplication for clarity  
-- Keeps content deterministic, terse, and v0.7.3-aligned.
+- Keeps content deterministic, terse, and 0.7.3-aligned.

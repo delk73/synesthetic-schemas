@@ -1,6 +1,6 @@
 ---
 title: Micrograd and 4D SDF Parallels
-version: v0.7.3
+version: 0.7.3
 lastReviewed: 2025-10-15
 owner: delk73
 ---
@@ -144,5 +144,5 @@ Micrograd is **atomic inference**.
 ### Reference
 
 * **Andrej Karpathy** — *Micrograd: A tiny scalar-valued autograd engine* (YouTube, 2022)
-* **Synesthetic OS** — *4D Signed Distance Field Data Structure*, internal spec draft ≥ v0.7.3
+* **Synesthetic OS** — *4D Signed Distance Field Data Structure*, internal spec draft ≥ 0.7.3
 * **Delk73** — *Embodied Differentiation: from Atomic Gradients to Perceptual Fields* (unpublished notes)

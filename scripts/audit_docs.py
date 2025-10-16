@@ -4,7 +4,7 @@ Documentation Audit Script for Governance Compliance
 
 Validates Markdown documentation under docs/ for:
 - Complete YAML frontmatter (version, lastReviewed, owner)
-- Version consistency (v0.7.3)
+- Version consistency (0.7.3)
 - Owner consistency (delk73)
 - Canonical host references
 - Recent lastReviewed dates

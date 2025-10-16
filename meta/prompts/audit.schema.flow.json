@@ -1,10 +1,10 @@
 {
-  "version": "v0.7.3",
+  "version": "0.7.3",
   "spec_ref": "meta/spec.schema.flow.md#synesthetic-schemas-internal-specification",
   "task": "Repository State Compliance Audit",
   "owner": "Synesthetic Schemas WG",
   "lastReviewed": "2025-10-13",
-  "objective": "Assess repository conformance to the internal Synesthetic Schemas specification for authoring, transformation, and publication at version v0.7.3. No code execution or validation is performed.",
+  "objective": "Assess repository conformance to the internal Synesthetic Schemas specification for authoring, transformation, and publication at version 0.7.3. No code execution or validation is performed.",
   "scope": {
     "files": [
       "jsonschema/*.schema.json",

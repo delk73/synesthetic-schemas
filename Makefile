@@ -102,7 +102,7 @@ check-schema-ids:
 
 # Audit documentation for governance compliance
 audit-docs:
-	@echo 'Auditing documentation for v0.7.3...'
+	@echo 'Auditing documentation for 0.7.3...'
 	$(PY) scripts/audit_docs.py --version 0.7.3 --strict
 
 

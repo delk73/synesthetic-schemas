@@ -1,5 +1,5 @@
 {
-  "version": "v0.7.3",
+  "version": "0.7.3",
   "spec_ref": "docs/schema/0.7.3/governance.md",
   "task": "Audit synesthetic-schemas repository for contextual and technical debt",
   "objective": "Identify technical and contextual debt in the schemas repo that could compromise determinism, clarity, or long-term maintainability. Focus on schema integrity, governance drift, redundant scripts, and doc-spec misalignment.",

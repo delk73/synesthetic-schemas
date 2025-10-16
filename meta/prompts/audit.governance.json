@@ -1,10 +1,10 @@
 {
-  "version": "v0.7.3",
+  "version": "0.7.3",
   "spec_ref": "docs/schema/0.7.3/governance.md#synesthetic-schema-governance-and-publication-specification",
   "task": "Governance Compliance Audit",
   "owner": "Synesthetic Schemas WG",
   "lastReviewed": "2025-10-12",
-  "objective": "Validate that all schema and documentation files comply with governance.md rules for v0.7.3 — including $id format, version pinning, hosting path, frontmatter, and CI/CD structure.",
+  "objective": "Validate that all schema and documentation files comply with governance.md rules for 0.7.3 — including $id format, version pinning, hosting path, frontmatter, and CI/CD structure.",
   "scope": {
     "files": [
       "docs/schema/0.7.3/governance.md",
@@ -18,7 +18,7 @@
     "style": "deterministic, terse, Markdown headings + tables",
     "rules": [
       "All Markdown docs must contain YAML frontmatter (version, lastReviewed, owner).",
-      "Frontmatter version fields must equal v0.7.3.",
+      "Frontmatter version fields must equal 0.7.3.",
       "Every $id in docs/schema/0.7.3/*.schema.json must equal https://delk73.github.io/synesthetic-schemas/schema/0.7.3/{filename}.",
       "All $ref URLs must be absolute and point to the same host/version.",
       "No reference to schemas.synesthetic.dev or raw.githubusercontent.com.",
@@ -55,7 +55,7 @@
     "Remediation section generated if violations exist"
   ],
   "cleanup_sequence": [
-    "1. Normalize frontmatter in all docs (version=v0.7.3).",
+    "1. Normalize frontmatter in all docs (version=0.7.3).",
     "2. Fix schema $id fields to canonical GitHub Pages URL.",
     "3. Ensure Makefile defines publish-schemas and check-schema-ids targets.",
     "4. Remove any legacy host references.",

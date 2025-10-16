@@ -1,5 +1,5 @@
 ---
-version: v0.7.3
+version: 0.7.3
 lastReviewed: 2025-10-13
 owner: delk73
 status: internal-spec
