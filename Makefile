@@ -1,6 +1,6 @@
 SHELL := /bin/bash
-PLACEHOLDER_HOST := https://schemas.synesthetic.dev/0.7.3
-CANONICAL_HOST   := https://delk73.github.io/synesthetic-schemas/schema/0.7.3
+PLACEHOLDER_HOST := https://schemas.synesthetic.dev/$(shell jq -r .schemaVersion version.json)
+CANONICAL_HOST   := https://delk73.github.io/synesthetic-schemas/schema/$(shell jq -r .schemaVersion version.json)
 
 
 # Require Poetry-managed Python for reproducibility

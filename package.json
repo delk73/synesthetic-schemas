@@ -1,6 +1,6 @@
 {
   "name": "synesthetic-schemas",
-  "version": "1.0.0",
+  "version": "0.7.3",
   "description": "**Single Source of Truth (SSOT)** for Synesthetic asset and component schemas.",
   "main": "index.js",
   "directories": {

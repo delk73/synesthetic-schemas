@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "synesthetic-schemas"
-version = "0.1.0"
+version = "0.7.3"
 description = "Schemas + validators for Synesthetic"
 readme = "README.md"
 # You don't ship a Python package from this repo:
